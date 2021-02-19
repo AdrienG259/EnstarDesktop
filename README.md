@@ -1,2 +1,0 @@
-# EnstarDesktop
- Projet Conception Logicielle
