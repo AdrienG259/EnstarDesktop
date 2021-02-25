@@ -18,7 +18,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setController(new Controleur());
         primaryStage.setTitle("EnstarDesktopFX");
-        Scene accueil = new Scene(root, 640, 360);
+        Scene accueil = new Scene(root, 1000, 600);
         primaryStage.setScene(accueil);
         primaryStage.show();
     }
