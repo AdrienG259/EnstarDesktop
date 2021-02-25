@@ -13,9 +13,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Controleur {
-    @FXML
-    Button nom;
-
 
 }
 
