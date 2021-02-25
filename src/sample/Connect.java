@@ -13,5 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Connect {
-
+    @FXML
+    ListView listUser;
+    Button envoyer;
 }
