@@ -1,21 +1,12 @@
-/**
- * 
- */
 package server;
 
 import java.io.*;
 import java.net.*;
-/**
- * @author champejo
- *
- */
+
 public class TCPServer extends Thread {
     
     private static int maxClients = 4;	 
-    
-    /**
-     * Maximum de connexions client autorises 
-    */
+
     private int maxConnexions;	 
     
     private int numeroPort;	
@@ -28,10 +19,6 @@ public class TCPServer extends Thread {
     
     private boolean running = true;
 
-	/**
-     * constructors
-     * @param unNumeroPort
-    */
     public  TCPServer(int unNumeroPort) {
         
         numeroPort = unNumeroPort;
@@ -90,7 +77,7 @@ public class TCPServer extends Thread {
     }
     
     public void arret(){
-    	running =false;
+    	running = false;
     }
 
     public int getNbConnexions() {

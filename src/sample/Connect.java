@@ -15,5 +15,9 @@ import java.util.Scanner;
 public class Connect {
     @FXML
     ListView listUser;
-    Button envoyer;
+    @FXML Button envoyer;
+    @FXML ScrollBar scrollUser;
+    @FXML MenuBar menu;
+    @FXML ChoiceBox choixNouvelleConversation;
+
 }
