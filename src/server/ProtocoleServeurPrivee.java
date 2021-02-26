@@ -4,7 +4,8 @@ import java.net.Socket;
 
 public class ProtocoleServeurPrivee implements IProtocoleServeur {
     @Override
-    public void execute(TCPServer unServeur, Socket clientSocket) {
+    public String[] execute(TCPServer unServeur, Socket clientSocket) {
 
+        return null;
     }
 }

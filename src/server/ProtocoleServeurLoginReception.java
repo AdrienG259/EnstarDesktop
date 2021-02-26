@@ -1,16 +1,13 @@
 package server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 public class ProtocoleServeurLoginReception implements IProtocoleServeur {
     @Override
-    public void execute(TCPServer unServeur, Socket clientSocket) {
+    public String[] execute(TCPServer unServeur, Socket clientSocket) {
         String input;
 
         try {
@@ -20,8 +17,8 @@ public class ProtocoleServeurLoginReception implements IProtocoleServeur {
             System.out.println("Réception des informations de connexion");
 
             if ((input = is.readLine()) != null) {
-                String login;
-                String mdp;
+                String login = "";
+                String mdp = "";
                 StringTokenizer st = new StringTokenizer(input, ";", false);
                 try {
                     login = st.nextToken();
@@ -30,10 +27,11 @@ public class ProtocoleServeurLoginReception implements IProtocoleServeur {
                     elementException.printStackTrace();
                 }
 
-
+                return new String[]{login, mdp};
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return new String[]{"Erreur lors de la réception"};
     }
 }
