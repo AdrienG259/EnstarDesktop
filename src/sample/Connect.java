@@ -16,4 +16,8 @@ public class Connect {
     @FXML
     ListView listUser;
     Button envoyer;
+    ScrollBar scrollUser;
+    MenuBar menu;
+    ChoiceBox choixNouvelleConversation;
+
 }
