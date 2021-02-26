@@ -2,7 +2,7 @@ package server;
 
 import java.net.Socket;
 
-public class ProtocoleGroupe implements IProtocole{
+public class ProtocoleServeurPrivee implements IProtocoleServeur {
     @Override
     public void execute(TCPServer unServeur, Socket clientSocket) {
 
