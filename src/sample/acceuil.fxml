@@ -14,5 +14,6 @@
          </image>
       </ImageView>
       <Button fx:id="btn_connexion" layoutX="596.0" layoutY="360.0" mnemonicParsing="false" onAction="#try_connexion" prefHeight="25.0" prefWidth="161.0" text="Connexion" />
+      <Label fx:id="label_feedback" alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="343.0" prefHeight="17.0" prefWidth="161.0" textAlignment="CENTER" />
    </children>
 </Pane>
