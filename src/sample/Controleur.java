@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.*;
 import java.util.ArrayList;
@@ -13,6 +14,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Controleur {
+    @FXML ImageView imgview_logo;
+    @FXML TextField txtfield_login;
+    @FXML TextField txtfiled_password;
+    @FXML Button btn_connexion;
 
+    public void try_connexion(){
+        String log = txtfield_login.getText();
+        String pass = txtfiled_password.getText();
+        System.out.println(log + pass);
+    }
 }
 

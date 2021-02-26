@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/EnstarDesktop.iml" filepath="$PROJECT_DIR$/EnstarDesktop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EnstarDesktopFX.iml" filepath="$PROJECT_DIR$/EnstarDesktopFX.iml" />
     </modules>
   </component>
 </project>

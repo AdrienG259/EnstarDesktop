@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controleur">
    <children>
-      <TextField fx:id="txtfield_login" layoutX="329.0" layoutY="300.0" prefHeight="25.0" prefWidth="332.0" promptText="User name (login)" />
-      <TextField fx:id="txtfiled_password" layoutX="329.0" layoutY="369.0" prefHeight="25.0" prefWidth="332.0" promptText="Password" />
+      <TextField fx:id="txtfield_login" layoutX="510.0" layoutY="220.0" prefHeight="25.0" prefWidth="332.0" promptText="User name (login)" />
+      <TextField fx:id="txtfiled_password" layoutX="510.0" layoutY="288.0" prefHeight="25.0" prefWidth="332.0" promptText="Password" />
+      <ImageView fx:id="imgview_logo" fitHeight="256.0" fitWidth="265.0" layoutX="138.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btn_connexion" layoutX="596.0" layoutY="360.0" mnemonicParsing="false" onAction="#try_connexion" prefHeight="25.0" prefWidth="161.0" text="Connexion" />
    </children>
 </Pane>
