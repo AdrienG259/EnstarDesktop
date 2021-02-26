@@ -30,4 +30,7 @@ public class ConversationGroupe implements IConversation {
     public void setMembres(List<User> membres) {
         this.membres = membres;
     }
+
+    //possibilité d'ajouter un membre add_member
+    //udpate_conv pour récup les derniers messages
 }
