@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ConversationGroupe implements IConversation {
     private String nomGroupe;
-    private int idGroupe;
+    private int idConversation;
     private List<User> membres;
 
     public String getNomGroupe() {
@@ -15,12 +15,12 @@ public class ConversationGroupe implements IConversation {
         this.nomGroupe = nomGroupe;
     }
 
-    public int getIdGroupe() {
-        return idGroupe;
+    public int getIdConversation() {
+        return idConversation;
     }
 
-    public void setIdGroupe(int idGroupe) {
-        this.idGroupe = idGroupe;
+    public void setIdConversation(int idConversation) {
+        this.idConversation = idConversation;
     }
 
     public List<User> getMembres() {
