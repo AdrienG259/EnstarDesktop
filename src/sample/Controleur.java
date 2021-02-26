@@ -22,7 +22,15 @@ public class Controleur {
     public void try_connexion(){
         String log = txtfield_login.getText();
         String pass = txtfiled_password.getText();
-        System.out.println(log + pass);
+        if(log.equals("")){
+            txtfield_login.setPromptText("Saisir un login");
+        }
+        if(pass.equals("")){
+            txtfiled_password.setPromptText("Saisir un mot de passe");
+        }
+        if(!log.equals("") && !pass.equals("")) {
+            System.out.println(log + pass);
+        }
     }
 }
 
