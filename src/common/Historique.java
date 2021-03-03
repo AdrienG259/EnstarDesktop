@@ -1,8 +1,11 @@
-package client;
+package common;
+
+import common.Message;
 
 import java.util.List;
 
 public class Historique {
+
     private int idConversation;
     private List<Message> listeMessage;
 
@@ -21,4 +24,5 @@ public class Historique {
     public void setListeMessage(List<Message> listeMessage) {
         this.listeMessage = listeMessage;
     }
+
 }

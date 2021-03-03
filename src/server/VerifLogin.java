@@ -14,6 +14,6 @@ public class VerifLogin {
     }
 
     public boolean comparaison(String identifiant, String motdepasse) {
-
+        return true;
     }
 }

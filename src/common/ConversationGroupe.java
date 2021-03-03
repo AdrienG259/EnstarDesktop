@@ -1,8 +1,15 @@
-package client;
+package common;
 
 import java.util.List;
 
-public class ConversationGroupe implements IConversation {
+public class ConversationGroupe extends Conversation implements IConversation {
+
+    public ConversationGroupe(String nomGroupe, List<User> members) {
+        super();
+        this.nomGroupe = nomGroupe;
+        this.membres = members;
+    }
+
     private String nomGroupe;
     private int idConversation;
     private List<User> membres;
