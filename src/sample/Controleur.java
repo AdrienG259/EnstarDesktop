@@ -20,6 +20,7 @@ public class Controleur {
     @FXML TextField txtfield_login;
     @FXML TextField txtfiled_password;
     @FXML Button btn_connexion;
+    @FXML Button btn_newaccount;
     @FXML Label label_feedback;
 
     public void try_connexion(){
@@ -29,11 +30,11 @@ public class Controleur {
 
         if(log.equals("")){
             txtfield_login.setPromptText("Saisir un login");
+            return;
         }
         if(pass.equals("")){
             txtfiled_password.setPromptText("Saisir un mot de passe");
-        }
-        if(!log.equals("") && !pass.equals("")) {
+            return;
         }
 
         int can_connect = 0;
@@ -46,6 +47,23 @@ public class Controleur {
         } else if (can_connect == -1){
             label_feedback.setText("Identifiant non trouvé");
         }
+    }
+
+    public void create_account(){
+        String log = txtfield_login.getText();
+        String pass = txtfiled_password.getText();
+        label_feedback.setText("");
+
+        if(log.equals("")){
+            txtfield_login.setPromptText("Saisir un login");
+            return;
+        }
+        if(pass.equals("")){
+            txtfiled_password.setPromptText("Saisir un mot de passe");
+            return;
+        }
+
+        
     }
 }
 
