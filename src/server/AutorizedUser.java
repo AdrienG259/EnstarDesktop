@@ -15,3 +15,5 @@ public class AutorizedUser {
         userMap.put("Emilie", "lemotdepasse");
     }
 }
+
+//il faut créer une classe AddUser pour pouvoir ajouter un utilisateur
