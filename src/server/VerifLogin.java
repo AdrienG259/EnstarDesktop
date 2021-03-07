@@ -6,9 +6,8 @@ public class VerifLogin {
 
     private final String identifiant;
     private final String motdepasse;
-    private final File fichierID = new File("src/server/FichierID.txt");
 
-    AutorizedUser autorizedUser;
+    AutorizedUser autorizedUser = new AutorizedUser();
 
     public VerifLogin(String login, String mdp) {
         this.identifiant = login;
