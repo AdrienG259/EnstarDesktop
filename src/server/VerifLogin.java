@@ -6,16 +6,21 @@ public class VerifLogin {
 
     private final String identifiant;
     private final String motdepasse;
-
-    AutorizedUser autorizedUser = new AutorizedUser();
+    private final AutorizedUser autorizedUser;
 
     public VerifLogin(String login, String mdp) {
         this.identifiant = login;
         this.motdepasse = mdp;
+        this.autorizedUser = new AutorizedUser();
     }
 
-    public boolean comparaison(String identifiant, String motdepasse) {
-
-        return (autorizedUser.userMap.get(identifiant)).equals(motdepasse);
+    public int comparaison() {
+        if (autorizedUser.userMap.get(this.identifiant) == null){
+            return -1;
+        }
+        if (autorizedUser.userMap.get(this.identifiant).equals(this.motdepasse)){
+            return 1;
+        }
+        return 0;
     }
 }

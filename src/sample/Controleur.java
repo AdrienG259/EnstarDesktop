@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import server.VerifLogin;
+
 public class Controleur {
     @FXML ImageView imgview_logo;
     @FXML TextField txtfield_login;
@@ -32,16 +34,17 @@ public class Controleur {
             txtfiled_password.setPromptText("Saisir un mot de passe");
         }
         if(!log.equals("") && !pass.equals("")) {
-            System.out.println(log + pass);
         }
 
-        Boolean can_connect = false;
-        //ClassLog logger = new ClassLog();
-        //can_connect = logger.log(log, pass);
-        if(!can_connect){
+        int can_connect = 0;
+        VerifLogin logger = new VerifLogin(log, pass);
+        can_connect = logger.comparaison();
+        if(can_connect == 0){
             label_feedback.setText("Identifiants incorrects");
-        } else {
-
+        } else if (can_connect == 1){
+            label_feedback.setText("Ok");
+        } else if (can_connect == -1){
+            label_feedback.setText("Identifiant non trouvé");
         }
     }
 }
