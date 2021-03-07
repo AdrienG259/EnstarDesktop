@@ -49,7 +49,7 @@ public class ClientTCP {
 		return ok;
 	} 	
 	
-	public void disconnectToServer() {        
+	public void deconnecterDuServeur() {
 		try {
 			System.out.println("[ClientTCP] CLIENT : " + socketServeur);
 			socOut.close();
@@ -93,7 +93,7 @@ public class ClientTCP {
 					msgServeur = socIn.readLine();
 				}
 				System.out.println("Client msgServeur " + chaineRetour);
-				disconnectToServer();
+				deconnecterDuServeur();
 			} catch (Exception e) {
 				System.err.println("Exception lors de la connexion client:  " + e);
 			}

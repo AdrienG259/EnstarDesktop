@@ -18,10 +18,13 @@ public class Controleur {
     @FXML TextField txtfield_login;
     @FXML TextField txtfiled_password;
     @FXML Button btn_connexion;
+    @FXML Label label_feedback;
 
     public void try_connexion(){
         String log = txtfield_login.getText();
         String pass = txtfiled_password.getText();
+        label_feedback.setText("");
+
         if(log.equals("")){
             txtfield_login.setPromptText("Saisir un login");
         }
@@ -30,6 +33,15 @@ public class Controleur {
         }
         if(!log.equals("") && !pass.equals("")) {
             System.out.println(log + pass);
+        }
+
+        Boolean can_connect = false;
+        //ClassLog logger = new ClassLog();
+        //can_connect = logger.log(log, pass);
+        if(!can_connect){
+            label_feedback.setText("Identifiants incorrects");
+        } else {
+
         }
     }
 }
