@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import server.VerifLogin;
+import server.AddUser;
 
 public class Controleur {
     @FXML ImageView imgview_logo;
@@ -63,7 +64,18 @@ public class Controleur {
             return;
         }
 
-        
+        int can_add = 0;
+        AddUser adduser = new AddUser(log, pass);
+        can_add = adduser.ajouterUser();
+        System.out.println("Avant : ");
+        System.out.println(adduser.autorizedUser.userMap);
+        if (can_add == -1){
+            label_feedback.setText("Utilisateur déjà existant");
+        } else if(can_add == 1) {
+            label_feedback.setText("Utilisateur ajouté");
+            System.out.println("Après : ");
+            System.out.println(adduser.autorizedUser.userMap);
+        }
     }
 }
 
