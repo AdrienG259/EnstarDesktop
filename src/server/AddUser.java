@@ -12,10 +12,17 @@ public class AddUser {
         this.autorizedUser = new AutorizedUser();
     }
 
-    public void ajouterUser(){
+    public int ajouterUser(){
         //vérification si dans la hashmap
         for (String i : autorizedUser.userMap.keySet()){
-
+            // i = key = username
+            if (i.equals(this.identifiant)){
+                // identifiant deja utilisé
+                return -1;
+            }
         }
+        autorizedUser.userMap.put(this.identifiant, this.motdepasse);
+        //c'est ajouté
+        return 1;
     }
 }
