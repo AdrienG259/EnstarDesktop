@@ -7,7 +7,7 @@ public class VerifLogin {
     private final String identifiant;
     private final String motdepasse;
 
-    AutorizedUser autorizedUser;
+    AutorizedUser autorizedUser = new AutorizedUser();
 
     public VerifLogin(String login, String mdp) {
         this.identifiant = login;
