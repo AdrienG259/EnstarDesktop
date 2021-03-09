@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 import server.VerifLogin;
 import server.AddUser;
+import server.AutorizedUser;
 
 public class Controleur {
     @FXML ImageView imgview_logo;
@@ -23,6 +24,8 @@ public class Controleur {
     @FXML Button btn_connexion;
     @FXML Button btn_newaccount;
     @FXML Label label_feedback;
+
+    public AutorizedUser autorizedUsers = new AutorizedUser();
 
     public void try_connexion(){
         String log = txtfield_login.getText();
@@ -39,15 +42,16 @@ public class Controleur {
         }
 
         int can_connect = 0;
-        VerifLogin logger = new VerifLogin(log, pass);
+        VerifLogin logger = new VerifLogin(autorizedUsers, log, pass);
         can_connect = logger.comparaison();
         if(can_connect == 0){
             label_feedback.setText("Identifiants incorrects");
         } else if (can_connect == 1){
             label_feedback.setText("Ok");
         } else if (can_connect == -1){
-            label_feedback.setText("Identifiant non trouvé");
+            label_feedback.setText("Identifiant non trouve");
         }
+        logger = null;
     }
 
     public void create_account(){
@@ -65,17 +69,18 @@ public class Controleur {
         }
 
         int can_add = 0;
-        AddUser adduser = new AddUser(log, pass);
+        AddUser adduser = new AddUser(autorizedUsers, log, pass);
         can_add = adduser.ajouterUser();
         System.out.println("Avant : ");
-        System.out.println(adduser.autorizedUser.userMap);
+        System.out.println(autorizedUsers.userMap);
         if (can_add == -1){
-            label_feedback.setText("Utilisateur déjà existant");
+            label_feedback.setText("Utilisateur deja existant");
         } else if(can_add == 1) {
-            label_feedback.setText("Utilisateur ajouté");
+            label_feedback.setText("Utilisateur ajoute");
             System.out.println("Après : ");
-            System.out.println(adduser.autorizedUser.userMap);
+            System.out.println(autorizedUsers.userMap);
         }
+        adduser = null;
     }
 }
 

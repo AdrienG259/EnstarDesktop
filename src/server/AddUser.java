@@ -6,10 +6,10 @@ public class AddUser {
     private final String motdepasse;
     public final AutorizedUser autorizedUser;
 
-    public AddUser(String login, String mdp) {
+    public AddUser(AutorizedUser autorizedUsers, String login, String mdp) {
         this.identifiant = login;
         this.motdepasse = mdp;
-        this.autorizedUser = new AutorizedUser();
+        this.autorizedUser = autorizedUsers;
     }
 
     public int ajouterUser(){

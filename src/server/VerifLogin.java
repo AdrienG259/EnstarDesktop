@@ -8,10 +8,10 @@ public class VerifLogin {
     private final String motdepasse;
     private final AutorizedUser autorizedUser;
 
-    public VerifLogin(String login, String mdp) {
+    public VerifLogin(AutorizedUser autorizedUsers, String login, String mdp) {
         this.identifiant = login;
         this.motdepasse = mdp;
-        this.autorizedUser = new AutorizedUser();
+        this.autorizedUser = autorizedUsers;
     }
 
     public int comparaison() {
