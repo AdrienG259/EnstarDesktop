@@ -11,28 +11,10 @@ public class AutorizedUser {
 
     //on fait que la lecture du fichier ici à partir du fichier texte
     public AutorizedUser() {
-        /*userMap.put("Pierre-Olivier", "lemotdepasse");
-        userMap.put("Marie-Amelie", "lemotdepasse");
-        userMap.put("Julie", "lemotdepasse");
-        userMap.put("Adrien", "lemotdepasse");
-        userMap.put("Emilie", "lemotdepasse");
-        userMap.put("t","t"); */
 
         lecturemap();
     }
     public void lecturemap() {
-
-        /*try {
-            File fileOne = new File("users");
-            FileOutputStream fos = new FileOutputStream(fileOne);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(map);
-            oos.flush();
-            oos.close();
-            fos.close();
-        } catch (Exception e) {
-        } */
 
         try {
             File toRead=new File("users");
@@ -43,10 +25,6 @@ public class AutorizedUser {
 
             ois.close();
             fis.close();
-            //print All data in MAP
-            for(Map.Entry<String,String> m :userMap.entrySet()){
-                System.out.println(m.getKey()+" : "+m.getValue());
-            }
         } catch(Exception e) {}
 
     }
