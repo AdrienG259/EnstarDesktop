@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import server.UpdateUser;
 import server.VerifLogin;
 import server.AddUser;
 import server.AutorizedUser;
@@ -25,9 +26,11 @@ public class Controleur {
     @FXML Button btn_newaccount;
     @FXML Label label_feedback;
 
+    Parent root;
+
     public AutorizedUser autorizedUsers = new AutorizedUser();
 
-    public void try_connexion(){
+    public void try_connexion() throws IOException {
         String log = txtfield_login.getText();
         String pass = txtfiled_password.getText();
         label_feedback.setText("");
@@ -48,6 +51,14 @@ public class Controleur {
             label_feedback.setText("Identifiants incorrects");
         } else if (can_connect == 1){
             label_feedback.setText("Ok");
+
+            UpdateUser updateUsers = new UpdateUser(autorizedUsers.userMap);
+
+            Stage stage = (Stage) btn_connexion.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         } else if (can_connect == -1){
             label_feedback.setText("Identifiant non trouve");
         }
@@ -77,7 +88,7 @@ public class Controleur {
             label_feedback.setText("Utilisateur deja existant");
         } else if(can_add == 1) {
             label_feedback.setText("Utilisateur ajoute");
-            System.out.println("Après : ");
+            System.out.println("Apres : ");
             System.out.println(autorizedUsers.userMap);
         }
         adduser = null;

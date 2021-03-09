@@ -3,14 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.2842809364548495" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.2842809364548495" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <ListView fx:id="listUser" layoutX="-6.0" layoutY="62.0" prefHeight="333.0" prefWidth="167.0" />
-            <ScrollBar fx:id="scrollUser" layoutX="146.0" layoutY="65.0" orientation="VERTICAL" prefHeight="333.0" prefWidth="14.0" />
-            <ChoiceBox fx:id="choixNouvelleConversation" layoutX="3.0" layoutY="34.0" prefHeight="25.0" prefWidth="160.0" />
-            <MenuBar layoutX="13.0" layoutY="7.0">
+            <ListView fx:id="lstview_users" layoutX="-6.0" layoutY="62.0" prefHeight="546.0" prefWidth="287.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0" />
+            <ScrollBar fx:id="scrollbar_left" layoutX="260.0" layoutY="52.0" orientation="VERTICAL" prefHeight="546.0" prefWidth="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0" />
+            <ChoiceBox fx:id="choicebox_conversations" layoutX="-3.0" layoutY="27.0" prefHeight="25.0" prefWidth="287.0" AnchorPane.bottomAnchor="546.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
+            <MenuBar fx:id="menubar_menu" layoutX="-6.0" layoutY="2.0" prefHeight="25.0" prefWidth="287.0" AnchorPane.bottomAnchor="571.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -32,8 +32,9 @@
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="401.0">
          <children>
-            <TextField layoutX="28.0" layoutY="359.0" prefHeight="25.0" prefWidth="287.0" />
-            <Button layoutX="330.0" layoutY="359.0" mnemonicParsing="false" text="Envoyer" />
+            <TextField fx:id="txtfield_msg" layoutY="573.0" prefHeight="25.0" prefWidth="652.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="59.0" />
+            <Button fx:id="btn_envoyer" layoutX="653.0" layoutY="573.0" mnemonicParsing="false" text="Envoyer" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <TextArea fx:id="txtarea_currentconv" editable="false" prefHeight="576.0" prefWidth="711.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>
   </items>
 </SplitPane>

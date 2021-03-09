@@ -2,6 +2,8 @@ package sample;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 import java.lang.Integer;
 import javafx.application.Application;
@@ -14,6 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         Parent root = FXMLLoader.load(getClass().getResource("acceuil.fxml"));
         //Parent root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
         FXMLLoader loader = new FXMLLoader();
@@ -22,6 +25,7 @@ public class Main extends Application {
         primaryStage.setTitle("EnstarDesktopFX");
         Scene accueil = new Scene(root, 1000, 600);
         primaryStage.setScene(accueil);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
@@ -29,3 +33,6 @@ public class Main extends Application {
         launch(args);
     }
 }
+
+
+
