@@ -2,9 +2,9 @@ package common;
 
 import java.util.List;
 
-public class ConversationSimple implements IConversation {
-    private int idConversation;
-    private List<User> membres;
+public class ConversationSimple extends Conversation implements IConversation {
 
-
+    public ConversationSimple(String nomGroupe, List<User> members) {
+        super(nomGroupe, members);
+    }
 }

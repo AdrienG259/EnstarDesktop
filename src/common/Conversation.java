@@ -1,10 +1,17 @@
 package common;
 
+import server.IContext;
+
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public abstract class Conversation {
+public abstract class Conversation implements IContext {
+
+    public Conversation(String nomGroupe, List<User> members) {
+        this.nomGroupe = nomGroupe;
+        this.membres = members;
+    }
 
     private String nomGroupe;
     private int idConversation;
@@ -33,7 +40,7 @@ public abstract class Conversation {
 
     //possibilité d'ajouter un membre add_member
     public void addMember(User member){
-        if (membres.contains(member)) {
+        if (!membres.contains(member)) {
             membres.add(member);
         }
         else {

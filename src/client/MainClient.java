@@ -7,22 +7,22 @@ public class MainClient {
 	public static void main(String[] args) {
 		String myS = null;
 		Scanner aSC = new Scanner(System.in);
-		TCPClient myClient = new TCPClient("localhost", 6666);
+		ClientTCP myClient = new ClientTCP("localhost", 6666);
 
 		try {
-			if (myClient.connectToServer() == true) {
+			if (myClient.connecterAuServeur()) {
 
 				for (int i = 0; i < 5; i++) {
 					System.out.println(" Saisir une chaine ");
 					myS = aSC.nextLine();
 
-					if ( myClient.stringTransmitOnly(myS) == null ) break;
+					if ( myClient.transmettreChaineConnexionPonctuelle(myS) == null ) break;
 
 				}
 
 				aSC.close();
 
-				myClient.disconnectFromServer();
+				myClient.deconnecterDuServeur();
 			} else {
 				System.err.println("Connexion echouee");
 			}

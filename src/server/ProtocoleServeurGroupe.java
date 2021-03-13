@@ -1,11 +1,12 @@
 package server;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 
-public class ProtocoleServeurGroupe implements IProtocoleServeur {
+public class ProtocoleServeurGroupe implements IProtocole {
     @Override
-    public String[] execute(TCPServer unServeur, Socket clientSocket) {
+    public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
 
-        return null;
     }
 }

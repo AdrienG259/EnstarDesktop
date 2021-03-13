@@ -1,12 +1,7 @@
 package client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.net.ConnectException;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.io.*;
+import java.net.*;
 
 public class ClientTCP {
 
@@ -21,12 +16,12 @@ public class ClientTCP {
 	private BufferedReader socIn;	
 	
 	/** Un client se connecte a un serveur identifie par un nom (unNomServeur), sur un port unNumero */
-	public ClientTCP(String unNomServeur, int unNumero) {        
+	public  ClientTCP(String unNomServeur, int unNumero) {        
 		numeroPort = unNumero;
 		nomServeur = unNomServeur;
 	} 
 
-	public boolean connectToServer() {        
+	public boolean connecterAuServeur() {        
 		boolean ok = false;
 		try {
 			System.out.println("Tentative : " + nomServeur + " -- " + numeroPort);
@@ -49,7 +44,7 @@ public class ClientTCP {
 		return ok;
 	} 	
 	
-	public void deconnecterDuServeur() {
+	public void deconnecterDuServeur() {        
 		try {
 			System.out.println("[ClientTCP] CLIENT : " + socketServeur);
 			socOut.close();
@@ -59,7 +54,9 @@ public class ClientTCP {
 			System.err.println("Exception lors de la deconnexion :  " + e);
 		}
 	} 	
-	
+
+	public send
+
 	public String transmettreChaine(String uneChaine) {        
 		String msgServeur = null;
 		try {
@@ -83,7 +80,7 @@ public class ClientTCP {
 		String msgServeur = null;
 		String chaineRetour = "";
 		System.out.println("\nClient connexionTransmettreChaine " + uneChaine);
-		if (connectToServer()) {
+		if (connecterAuServeur() == true) {
 			try {
 				socOut.println(uneChaine);
 				socOut.flush();

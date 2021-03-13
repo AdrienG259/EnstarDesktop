@@ -8,27 +8,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import client.TCPClient;
-import server.TCPServer;
-
 @RunWith(Parameterized.class)
 public class TestCommunication {
 
-	static TCPServer aServer;
-	static TCPClient client1;
+	static ServerTCP aServer;
+	static ClientTCP client1;
 	
 	private ArrayList<String> messages;
 	private int result;
 	
-	// Chaque parametre est un argument, A  chaque test une nouvelle valeur est donnee.
+	// Chaque parametre est un argument, Aï¿½ chaque test une nouvelle valeur est donnee.
 	public TestCommunication(ArrayList<String> messages, int result) {
 	    this.messages = messages;
 	    this.result = result;
@@ -37,8 +32,8 @@ public class TestCommunication {
 	@BeforeClass
 	public static void beforeClass(){
 		System.out.println("before class");
-		aServer = new TCPServer( 5678 );
-		client1 = new TCPClient("localhost", 5678);
+		aServer = new ServerTCP( 5678 );
+		client1 = new ClientTCP("localhost", 5678);
 		aServer.start();
 	}
 			

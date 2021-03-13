@@ -9,16 +9,16 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import server.TCPServer;
+import server.ServeurTCP;
 
 public class TestTCPServer {
 	
-	static TCPServer aServer;
+	static ServeurTCP aServer;
 	
 	@BeforeClass
 	public static void beforeClass(){
 		System.out.println("before class");
-		aServer = new TCPServer( 5555 );
+		aServer = new ServeurTCP( 5555 );
 	}
 			
 	@AfterClass
