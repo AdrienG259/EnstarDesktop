@@ -12,17 +12,17 @@ import java.util.*;
 
 import common.User;
 
-public class UserFile implements InstanciateFromFile<User> {
+public class UserFileanc  { //implements InstanciateFromFile<User>
     
     // pas d'accesseurs pour ces variables d'instances, on les contrôle nous même dans cette classe
     private File userFile;
     private User user;
     private BufferedReader reader;
     // la Map qui sert à lier un string à un utilisateur
-    private HashMap<Integer, User> usersDict;
+    private HashMap<Integer, User> userMap;
 
 
-    public UserFile(File file) {
+    public UserFileanc(File file) {
         /*On suppose que le fichier existe, on créé l'objet de type File à l'extéiruer de cette classe*/
         userFile = file;
 
@@ -80,7 +80,7 @@ public class UserFile implements InstanciateFromFile<User> {
 //        constructor = constructor;
 //    }
 
-    @Override
+//    @Override
     public User instanceFromString(String str) {
         // Map contenant les attributs (ou fields) avec leurs valeurs
         Map<String, String> attributesMap = new HashMap<>();
@@ -121,7 +121,7 @@ public class UserFile implements InstanciateFromFile<User> {
             }
     }
 
-    @Override
+//    @Override
     public void instanceToFile(User user){
         createSave();
         this.user = user;

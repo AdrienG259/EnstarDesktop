@@ -1,8 +1,9 @@
 package common;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
     private final int id;
     private String pseudo;
     private List centre_interet;
