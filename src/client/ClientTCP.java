@@ -2,6 +2,7 @@ package client;
 
 import java.io.*;
 import java.net.*;
+import java.nio.channels.Channels;
 
 public class ClientTCP {
 
@@ -55,7 +56,27 @@ public class ClientTCP {
 		}
 	} 	
 
-	public send
+	public String sendSerializableObject(Serializable serializableObject){
+		String msgServeur = null;
+		try {
+			System.out.println( "Requete client : " + serializableObject.toString() );
+			ObjectOutputStream oos = new ObjectOutputStream(socketServeur.getOutputStream());
+			oos.writeObject(serializableObject);
+			oos.flush();
+			oos.close();
+		} catch (IOException ioException) {
+			System.err.println("Envoi client vers serveur impossible :\n" + ioException);
+			ioException.printStackTrace();
+		}
+		try {
+			msgServeur = socIn.readLine();
+			System.out.println( "Reponse serveur : " + msgServeur );
+		} catch (IOException ioException) {
+			System.err.println("Reception retour serveur vers client impossible :\n" + ioException);
+			ioException.printStackTrace();
+		}
+		return msgServeur;
+	}
 
 	public String transmettreChaine(String uneChaine) {        
 		String msgServeur = null;
@@ -80,7 +101,7 @@ public class ClientTCP {
 		String msgServeur = null;
 		String chaineRetour = "";
 		System.out.println("\nClient connexionTransmettreChaine " + uneChaine);
-		if (connecterAuServeur() == true) {
+		if (connecterAuServeur()) {
 			try {
 				socOut.println(uneChaine);
 				socOut.flush();
