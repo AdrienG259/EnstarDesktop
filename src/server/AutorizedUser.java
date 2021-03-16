@@ -34,5 +34,3 @@ public class AutorizedUser {
         new AutorizedUser();
     }
 }
-
-//il faut créer une classe AddUser pour pouvoir ajouter un utilisateur
