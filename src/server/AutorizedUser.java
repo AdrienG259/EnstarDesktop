@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AutorizedUser {
+
     //création d'une MAP des user autorisés. Sert pour l'authentification de la connexion
     public HashMap<String, String> userMap = new HashMap<String, String>();
     //key = nom / value = mdp
@@ -14,6 +15,7 @@ public class AutorizedUser {
 
         lecturemap();
     }
+
     public void lecturemap() {
 
         try {
