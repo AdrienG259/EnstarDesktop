@@ -9,6 +9,8 @@ import client.ClientTCP;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import server.Messagerie;
+import server.ProtocoleServeurPrivee;
 import server.ServeurTCP;
 
 public class TestConnection {
@@ -21,7 +23,7 @@ public class TestConnection {
 	@BeforeClass
 	public static void beforeClass(){
 		System.out.println("before class");
-		aServer = new ServeurTCP( 3456 );
+		aServer = new ServeurTCP( new Messagerie(), new ProtocoleServeurPrivee(),3456 );
 		assertNotNull(aServer);
 		aServer.start();
 		
@@ -32,18 +34,14 @@ public class TestConnection {
 	@AfterClass
 	public static void afterClass(){
 		System.out.println("after class");
-		aServer.arret();
 	}
 
 	@Test
 	public void testSimpleConnections() {
 		assertNotNull(aServer);
 		try {
-			assertTrue(client1.connectToServer());
-			client1.disconnectFromServer();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assertTrue(client1.connecterAuServeur());
+			client1.deconnecterDuServeur();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,9 +50,9 @@ public class TestConnection {
 	
 	@Test(expected=ConnectException.class)
 	public void testConnectionException() throws Exception {
-		client2.connectToServer();
+		client2.connecterAuServeur();
 		System.out.println("exception should be raised");
-		client2.disconnectFromServer();
+		client2.deconnecterDuServeur();
 	}
 	
 }

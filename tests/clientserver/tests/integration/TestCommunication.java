@@ -1,9 +1,5 @@
 package clientserver.tests.integration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,11 +9,18 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import server.Messagerie;
+import server.ProtocoleServeurPrivee;
+import server.ServeurTCP;
+import client.ClientTCP;
+
+import static org.junit.Assert.*;
+
 
 @RunWith(Parameterized.class)
 public class TestCommunication {
 
-	static ServerTCP aServer;
+	static ServeurTCP aServer;
 	static ClientTCP client1;
 	
 	private ArrayList<String> messages;
@@ -32,7 +35,7 @@ public class TestCommunication {
 	@BeforeClass
 	public static void beforeClass(){
 		System.out.println("before class");
-		aServer = new ServerTCP( 5678 );
+		aServer = new ServeurTCP(new Messagerie(), new ProtocoleServeurPrivee(), 5678 );
 		client1 = new ClientTCP("localhost", 5678);
 		aServer.start();
 	}
@@ -40,25 +43,18 @@ public class TestCommunication {
 	@AfterClass
 	public static void afterClass(){
 		System.out.println("after class");
-		aServer.arret();
+		assertTrue(aServer.isAlive());
 	}
 	
 	@Test
 	public void testCommunications() {
 		System.out.println("Test transmissions");
 		try {
-			client1.connectToServer();
-		
+			client1.connecterAuServeur();
 			for(String message : messages){
-				client1.stringTransmitOnly(message);
+				client1.transmettreChaineConnexionPonctuelle(message);
 			}
-			
-			System.out.println("Sur le compte : " + aServer.getMonCompte().getVariablePartagee() + 
-					" , Espere : " + result);
-			
-			assertEquals(aServer.getMonCompte().getVariablePartagee(), result);
-			
-			client1.disconnectFromServer();
+			client1.deconnecterDuServeur();
 		} catch (Exception e) {
 			fail();
 		}

@@ -9,22 +9,23 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import server.Messagerie;
+import server.ProtocoleServeurPrivee;
 import server.ServeurTCP;
 
-public class TestTCPServer {
+public class TestServerTCP {
 	
 	static ServeurTCP aServer;
 	
 	@BeforeClass
 	public static void beforeClass(){
 		System.out.println("before class");
-		aServer = new ServeurTCP( 5555 );
+		aServer = new ServeurTCP(new Messagerie(), new ProtocoleServeurPrivee(),5555 );
 	}
 			
 	@AfterClass
 	public static void afterClass(){
 		System.out.println("after class");
-		aServer.arret();
 	}
 	
 	@Before
@@ -42,11 +43,6 @@ public class TestTCPServer {
 		assertNotNull(aServer);
 		aServer.start();
 		assertTrue(aServer.isAlive());
-	}
-	
-	@Test
-	public void testAccountIsCreated() {
-		assertNotNull(aServer.getMonCompte());
 	}
 	
 }

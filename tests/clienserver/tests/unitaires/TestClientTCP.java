@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import client.ClientTCP;
 import org.junit.Test;
 
-public class TestTCPClient {
+public class TestClientTCP {
 
 	@Test
 	public void testClient() {
