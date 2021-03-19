@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>serverFiles</OriginalElement>
+  <nodes>
+    <node x="188.0" y="319.0">serverFiles.MainFileInstanciation</node>
+    <node x="0.0" y="418.0">serverFiles.UserFileanc</node>
+    <node x="60.0" y="126.0">serverFiles.InstanciateSerializable</node>
+    <node x="84.0" y="0.0">serverFiles.InstanciateFromFile</node>
+    <node x="276.0" y="418.0">serverFiles.InstanceFromFileTests</node>
+    <node x="0.0" y="331.0">serverFiles.UserFileUseless</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="serverFiles.UserFileUseless" target="serverFiles.InstanciateSerializable">
+      <point x="42.0" y="-15.0" />
+      <point x="126.0" y="294.0" />
+      <point x="153.0" y="294.0" />
+      <point x="-31.0" y="71.5" />
+    </edge>
+    <edge source="serverFiles.InstanciateSerializable" target="serverFiles.InstanciateFromFile">
+      <point x="0.0" y="-71.5" />
+      <point x="0.0" y="38.0" />
+    </edge>
+    <edge source="serverFiles.MainFileInstanciation" target="serverFiles.InstanciateSerializable">
+      <point x="-54.0" y="-27.0" />
+      <point x="242.0" y="294.0" />
+      <point x="215.0" y="294.0" />
+      <point x="31.0" y="71.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="219.1388888888888" y="245.77777777777771" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

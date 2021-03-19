@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>common</OriginalElement>
+  <nodes>
+    <node x="41.821428571428555" y="281.0">common.Conversation</node>
+    <node x="260.82142857142856" y="594.0">common.ConversationSimple</node>
+    <node x="546.4732142857142" y="0.0">common.Message</node>
+    <node x="266.82142857142856" y="392.5">common.IConversation</node>
+    <node x="57.04464285714283" y="0.0">common.User</node>
+    <node x="514.9732142857142" y="281.0">common.Historique</node>
+    <node x="0.0" y="594.0">common.ConversationGroupe</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="common.Conversation" target="common.User">
+      <point x="-51.25" y="-126.5" />
+      <point x="93.07142857142856" y="256.0" />
+      <point x="128.29464285714283" y="256.0" />
+      <point x="-23.75" y="115.5" />
+    </edge>
+    <edge source="common.ConversationSimple" target="common.IConversation">
+      <point x="24.0" y="-15.0" />
+      <point x="38.0" y="15.0" />
+    </edge>
+    <edge source="common.ConversationSimple" target="common.Conversation">
+      <point x="-24.0" y="-15.0" />
+      <point x="332.82142857142856" y="554.0" />
+      <point x="221.19642857142856" y="554.0" />
+      <point x="76.875" y="126.5" />
+    </edge>
+    <edge source="common.ConversationGroupe" target="common.Conversation">
+      <point x="24.0" y="-15.0" />
+      <point x="120.0" y="574.0" />
+      <point x="118.69642857142856" y="574.0" />
+      <point x="-25.625" y="126.5" />
+    </edge>
+    <edge source="common.ConversationGroupe" target="common.User">
+      <point x="-72.0" y="-15.0" />
+      <point x="24.0" y="574.0" />
+      <point x="11.45535714285711" y="574.0" />
+      <point x="11.45535714285711" y="256.0" />
+      <point x="80.79464285714283" y="256.0" />
+      <point x="-71.25" y="115.5" />
+    </edge>
+    <edge source="common.Historique" target="common.Message">
+      <point x="-62.0" y="-82.5" />
+      <point x="576.9732142857142" y="256.0" />
+      <point x="592.7232142857142" y="256.0" />
+      <point x="-46.25" y="115.5" />
+    </edge>
+    <edge source="common.ConversationSimple" target="common.User">
+      <point x="72.0" y="-15.0" />
+      <point x="428.82142857142856" y="574.0" />
+      <point x="463.9732142857143" y="574.0" />
+      <point x="463.9732142857143" y="256.0" />
+      <point x="223.29464285714283" y="256.0" />
+      <point x="71.25" y="115.5" />
+    </edge>
+    <edge source="common.ConversationGroupe" target="common.IConversation">
+      <point x="72.0" y="-15.0" />
+      <point x="168.0" y="574.0" />
+      <point x="304.82142857142856" y="574.0" />
+      <point x="-38.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.2000000000000002" x="323.31746031746013" y="286.4924242424251" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

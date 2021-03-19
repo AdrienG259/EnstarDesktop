@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>server</OriginalElement>
+  <nodes>
+    <node x="461.0" y="874.0">server.UpdateUser</node>
+    <node x="472.4375" y="775.0">server.MainServer</node>
+    <node x="0.0" y="1023.0">server.AddUser</node>
+    <node x="97.03472222222229" y="259.0">server.ServeurTCP</node>
+    <node x="1324.0347222222222" y="370.5">server.IMessagerie</node>
+    <node x="438.4375" y="582.0">server.Messagerie</node>
+    <node x="443.28472222222223" y="122.5">server.IProtocole</node>
+    <node x="982.0347222222222" y="358.5">server.ProtocoleSerializable</node>
+    <node x="218.0" y="1023.0">server.VerifLogin</node>
+    <node x="91.5" y="874.0">server.AutorizedUser</node>
+    <node x="641.0347222222222" y="358.5">server.ProtocoleServeurGroupe</node>
+    <node x="299.03472222222223" y="358.5">server.ProtocoleServeurPrivee</node>
+    <node x="531.7881944444443" y="0.0">server.IContext</node>
+    <node x="0.0" y="100.0">server.ProcessusServer</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="server.IProtocole" target="server.IContext">
+      <point x="0.0" y="-27.0" />
+      <point x="603.7847222222222" y="80.0" />
+      <point x="587.7881944444443" y="80.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="server.AddUser" target="server.AutorizedUser">
+      <point x="-49.5" y="-60.5" />
+      <point x="49.5" y="998.0" />
+      <point x="120.625" y="998.0" />
+      <point x="-87.375" y="49.5" />
+    </edge>
+    <edge source="server.ProtocoleSerializable" target="server.IProtocole">
+      <point x="-80.25" y="-27.0" />
+      <point x="1062.2847222222222" y="239.0" />
+      <point x="737.5347222222222" y="239.0" />
+      <point x="133.75" y="27.0" />
+    </edge>
+    <edge source="server.ProtocoleServeurPrivee" target="server.IContext">
+      <point x="-80.25" y="-27.0" />
+      <point x="379.28472222222223" y="80.0" />
+      <point x="571.7881944444443" y="80.0" />
+      <point x="-16.0" y="15.0" />
+    </edge>
+    <edge source="server.ProtocoleSerializable" target="server.IContext">
+      <point x="80.25" y="-27.0" />
+      <point x="1222.7847222222222" y="60.0" />
+      <point x="619.7881944444443" y="60.0" />
+      <point x="32.0" y="15.0" />
+    </edge>
+    <edge source="server.ProcessusServer" target="server.ServeurTCP">
+      <point x="24.625" y="49.5" />
+      <point x="123.125" y="219.0" />
+      <point x="153.90972222222229" y="219.0" />
+      <point x="-34.125" y="-126.5" />
+    </edge>
+    <edge source="server.Messagerie" target="server.IProtocole">
+      <point x="13.5625" y="-71.5" />
+      <point x="560.5" y="532.0" />
+      <point x="630.5347222222222" y="532.0" />
+      <point x="26.75" y="27.0" />
+    </edge>
+    <edge source="server.Messagerie" target="server.IMessagerie">
+      <point x="94.9375" y="-71.5" />
+      <point x="641.875" y="562.0" />
+      <point x="1392.0347222222222" y="562.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="server.VerifLogin" target="server.AutorizedUser">
+      <point x="-49.5" y="-60.5" />
+      <point x="267.5" y="998.0" />
+      <point x="237.125" y="998.0" />
+      <point x="29.125" y="49.5" />
+    </edge>
+    <edge source="server.Messagerie" target="server.ServeurTCP">
+      <point x="-94.9375" y="-71.5" />
+      <point x="452.0" y="562.0" />
+      <point x="127.36805555555554" y="562.0" />
+      <point x="-60.66666666666674" y="126.5" />
+    </edge>
+    <edge source="server.ServeurTCP" target="server.IContext">
+      <point x="34.125" y="-126.5" />
+      <point x="222.15972222222229" y="219.0" />
+      <point x="289.51388888888886" y="219.0" />
+      <point x="289.51388888888886" y="70.0" />
+      <point x="555.7881944444443" y="70.0" />
+      <point x="-32.0" y="15.0" />
+    </edge>
+    <edge source="server.ProtocoleServeurGroupe" target="server.IProtocole">
+      <point x="-80.25" y="-27.0" />
+      <point x="721.2847222222222" y="239.0" />
+      <point x="684.0347222222222" y="239.0" />
+      <point x="80.25" y="27.0" />
+    </edge>
+    <edge source="server.ServeurTCP" target="server.ProcessusServer">
+      <point x="-79.625" y="-126.5" />
+      <point x="108.40972222222229" y="239.0" />
+      <point x="24.625" y="239.0" />
+      <point x="-73.875" y="49.5" />
+    </edge>
+    <edge source="server.MainServer" target="server.Messagerie">
+      <point x="-37.25" y="-27.0" />
+      <point x="509.6875" y="750.0" />
+      <point x="492.6875" y="750.0" />
+      <point x="-54.25" y="71.5" />
+    </edge>
+    <edge source="server.ProtocoleServeurGroupe" target="server.IContext">
+      <point x="80.25" y="-27.0" />
+      <point x="881.7847222222222" y="70.0" />
+      <point x="603.7881944444443" y="70.0" />
+      <point x="16.0" y="15.0" />
+    </edge>
+    <edge source="server.ProtocoleServeurPrivee" target="server.IProtocole">
+      <point x="80.25" y="-27.0" />
+      <point x="539.7847222222222" y="239.0" />
+      <point x="577.0347222222222" y="239.0" />
+      <point x="-26.75" y="27.0" />
+    </edge>
+    <edge source="server.ServeurTCP" target="server.IProtocole">
+      <point x="56.875" y="-126.5" />
+      <point x="244.90972222222229" y="229.0" />
+      <point x="470.03472222222223" y="229.0" />
+      <point x="-133.75" y="27.0" />
+    </edge>
+    <edge source="server.Messagerie" target="server.IContext">
+      <point x="67.8125" y="-71.5" />
+      <point x="614.75" y="552.0" />
+      <point x="1313.5347222222222" y="552.0" />
+      <point x="1313.5347222222222" y="50.0" />
+      <point x="635.7881944444443" y="50.0" />
+      <point x="48.0" y="15.0" />
+    </edge>
+    <edge source="server.Messagerie" target="server.ProtocoleServeurPrivee">
+      <point x="-13.5625" y="-71.5" />
+      <point x="533.375" y="532.0" />
+      <point x="459.53472222222223" y="532.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="server.Messagerie" target="server.ProtocoleServeurGroupe">
+      <point x="40.6875" y="-71.5" />
+      <point x="587.625" y="542.0" />
+      <point x="801.5347222222222" y="542.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6000000000000001" x="725.8333333333333" y="460.1111111111111" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
