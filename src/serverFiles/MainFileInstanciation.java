@@ -4,6 +4,7 @@ import common.User;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class MainFileInstanciation {
     public static void main(String[] args) {
@@ -31,7 +32,7 @@ public class MainFileInstanciation {
         try {
             SharedVariables sharedVariables = new SharedVariables(file2);
             sharedVariables.accessVariable("toto");
-        } catch (IOException | NullPointerException e) {
+        } catch (IOException | SharedVariableCannotAccess e) {
             e.printStackTrace();
         }
         try {
@@ -43,7 +44,7 @@ public class MainFileInstanciation {
             toto2value = sharedVariables.accessVariable("toto2");
             System.out.println("New value of toto2 : "+toto2value);
 
-        } catch (IOException | NullPointerException e) {
+        } catch (IOException | SharedVariableAlreadyExists | SharedVariableCannotAccess e) {
             e.printStackTrace();
         }
 
@@ -65,10 +66,10 @@ public class MainFileInstanciation {
             toto2value = sharedVariables.accessVariable("toto2");
             System.out.println("Value of toto2 : "+toto2value);
 
-        } catch (IOException | NullPointerException e) {
+            System.out.println("Shared variables : "+ sharedVariables.getSharedVariablesNames());
+
+        } catch (IOException | SharedVariableAlreadyExists | SharedVariableCannotAccess e) {
             e.printStackTrace();
         }
-
-
     }
 }

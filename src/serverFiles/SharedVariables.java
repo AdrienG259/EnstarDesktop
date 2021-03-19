@@ -1,18 +1,15 @@
 package serverFiles;
 
 import java.io.*;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 import java.util.regex.PatternSyntaxException;
 
 public class SharedVariables {
-    private File sharedVariablesFile;
-    private Map<String,Long> pointersMap;
+    private final Map<String,Long> pointersMap;
     private final RandomAccessFile randomAccessFile;
 
     public SharedVariables(File file) throws IOException {
-        sharedVariablesFile = file;
-        randomAccessFile = new RandomAccessFile(sharedVariablesFile, "rw");
+        randomAccessFile = new RandomAccessFile(file, "rw");
         pointersMap = new HashMap<>();
 
         long pointer = randomAccessFile.getFilePointer();
@@ -23,16 +20,9 @@ public class SharedVariables {
             pointer = randomAccessFile.getFilePointer();
             bufferString = randomAccessFile.readLine();
         }
-        long sharedVariablePointer;
-        synchronized (randomAccessFile) {
-            randomAccessFile.seek(randomAccessFile.length());
-            // on get le pointeur à cette position
-            sharedVariablePointer = randomAccessFile.getFilePointer();
-        }
-
     }
 
-    private void updateMap(String line, Long linePointer) throws IOException {
+    private void updateMap(String line, Long linePointer) {
         /* Fonction interne à la classe, utile dans le constructeur et pour
         l'ajout de nouvelles variables */
         try {
@@ -49,19 +39,20 @@ public class SharedVariables {
         }
     }
 
-    public String accessVariable(String variableName) throws IOException, NullPointerException {
+    public String accessVariable(String variableName) throws IOException, SharedVariableCannotAccess {
        Long pointer = pointersMap.get(variableName);
-       //synchronisation du fichier pour être sûr que le pointer ne sera pas changé par un autre appel à randomAcessFile
 
         if (pointer == null){
-            throw new NullPointerException("Shared variable "+variableName+" does not map with any value");
+            throw new SharedVariableCannotAccess(variableName);
         }
 
         String variableString;
+        //synchronisation du fichier pour être sûr que le pointer ne sera pas changé par un autre appel à randomAcessFile
+
         synchronized (randomAccessFile){
            randomAccessFile.seek(pointer);
            variableString = randomAccessFile.readLine();
-       }
+        }
         String sharedVariableValue = null;
         try {
             String[] sharedVariableAndValue = variableString.split("=");
@@ -74,29 +65,18 @@ public class SharedVariables {
         return sharedVariableValue;
     }
 
-    public String setVariable(String variableName, String variableValue) throws IOException, NullPointerException {
+    public String setVariable(String variableName, String variableValue) throws IOException, SharedVariableCannotAccess {
+
         /* set la nouvelle valeur et renvoit l'ancienne */
         Long pointer = pointersMap.get(variableName);
-        //synchronisation du fichier pour être sûr que le pointer ne sera pas changé par un autre appel à randomAcessFile
+        //synchronisation du fichier pour être sûr que le pointer ne sera pas changé par un autre appel à randomAccessFile
 
         if (pointer == null){
-            throw new NullPointerException("Shared variable "+variableName+" does not map with any any value");
+            throw new SharedVariableCannotAccess(variableName);
         }
 
-        String variableString;
-        synchronized (randomAccessFile){
-            randomAccessFile.seek(pointer);
-            variableString = randomAccessFile.readLine();
-        }
-        String sharedVariableValue = null;
-        try {
-            String[] sharedVariableAndValue = variableString.split("=");
-            // On get la valeur de la clé;
-            sharedVariableValue = sharedVariableAndValue[1];
-        } catch (PatternSyntaxException patternSyntaxException) {
-            System.err.println("Erreur à la ligne n°"+pointer+ " : \""+variableString+"\"");
-            patternSyntaxException.printStackTrace();
-        }
+        // On get l'ancienne valeur
+        String sharedVariableOldValue = accessVariable(variableName);
 
         // On set la nouvelle valeur
 
@@ -106,22 +86,23 @@ public class SharedVariables {
             randomAccessFile.writeBytes(line);
         }
 
-        return sharedVariableValue;
+        return sharedVariableOldValue;
     }
 
-    public void addNewSharedVariable(String variableName, String variableValue) throws NullPointerException, IOException {
+    public void addNewSharedVariable(String variableName, String variableValue) throws SharedVariableAlreadyExists, IOException {
         // on vérifie déjà que cette variable n'existe pas
         Long pointer = pointersMap.get(variableName);
-        //synchronisation du fichier pour être sûr que le pointer ne sera pas changé par un autre appel à randomAcessFile
+
         if (pointer != null){
-            throw new NullPointerException("Shared variable "+variableName+" already mapped");
+            throw new SharedVariableAlreadyExists(variableName);
         }
 
-        // sinon on ajoute la clé et la valeur (pointeur)
+        //synchronisation du fichier pour être sûr que le pointer ne sera pas changé par un autre appel à randomAccessFile
         synchronized (randomAccessFile){
             randomAccessFile.seek(randomAccessFile.length());
             pointer = randomAccessFile.getFilePointer();
         }
+        // sinon on ajoute la clé et la valeur (pointeur)
         pointersMap.put(variableName, pointer);
 
         // et on écrit dans le fichier la variable partagée et sa valeur
@@ -130,5 +111,32 @@ public class SharedVariables {
             randomAccessFile.seek(pointer);
             randomAccessFile.writeBytes(line);
         }
+    }
+
+    public String deleteSharedVariable(String variableName) throws IOException, SharedVariableCannotAccess {
+        /* Supprime la variable partagée et renvoie sa dernière valeur */
+
+        // On récupère la dernière valeur
+        String sharedVariableOldValue = accessVariable(variableName);
+
+        // on vérifie déjà si cette variable existe
+        Long pointer = pointersMap.remove(variableName);
+        if (pointer == null){
+            throw new SharedVariableCannotAccess(variableName);
+        }
+
+        return sharedVariableOldValue;
+    }
+
+    public List<String> getSharedVariablesNames(){
+        /*Equivalent à :*/
+        //List<String> stringList = new ArrayList<>();
+        //stringList.addAll(pointersMap.keySet());
+        return new ArrayList<>(pointersMap.keySet());
+    }
+
+    public void close() throws IOException {
+        /* Pour fermer la connection avec l'objet RandomAccessFile */
+        randomAccessFile.close();
     }
 }

@@ -8,14 +8,24 @@ import java.util.Observer;
 
 public abstract class Conversation implements IContext {
 
+    private String nomGroupe;
+    // Attribut final : l'id unique de chaque conversation est le port du serveur sur lequel il communique
+    private final int idConversation;
+    private List<User> membres;
+    private Historique historique;
+
     public Conversation(String nomGroupe, List<User> members) {
         this.nomGroupe = nomGroupe;
         this.membres = members;
+        this.idConversation = newId();
+        this.historique = new Historique();
     }
 
-    private String nomGroupe;
-    private int idConversation;
-    private List<User> membres;
+    protected int newId(){
+        return 0;
+    };
+
+    public int getID(){return idConversation;}
 
     public String getNomGroupe() {
         return nomGroupe;
@@ -27,8 +37,12 @@ public abstract class Conversation implements IContext {
     public int getIdConversation() {
         return idConversation;
     }
-    public void setIdConversation(int idConversation) {
-        this.idConversation = idConversation;
+//    public void setIdConversation(int idConversation) {
+//        this.idConversation = idConversation;
+//    }
+
+    public Historique getHistorique(){
+        return historique;
     }
 
     public List<User> getMembres() {
@@ -45,6 +59,11 @@ public abstract class Conversation implements IContext {
         }
         else {
             System.err.println("Member " +member+ " is already in the conversation members' list");
+        }
+    }
+    public void removeMember(User member){
+        if (!membres.remove(member)) {
+            System.err.println("Can't remove Member " +member+ ", User not in Conversation "+idConversation);
         }
     }
     //udpate_conv pour récup les derniers messages
