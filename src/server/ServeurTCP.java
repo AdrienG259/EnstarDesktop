@@ -69,7 +69,6 @@ public class ServeurTCP extends Thread{
 		} catch (IOException e) {
 			System.out.println("Could not close");
 		}
-
 	}
 
 	public IProtocole getProtocole() {
