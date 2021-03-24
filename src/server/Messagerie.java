@@ -1,7 +1,6 @@
 package server;
 
 import common.Conversation;
-import common.ConversationGroupe;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -34,10 +33,4 @@ public class Messagerie extends Observable implements IContext, IMessagerie{
         serveurs.add(new ServeurTCP(this, new ProtocoleServeurGroupe(), port_conv_generale));
         this.notifyObservers(); //est-ce que c'est bon ?
     }
-
-    public void addConversation(ConversationGroupe newConversation, int port) {
-        serveurs.add(new ServeurTCP(this, new ProtocoleServeurGroupe(), port_conv_generale));
-        this.notifyObservers();
-    }
-    //s'il faut rajouter des fonctions  : les déclarer dans l'interface !
 }

@@ -9,6 +9,18 @@ public class Message {
     private final String contenu;
     private final String date;
     private final int expediteurID;
+    private final int id;
+
+    public Message(String dataString, int expediteurID, int id, String stringDate){
+        this.contenu = dataString;
+        this.date = stringDate;
+        this.expediteurID = expediteurID;
+        this.id = id;
+    }
+
+    public Message(String dataString, int expediteurID, int id){
+        this(dataString, expediteurID, id, (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date()));
+    }
 
     public Message(String dataString, int expediteurID){
         this.contenu = dataString;
@@ -16,9 +28,15 @@ public class Message {
         Date d = new Date();
         this.date = df.format(d);
         this.expediteurID = expediteurID;
+        this.id = newID();
     }
-
     // pas de setter car à la création de message il faut supposer qu'il est immuable
+
+    private int newID(){
+        // get new ID for a new Message of the conversation
+        /*TO-DO*/
+        return 0;
+    }
 
     public String getContenu() {
         return contenu;
@@ -35,6 +53,9 @@ public class Message {
 //    public void setDate(String date) {
 //        this.date = date;
 //    }
+    public int getID(){
+        return id;
+    }
 
     public int getExpediteur() {
         return expediteurID;

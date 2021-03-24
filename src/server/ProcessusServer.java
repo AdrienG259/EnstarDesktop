@@ -10,7 +10,7 @@ class ProcessusServer extends Thread {
 	private Socket clientSocket;
 	private ServeurTCP monServeurTCP;
 
-	public ProcessusServer(Socket uneSocket, ServeurTCP unServeur) {
+	public ProcessusServer(Socket uneSocket, ServeurTCP unServeur){
 		super("ServeurThread");
 		clientSocket = uneSocket;
 		System.out.println("[ProcessusTransaction] CLIENT : " + clientSocket);
