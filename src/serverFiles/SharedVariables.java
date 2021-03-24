@@ -26,9 +26,13 @@ public class SharedVariables {
         /* Fonction interne à la classe, utile dans le constructeur et pour
         l'ajout de nouvelles variables */
         try {
-            String[] sharedVariableAndValue = line.split("=");
+            StringTokenizer st = new StringTokenizer(line);
+            st.nextToken("=");
+            // On get la valeur de la clé;
+            String sharedVariable = st.nextToken("=");
+//            String[] sharedVariableAndValue = line.split("=");
             // On get la clé qui est le nom de la variable
-            String sharedVariable = sharedVariableAndValue[0];
+//            String sharedVariable = sharedVariableAndValue[0];
 //            String sharedVariableValue = sharedVariableAndValue[1];
 
             //devient la valeur de la clé associée à la Map
@@ -55,12 +59,15 @@ public class SharedVariables {
         }
         String sharedVariableValue = null;
         try {
-            String[] sharedVariableAndValue = variableString.split("=");
+            StringTokenizer st = new StringTokenizer(variableString);
+            st.nextToken("=");
             // On get la valeur de la clé;
-            sharedVariableValue = sharedVariableAndValue[1];
-        } catch (PatternSyntaxException patternSyntaxException) {
+            sharedVariableValue = st.nextToken("=");
+//            String[] sharedVariableAndValue = variableString.split("=");
+//            sharedVariableValue = sharedVariableAndValue[1];
+        } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Erreur à la ligne n°"+pointer+ " : \""+variableString+"\"");
-            patternSyntaxException.printStackTrace();
+            noSuchElementException.printStackTrace();
         }
         return sharedVariableValue;
     }

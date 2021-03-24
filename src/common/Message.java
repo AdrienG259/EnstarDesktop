@@ -64,4 +64,13 @@ public class Message {
 //    public void setExpediteur(int expediteur) {
 //        this.expediteurID = expediteur;
 //    }
+
+    public String toString(){
+        String stringMessage = "";
+        stringMessage += Integer.toString(id) + " - ";
+        stringMessage += Integer.toString(expediteurID) + " - ";
+        stringMessage += date + " - ";
+        stringMessage += contenu ;
+        return stringMessage;
+    }
 }
