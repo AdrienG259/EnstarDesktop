@@ -34,7 +34,7 @@ public class UpdateUser{
             FileInputStream fis=new FileInputStream(toRead);
             ObjectInputStream ois=new ObjectInputStream(fis);
 
-            HashMap<String,String> mapInFile=(HashMap<String,String>)ois.readObject();
+            HashMap<String,String> mapInFile = (HashMap<String,String>)ois.readObject();
 
             ois.close();
             fis.close();
@@ -43,6 +43,5 @@ public class UpdateUser{
                 System.out.println(m.getKey()+" : "+m.getValue());
             }
         } catch(Exception e) {}
-
     }
 }

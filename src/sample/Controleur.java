@@ -17,6 +17,7 @@ import server.UpdateUser;
 import server.VerifLogin;
 import server.AddUser;
 import server.AutorizedUser;
+import sample.Gestionuserctrl;
 
 public class Controleur {
     @FXML ImageView imgview_logo;
@@ -24,6 +25,7 @@ public class Controleur {
     @FXML TextField txtfiled_password;
     @FXML Button btn_connexion;
     @FXML Button btn_newaccount;
+    @FXML Button btn_gestion;
     @FXML Label label_feedback;
 
     Parent root;
@@ -51,8 +53,6 @@ public class Controleur {
             label_feedback.setText("Identifiants incorrects");
         } else if (can_connect == 1){
             label_feedback.setText("Ok");
-
-            UpdateUser updateUsers = new UpdateUser(autorizedUsers.userMap);
 
             Stage stage = (Stage) btn_connexion.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
@@ -90,8 +90,26 @@ public class Controleur {
             label_feedback.setText("Utilisateur ajoute");
             System.out.println("Apres : ");
             System.out.println(autorizedUsers.userMap);
+            UpdateUser updateUsers = new UpdateUser(autorizedUsers.userMap);
+            updateUsers = null;
         }
         adduser = null;
+    }
+
+    public void gestion() throws IOException {
+        String log = txtfield_login.getText();
+        label_feedback.setText("");
+
+        if(log.equals("admin")){
+            Stage stage = (Stage) btn_connexion.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("Gestionuser.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            Gestionuserctrl tmp = new Gestionuserctrl();
+            //tmp.refresh();
+            tmp = null;
+        }
     }
 }
 

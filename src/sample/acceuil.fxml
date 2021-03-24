@@ -13,8 +13,9 @@
             <Image url="@logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="btn_connexion" layoutX="681.0" layoutY="360.0" mnemonicParsing="false" onAction="#try_connexion" prefHeight="25.0" prefWidth="161.0" text="Connexion" />
+      <Button fx:id="btn_connexion" layoutX="510.0" layoutY="360.0" mnemonicParsing="false" onAction="#try_connexion" prefHeight="25.0" prefWidth="332.0" text="Connexion" />
       <Label fx:id="label_feedback" alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="343.0" prefHeight="17.0" prefWidth="161.0" textAlignment="CENTER" />
-      <Button fx:id="btn_newaccount" layoutX="510.0" layoutY="360.0" mnemonicParsing="false" onAction="#create_account" prefHeight="25.0" prefWidth="161.0" text="Créer un compte" />
+      <Button fx:id="btn_newaccount" layoutX="510.0" layoutY="395.0" mnemonicParsing="false" onAction="#create_account" prefHeight="25.0" prefWidth="161.0" text="Créer un compte" />
+      <Button fx:id="btn_gestion" layoutX="681.0" layoutY="395.0" mnemonicParsing="false" onAction="#gestion" prefHeight="25.0" prefWidth="161.0" text="Gérer les comptes" />
    </children>
 </Pane>
