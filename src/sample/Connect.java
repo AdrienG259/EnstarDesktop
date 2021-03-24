@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import server.AutorizedUser;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import common.Message;
 
 public class Connect{
     @FXML MenuBar menubar_menu;
@@ -22,10 +24,44 @@ public class Connect{
     @FXML TextArea txtarea_currentconv;
     @FXML TextField txtfield_msg;
     @FXML Button btn_envoyer;
+    @FXML Button btn_new_conv;
+    Parent root;
 
     public AutorizedUser autorizedUsers = new AutorizedUser();
 
+
+
     public void initialize() {
         System.out.println("msgri");
+
+    }
+
+    public void create_new_Conversation() throws IOException {
+
+
+        //ouvrir une nouvelle fenêtre pour les paramètres d'une nouvelle conversation
+        Stage stage = (Stage) btn_new_conv.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+
+    }
+    public void envoyer_message() throws IOException {
+        int user=1; //voir comment récupérer l'user ID
+        String buffer_msg=txtfield_msg.getText();
+        Message new_message= new Message(buffer_msg,user);
+        //ajouter le message dans la liste des messages de cette conv et push sur le serveur
+        System.out.println(new_message);
+
+        //afficher dans le text field
+
+        Stage stage = (Stage) btn_envoyer.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("connectedpage.fxml")); //rafraichit la page
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
     }
 }
