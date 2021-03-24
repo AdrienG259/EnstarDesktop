@@ -2,7 +2,6 @@ package client;
 
 import java.io.*;
 import java.net.*;
-import java.nio.channels.Channels;
 
 public class ClientTCP {
 
@@ -14,22 +13,24 @@ public class ClientTCP {
 
 	private PrintStream socOut;
 
-	private BufferedReader socIn;	
-	
-	/** Un client se connecte a un serveur identifie par un nom (unNomServeur), sur un port unNumero */
-	public  ClientTCP(String unNomServeur, int unNumero) {        
+	private BufferedReader socIn;
+
+	/**
+	 * Un client se connecte a un serveur identifie par un nom (unNomServeur), sur un port unNumero
+	 */
+	public ClientTCP(String unNomServeur, int unNumero) {
 		numeroPort = unNumero;
 		nomServeur = unNomServeur;
-	} 
+	}
 
-	public boolean connecterAuServeur() {        
+	public boolean connecterAuServeur() {
 		boolean ok = false;
 		try {
 			System.out.println("Tentative : " + nomServeur + " -- " + numeroPort);
-			socketServeur = new Socket( nomServeur, numeroPort);
+			socketServeur = new Socket(nomServeur, numeroPort);
 			socOut = new PrintStream(socketServeur.getOutputStream());
-			socIn = new BufferedReader ( 
-					new InputStreamReader (socketServeur.getInputStream()));
+			socIn = new BufferedReader(
+					new InputStreamReader(socketServeur.getInputStream()));
 			ok = true;
 		} catch (UnknownHostException e) {
 			System.err.println("Serveur inconnu : " + e);
@@ -43,9 +44,9 @@ public class ClientTCP {
 		}
 		System.out.println("Connexion faite");
 		return ok;
-	} 	
-	
-	public void deconnecterDuServeur() {        
+	}
+
+	public void deconnecterDuServeur() {
 		try {
 			System.out.println("[ClientTCP] CLIENT : " + socketServeur);
 			socOut.close();
@@ -54,12 +55,12 @@ public class ClientTCP {
 		} catch (Exception e) {
 			System.err.println("Exception lors de la deconnexion :  " + e);
 		}
-	} 	
+	}
 
-	public String sendSerializableObject(Serializable serializableObject){
+	public String sendSerializableObject(Serializable serializableObject) {
 		String msgServeur = null;
 		try {
-			System.out.println( "Requete client : " + serializableObject.toString() );
+			System.out.println("Requete client : " + serializableObject.toString());
 			ObjectOutputStream oos = new ObjectOutputStream(socketServeur.getOutputStream());
 			oos.writeObject(serializableObject);
 			oos.flush();
@@ -70,7 +71,7 @@ public class ClientTCP {
 		}
 		try {
 			msgServeur = socIn.readLine();
-			System.out.println( "Reponse serveur : " + msgServeur );
+			System.out.println("Reponse serveur : " + msgServeur);
 		} catch (IOException ioException) {
 			System.err.println("Reception retour serveur vers client impossible :\n" + ioException);
 			ioException.printStackTrace();
@@ -78,14 +79,14 @@ public class ClientTCP {
 		return msgServeur;
 	}
 
-	public String transmettreChaine(String uneChaine) {        
+	public String transmettreChaine(String uneChaine) {
 		String msgServeur = null;
 		try {
-			System.out.println( "Requete client : " + uneChaine );
-			socOut.println( uneChaine );
+			System.out.println("Requete client : " + uneChaine);
+			socOut.println(uneChaine);
 			socOut.flush();
 			msgServeur = socIn.readLine();
-			System.out.println( "Reponse serveur : " + msgServeur );
+			System.out.println("Reponse serveur : " + msgServeur);
 
 		} catch (UnknownHostException e) {
 			System.err.println("Serveur inconnu : " + e);
@@ -94,7 +95,7 @@ public class ClientTCP {
 			e.printStackTrace();
 		}
 		return msgServeur;
-	} 
+	}
 
 	/* A utiliser pour ne pas deleguer la connexion aux interfaces GUI */
 	public String transmettreChaineConnexionPonctuelle(String uneChaine) {
@@ -106,7 +107,7 @@ public class ClientTCP {
 				socOut.println(uneChaine);
 				socOut.flush();
 				msgServeur = socIn.readLine();
-				while( msgServeur != null && msgServeur.length() >0) {
+				while (msgServeur != null && msgServeur.length() > 0) {
 					chaineRetour += msgServeur + "\n";
 					msgServeur = socIn.readLine();
 				}
@@ -115,12 +116,22 @@ public class ClientTCP {
 			} catch (Exception e) {
 				System.err.println("Exception lors de la connexion client:  " + e);
 			}
-		}
-		else
-		{	
+		} else {
 			System.err.println("Connexion echouee");
 		}
 		return chaineRetour;
 	}
-	
+
+	public void creerConversation() {
+		String msgServer = null;
+		try {
+			System.out.println("Demande de création de conversation");
+			socOut.println("CreerConv");
+			socOut.flush();
+			msgServer = socIn.readLine();
+			System.out.println("Reponse serveur : " + msgServer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

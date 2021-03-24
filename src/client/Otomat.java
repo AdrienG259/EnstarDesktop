@@ -29,6 +29,9 @@ public class Otomat extends Observable implements IOtomat{
     }
 
     public void creerConversation() {
-
+        System.out.println("Création d'une nouvelle conversation");
+        monClientTCP.creerConversation();
+        setChanged();
+        notifyObservers();
     }
 }
