@@ -6,6 +6,9 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
 import java.lang.Integer;
+
+import client.ClientTCP;
+import client.Otomat;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +24,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
         FXMLLoader loader = new FXMLLoader();
         //loader.setController(new Connect());
-        loader.setController(new Controleur());
+        loader.setController(new Controleur(new Otomat(000, new ClientTCP("toto",0))));
         primaryStage.setTitle("EnstarDesktopFX");
         Scene accueil = new Scene(root, 1000, 600);
         primaryStage.setScene(accueil);

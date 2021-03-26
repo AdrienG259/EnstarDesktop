@@ -1,5 +1,6 @@
 package sample;
 
+import client.Otomat;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +31,17 @@ public class Controleur {
 
     Parent root;
 
+    private Otomat otomat;
+
     public AutorizedUser autorizedUsers = new AutorizedUser();
+
+    public Controleur(Otomat otomat) {
+        this.otomat = otomat;
+    }
+
+    public Otomat getOtomat(){
+        return this.otomat;
+    }
 
     public void try_connexion() throws IOException {
         String log = txtfield_login.getText();
