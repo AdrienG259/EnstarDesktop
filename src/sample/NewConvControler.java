@@ -21,9 +21,7 @@ public class NewConvControler {
     @FXML TextField txtfield_users;
     @FXML Button btn_add;
 
-    String buffer_users=txtfield_users.getText();
-
-
+    String buffer_users = txtfield_users.getText();
 
     public void verify_users(){
         //vérifier que l'utilisateur rentré correspond bien à la base de données
