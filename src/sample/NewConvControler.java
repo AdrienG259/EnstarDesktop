@@ -54,8 +54,14 @@ public class NewConvControler {
             //créer un nouveau port pour la conversation
             // ajouter les utilisateurs à la liste des utilisateurs présents dans la conv
             String buffer_groupname = txtfield_groupname.getText();
+            //récupérer la liste des utilisateurs dans listView
+            //à faire
             //si rien n'est rentré dans le nom groupe, par défaut prénom des utilisateurs
-            Conversation new_conv = new Conversation(buffer_groupname, null);
+            if (buffer_groupname==""){
+
+            }
+            Conversation new_conv = new Conversation(buffer_groupname, null); //members à changer
+
 
             //une fois la conversation terminée on rouvre la fenêtre avec toute les conversations
 //            Stage stage = (Stage) btn_new_conv.getScene().getWindow();
