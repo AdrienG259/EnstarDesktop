@@ -60,16 +60,34 @@ public class Controleur {
         int can_connect = 0;
         VerifLogin logger = new VerifLogin(autorizedUsers, log, pass);
         can_connect = logger.comparaison();
+
         if(can_connect == 0){
             label_feedback.setText("Identifiants incorrects");
         } else if (can_connect == 1){
             label_feedback.setText("Ok");
+
+            try {
+                File myObj = new File("connected_user.txt");
+                myObj.createNewFile();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+            try {
+                FileWriter myWriter = new FileWriter("connected_user.txt");
+                myWriter.write(txtfield_login.getText());
+                myWriter.close();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
 
             Stage stage = (Stage) btn_connexion.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+
         } else if (can_connect == -1){
             label_feedback.setText("Identifiant non trouve");
         }

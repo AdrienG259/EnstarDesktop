@@ -33,18 +33,23 @@ public class Connect{
     Parent root;
 
     public AutorizedUser autorizedUsers = new AutorizedUser();
-
+    public String current_user;
 
 
     public void initialize() {
-        System.out.println("msgri");
-
-
-
+        try {
+            File connected_user = new File("connected_user.txt");
+            Scanner myReader = new Scanner(connected_user);
+            current_user = myReader.nextLine();
+            myReader.close();
+            connected_user.delete();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     public void create_new_Conversation() throws IOException {
-
 
         //ouvrir une nouvelle fenêtre pour les paramètres d'une nouvelle conversation
         Stage stage = (Stage) btn_new_conv.getScene().getWindow();
@@ -53,21 +58,15 @@ public class Connect{
         stage.setScene(scene);
         stage.show();
 
-
-
-
     }
     public void envoyer_message() throws IOException {
-        int user=1; //voir comment récupérer l'user ID
-        String buffer_msg=txtfield_msg.getText();
-        Message new_message= new Message(buffer_msg,user);
+        int user = 1; //voir comment récupérer l'user ID
+        String buffer_msg = txtfield_msg.getText();
+        Message new_message = new Message(buffer_msg,user);
         //ajouter le message dans la liste des messages de cette conv et push sur le serveur
         System.out.println(new_message);
 
         lstview_currentconv.getItems().add(buffer_msg); //pas besoin car on récup les messgaes d'un fichier
-
-
-
         //afficher dans le text field
 
 //        Stage stage = (Stage) btn_envoyer.getScene().getWindow();
