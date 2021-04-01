@@ -34,6 +34,4 @@ public class Otomat extends Observable implements IOtomat{
         setChanged();
         notifyObservers();
     }
-
-
 }

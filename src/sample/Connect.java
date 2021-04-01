@@ -37,16 +37,16 @@ public class Connect{
 
 
     public void initialize() {
-        try {
-            File connected_user = new File("connected_user.txt");
-            Scanner myReader = new Scanner(connected_user);
-            current_user = myReader.nextLine();
-            myReader.close();
-            connected_user.delete();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+//        try {
+//            File connected_user = new File("connected_user.txt");
+//            Scanner myReader = new Scanner(connected_user);
+//            current_user = myReader.nextLine();
+//            myReader.close();
+//            connected_user.delete();
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Err lect fichier");
+//            e.printStackTrace();
+//        }
     }
 
     public void create_new_Conversation() throws IOException {

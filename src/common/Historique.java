@@ -87,5 +87,4 @@ public class Historique {
             System.err.println("Message from "+message.getExpediteur()+" dated "+message.getDate()+" not found");
         }
     }
-
 }
