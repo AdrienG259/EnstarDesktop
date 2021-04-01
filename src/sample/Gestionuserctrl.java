@@ -1,5 +1,6 @@
 package sample;
 
+import client.OtomatAdmin;
 import client.OtomatDelete;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.*;
+import java.util.HashMap;
 
 import server.UpdateUser;
 import server.VerifLogin;
@@ -32,6 +34,7 @@ public class Gestionuserctrl {
 
     public AutorizedUser autorizedUsers = new AutorizedUser();
     private OtomatDelete otomatDelete;
+    private OtomatAdmin otomatAdmin;
 
     public void initialize(){
         refresh();
@@ -39,9 +42,11 @@ public class Gestionuserctrl {
 
     public void refresh(){
         lst_users.getItems().setAll();
-        for (String i : autorizedUsers.userMap.keySet()) {
+        otomatAdmin = new OtomatAdmin(10004);
+        HashMap<String, String> userMap = otomatAdmin.getuserMap();
+        for (String i : userMap.keySet()) {
             //System.out.println("key: " + i + " value: " + autorizedUsers.userMap.get(i));
-            String chain = i + " - " + autorizedUsers.userMap.get(i);
+            String chain = i + " - " + userMap.get(i);
             lst_users.getItems().add(chain);
         }
         feedback.setText("");

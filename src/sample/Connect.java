@@ -40,7 +40,7 @@ public class Connect{
 
 
     public void initialize() {
-        print_users_in_list();
+        //print_users_in_list();
 //        try {
 //            File connected_user = new File("connected_user.txt");
 //            Scanner myReader = new Scanner(connected_user);
@@ -91,16 +91,16 @@ public class Connect{
 
 
     }
-    public void deconnect(){
-        //se déconnecter en cliquant sur le bouton
-
-    }
-    public void print_users_in_list(){
-        List<Conversation> lst_conversation= current_user.getConversation();
-        for (int i=0;i<lst_conversation.size(); i++){
-            Conversation conv_i=lst_conversation.get(i);
-            lstview_users.getItems().add(conv_i.getNomGroupe());
-        }
+//    public void deconnect(){
+//        //se déconnecter en cliquant sur le bouton
+//
+//    }
+//    public void print_users_in_list(){
+//        List<Conversation> lst_conversation= current_user.getConversation();
+//        for (int i=0;i<lst_conversation.size(); i++){
+//            Conversation conv_i=lst_conversation.get(i);
+//            lstview_users.getItems().add(conv_i.getNomGroupe());
+//        }
 
     }
 }

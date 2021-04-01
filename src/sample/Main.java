@@ -21,11 +21,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
 
-        //Parent root = FXMLLoader.load(getClass().getResource("acceuil.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("acceuil.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
         FXMLLoader loader = new FXMLLoader();
-        //loader.setController(new Connect());
-        loader.setController(new Controleur());
+        loader.setController(new Connect());
+        //loader.setController(new Controleur());
         primaryStage.setTitle("EnstarDesktopFX");
         Scene accueil = new Scene(root, 1000, 600);
         primaryStage.setScene(accueil);
