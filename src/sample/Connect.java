@@ -1,5 +1,6 @@
 package sample;
 
+import common.Conversation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,10 +18,11 @@ import java.io.*;
 import java.net.URL;
 import java.util.*;
 import common.Message;
+import common.User;
 
 public class Connect{
-    @FXML MenuBar menubar_menu;
-    @FXML ChoiceBox choicebox_conversations;
+
+
     @FXML ListView lstview_users;
     @FXML ListView lstview_currentconv;
     @FXML ScrollBar scrollbar_left;
@@ -28,15 +30,17 @@ public class Connect{
     @FXML TextField txtfield_msg;
     @FXML Button btn_envoyer;
     @FXML Button btn_new_conv;
+    @FXML Button btn_deconnect;
 
 
     Parent root;
 
-    public AutorizedUser autorizedUsers = new AutorizedUser();
-    public String current_user;
+    public AutorizedUser autorizedUser = new AutorizedUser();
+    public User current_user;
 
 
     public void initialize() {
+        print_users_in_list();
 //        try {
 //            File connected_user = new File("connected_user.txt");
 //            Scanner myReader = new Scanner(connected_user);
@@ -74,6 +78,29 @@ public class Connect{
 //        Scene scene = new Scene(root);
 //        stage.setScene(scene);
 //        stage.show();
+
+    }
+
+    //a rajouter -> clic sur une conversation= ouvrir un port
+    public void open_conv(){
+        // dans la listView sur le côté, dès qu'on clic sur un utilisateur on ouvre un port de connexion correspondant à la conversation
+        List<Conversation> lst_conversation= current_user.getConversation();
+        Object conv_selected= lstview_users.getSelectionModel().getSelectedItem();
+        for (int i=0;i<lst_conversation.size(); i++){
+            Conversation conv_i=lst_conversation.get(i);
+
+
+    }
+    public void deconnect(){
+        //se déconnecter en cliquant sur le bouton
+
+    }
+    public void print_users_in_list(){
+        List<Conversation> lst_conversation= current_user.getConversation();
+        for (int i=0;i<lst_conversation.size(); i++){
+            Conversation conv_i=lst_conversation.get(i);
+            lstview_users.getItems().add(conv_i.getNomGroupe());
+        }
 
     }
 }

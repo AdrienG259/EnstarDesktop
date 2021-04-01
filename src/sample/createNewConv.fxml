@@ -4,15 +4,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="btn_add" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NewConvControler">
    <children>
       <TextField fx:id="txtfield_users" layoutX="207.0" layoutY="119.0" prefHeight="27.0" prefWidth="189.0" />
       <Text layoutX="14.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rentrer les utilisateurs à ajouter" />
-      <Button layoutX="458.0" layoutY="120.0" mnemonicParsing="false" text="Ajouter" />
-      <ListView layoutX="207.0" layoutY="166.0" prefHeight="200.0" prefWidth="189.0" />
+      <Button fx:id="btn_add" layoutX="458.0" layoutY="120.0" mnemonicParsing="false" onAction="#add_users" text="Ajouter" />
+      <ListView fx:id="listview_users" layoutX="207.0" layoutY="166.0" prefHeight="200.0" prefWidth="189.0" />
       <Text layoutX="194.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Création d'une nouvelle conversation" />
-      <Button layoutX="458.0" layoutY="322.0" mnemonicParsing="false" text="Créer la conversation" />
+      <Button fx:id="btn_create" layoutX="458.0" layoutY="322.0" mnemonicParsing="false" text="Créer la conversation" />
       <Text layoutX="66.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du groupe" />
-      <TextField layoutX="207.0" layoutY="76.0" prefHeight="25.0" prefWidth="189.0" />
+      <TextField fx:id="txtfield_groupname" layoutX="207.0" layoutY="76.0" prefHeight="25.0" prefWidth="189.0" />
    </children>
 </Pane>
