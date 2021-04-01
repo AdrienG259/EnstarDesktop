@@ -2,12 +2,12 @@ package client;
 
 import java.util.Observable;
 
-public class OtomatOuverture  extends Observable implements IOtomat{
+public class OtomatCreation extends Observable implements IOtomat{
 
-    private static int port = 10001;
+    private static int port = 10002;
     private ClientTCP monClientTCP;
 
-    public OtomatOuverture(int port) {
+    public OtomatCreation(int port) {
         this.port = port;
         monClientTCP = new ClientTCP("localhost", port);
     }
@@ -20,7 +20,7 @@ public class OtomatOuverture  extends Observable implements IOtomat{
         monClientTCP.deconnecterDuServeur();
     }
 
-    public int connexionUtilisateur(String userName, String password){
+    public int creactionUtilisateur(String userName, String password){
         System.out.println("Envoi d'un message");
         String message = userName+";"+password;
         String ret = monClientTCP.transmettreChaineConnexionPonctuelle(message).split("\\n")[0];
@@ -29,5 +29,4 @@ public class OtomatOuverture  extends Observable implements IOtomat{
         notifyObservers();
         return entierRetour;
     }
-
 }

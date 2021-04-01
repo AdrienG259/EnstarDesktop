@@ -1,6 +1,7 @@
 package sample;
 
 import client.Otomat;
+import client.OtomatCreation;
 import client.OtomatOuverture;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,12 +33,14 @@ public class Controleur {
 
     Parent root;
 
-    private OtomatOuverture otomatOuverture = new OtomatOuverture(10001);
+    private OtomatOuverture otomatOuverture;
+    private OtomatCreation otomatCreation;
 
     public AutorizedUser autorizedUsers = new AutorizedUser();
 
 
     public void try_connexion() throws IOException {
+        otomatOuverture = new OtomatOuverture(10001);
         String log = txtfield_login.getText();
         String pass = txtfiled_password.getText();
         label_feedback.setText("");
@@ -58,22 +61,6 @@ public class Controleur {
         } else if (can_connect == 1){
             label_feedback.setText("Ok");
 
-//            try {
-//                File myObj = new File("connected_user.txt");
-//                myObj.createNewFile();
-//            } catch (IOException e) {
-//                System.out.println("Err creat fichier");
-//                e.printStackTrace();
-//            }
-//            try {
-//                FileWriter myWriter = new FileWriter("connected_user.txt");
-//                myWriter.write(txtfield_login.getText());
-//                myWriter.close();
-//            } catch (IOException e) {
-//                System.out.println("Err w fichier");
-//                e.printStackTrace();
-//            }
-
             Stage stage = (Stage) btn_connexion.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
             Scene scene = new Scene(root);
@@ -87,6 +74,7 @@ public class Controleur {
     }
 
     public void create_account(){
+        otomatCreation = new OtomatCreation(10002);
         String log = txtfield_login.getText();
         String pass = txtfiled_password.getText();
         label_feedback.setText("");
@@ -99,22 +87,13 @@ public class Controleur {
             txtfiled_password.setPromptText("Saisir un mot de passe");
             return;
         }
-
         int can_add = 0;
-        AddUser adduser = new AddUser(autorizedUsers, log, pass);
-        can_add = adduser.ajouterUser();
-        System.out.println("Avant : ");
-        System.out.println(autorizedUsers.userMap);
+        can_add = otomatCreation.creactionUtilisateur(log, pass);
         if (can_add == -1){
             label_feedback.setText("Utilisateur deja existant");
         } else if(can_add == 1) {
             label_feedback.setText("Utilisateur ajoute");
-            System.out.println("Apres : ");
-            System.out.println(autorizedUsers.userMap);
-            UpdateUser updateUsers = new UpdateUser(autorizedUsers.userMap);
-            updateUsers = null;
         }
-        adduser = null;
     }
 
     public void gestion() throws IOException {
@@ -128,7 +107,6 @@ public class Controleur {
             stage.setScene(scene);
             stage.show();
             Gestionuserctrl tmp = new Gestionuserctrl();
-            //tmp.refresh();
             tmp = null;
         } else {
             label_feedback.setText("Compte administrateur requis");
