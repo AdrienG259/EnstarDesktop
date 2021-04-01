@@ -1,6 +1,7 @@
 package sample;
 
 import client.Otomat;
+import client.OtomatOuverture;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,17 +32,10 @@ public class Controleur {
 
     Parent root;
 
-    private Otomat otomat;
+    private OtomatOuverture otomatOuverture = new OtomatOuverture(10001);
 
     public AutorizedUser autorizedUsers = new AutorizedUser();
 
-//    public Controleur(Otomat otomat) {
-//        this.otomat = otomat;
-//    }
-//
-//    public Otomat getOtomat(){
-//        return this.otomat;
-//    }
 
     public void try_connexion() throws IOException {
         String log = txtfield_login.getText();
@@ -57,10 +51,8 @@ public class Controleur {
             return;
         }
 
-        int can_connect = 0;
-        VerifLogin logger = new VerifLogin(autorizedUsers, log, pass);
-        can_connect = logger.comparaison();
-
+        int can_connect = otomatOuverture.connexionUtilisateur(log, pass);
+        System.out.println(can_connect);
         if(can_connect == 0){
             label_feedback.setText("Identifiants incorrects");
         } else if (can_connect == 1){
@@ -91,7 +83,7 @@ public class Controleur {
         } else if (can_connect == -1){
             label_feedback.setText("Identifiant non trouve");
         }
-        logger = null;
+        otomatOuverture = null;
     }
 
     public void create_account(){

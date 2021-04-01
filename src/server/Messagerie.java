@@ -13,6 +13,7 @@ public class Messagerie extends Observable implements IContext, IMessagerie{
 
     private int port_conv_generale = 6666;
     private int port_conv_privee_1 = 7777;
+    private static int port_ouverture = 10001;
 
     public ArrayList<ServeurTCP> serveurs = new ArrayList<>();
 
@@ -23,6 +24,7 @@ public class Messagerie extends Observable implements IContext, IMessagerie{
     public void ouvrirMessagerie(){
         serveurs.add(new ServeurTCP(this, new ProtocoleServeurGroupe(), port_conv_generale));
         serveurs.add(new ServeurTCP(this, new ProtocoleServeurPrivee(), port_conv_privee_1));
+        serveurs.add(new ServeurTCP(this, new ProtocoleOuverture(), port_ouverture));
         for(ServeurTCP s : serveurs){
             s.start();
         }

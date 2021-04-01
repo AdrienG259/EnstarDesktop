@@ -107,6 +107,7 @@ public class ClientTCP {
 				socOut.println(uneChaine);
 				socOut.flush();
 				msgServeur = socIn.readLine();
+				System.out.println(msgServeur);
 				while (msgServeur != null && msgServeur.length() > 0) {
 					chaineRetour += msgServeur + "\n";
 					msgServeur = socIn.readLine();

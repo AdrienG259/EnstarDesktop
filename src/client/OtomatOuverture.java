@@ -7,7 +7,7 @@ public class OtomatOuverture  extends Observable implements IOtomat{
     private static int port = 10001;
     private ClientTCP monClientTCP;
 
-    public OtomatOuverture(int port, ClientTCP monClientTCP) {
+    public OtomatOuverture(int port) {
         this.port = port;
         monClientTCP = new ClientTCP("localhost", port);
     }
@@ -25,8 +25,8 @@ public class OtomatOuverture  extends Observable implements IOtomat{
         String message = userName+";"+password;
         String ret = monClientTCP.transmettreChaineConnexionPonctuelle(message);
         int entierRetour = Integer.parseInt(ret);
-        setChanged();
-        notifyObservers();
+//        setChanged();
+//        notifyObservers();
         return entierRetour;
     }
 

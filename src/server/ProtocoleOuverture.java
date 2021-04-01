@@ -26,6 +26,7 @@ public class ProtocoleOuverture implements IProtocole {
                 VerifLogin logger = new VerifLogin(autorizedUsers, login, password);
                 can_connect = logger.comparaison();
                 messageRetour= String.valueOf(can_connect);
+                System.out.println(messageRetour);
                 os.println(messageRetour);
             }
         } catch ( Exception e) {
