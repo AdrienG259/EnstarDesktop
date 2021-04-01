@@ -40,6 +40,7 @@ public class Connect{
 
 
     public void initialize() {
+
         //print_users_in_list();
 //        try {
 //            File connected_user = new File("connected_user.txt");

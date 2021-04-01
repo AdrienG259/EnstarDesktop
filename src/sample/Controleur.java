@@ -16,12 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import server.UpdateUser;
-import server.VerifLogin;
-import server.AddUser;
-import server.AutorizedUser;
-import sample.Gestionuserctrl;
-
 public class Controleur {
     @FXML ImageView imgview_logo;
     @FXML TextField txtfield_login;
@@ -55,6 +49,7 @@ public class Controleur {
         System.out.println(can_connect);
         if(can_connect == 0){
             label_feedback.setText("Identifiants incorrects");
+
         } else if (can_connect == 1){
             label_feedback.setText("Ok");
 
