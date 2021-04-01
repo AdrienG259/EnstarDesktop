@@ -1,6 +1,7 @@
 package sample;
 
 import client.OtomatAdmin;
+import client.OtomatCreation;
 import client.OtomatDelete;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,9 +33,9 @@ public class Gestionuserctrl {
 
     Parent root;
 
-    public AutorizedUser autorizedUsers = new AutorizedUser();
     private OtomatDelete otomatDelete;
     private OtomatAdmin otomatAdmin;
+    private OtomatCreation otomatCreation;
 
     public void initialize(){
         refresh();
@@ -45,11 +46,11 @@ public class Gestionuserctrl {
         otomatAdmin = new OtomatAdmin(10004);
         HashMap<String, String> userMap = otomatAdmin.getuserMap();
         for (String i : userMap.keySet()) {
-            //System.out.println("key: " + i + " value: " + autorizedUsers.userMap.get(i));
             String chain = i + " - " + userMap.get(i);
             lst_users.getItems().add(chain);
         }
         feedback.setText("");
+        otomatAdmin = null;
     }
 
     public void fill_fields(){
@@ -89,17 +90,16 @@ public class Gestionuserctrl {
         String[] splitted = choix.split(" - ");
         String pseudo = splitted[0];
         String pass = splitted[1];
-        DeleteUser del = new DeleteUser(autorizedUsers, pseudo);
-        del.SupprimerUser();
-        del = null;
+
+        otomatDelete = new OtomatDelete(10003);
+        otomatDelete.deleteUtilisateur(pseudo);
+        otomatDelete = null;
 
         String new_pseudo = txt_name.getText();
-        AddUser adduser = new AddUser(autorizedUsers, new_pseudo, pass);
-        adduser.ajouterUser();
-        adduser = null;
+        otomatCreation = new OtomatCreation(10002);
+        otomatCreation.creactionUtilisateur(new_pseudo, pass);
+        otomatCreation = null;
 
-        UpdateUser updateUsers = new UpdateUser(autorizedUsers.userMap);
-        updateUsers = null;
         refresh();
     }
 
@@ -113,19 +113,19 @@ public class Gestionuserctrl {
             feedback.setText("Renseigner un mot de passe");
             return;
         }
+
         String[] splitted = choix.split(" - ");
         String pseudo = splitted[0];
-        DeleteUser del = new DeleteUser(autorizedUsers, pseudo);
-        del.SupprimerUser();
-        del = null;
+
+        otomatDelete = new OtomatDelete(10003);
+        otomatDelete.deleteUtilisateur(pseudo);
+        otomatDelete = null;
 
         String new_pass = txt_pass.getText();
-        AddUser adduser = new AddUser(autorizedUsers, pseudo, new_pass);
-        adduser.ajouterUser();
-        adduser = null;
+        otomatCreation = new OtomatCreation(10002);
+        otomatCreation.creactionUtilisateur(pseudo, new_pass);
+        otomatCreation = null;
 
-        UpdateUser updateUsers = new UpdateUser(autorizedUsers.userMap);
-        updateUsers = null;
         refresh();
     }
 
@@ -141,12 +141,10 @@ public class Gestionuserctrl {
         String pseudo = txt_name.getText();
         String pass = txt_pass.getText();
 
-        AddUser adduser = new AddUser(autorizedUsers, pseudo, pass);
-        adduser.ajouterUser();
-        adduser = null;
+        otomatCreation = new OtomatCreation(10002);
+        otomatCreation.creactionUtilisateur(pseudo, pass);
+        otomatCreation = null;
 
-        UpdateUser updateUsers = new UpdateUser(autorizedUsers.userMap);
-        updateUsers = null;
         refresh();
     }
 

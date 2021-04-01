@@ -11,7 +11,7 @@ public class ProtocoleDelete implements IProtocole {
                 anInputStream));
         PrintStream os = new PrintStream(anOutputStream);
         try {
-            String messageRetour = "-1";
+            String messageRetour = "-1\n";
             if ((inputReq = is.readLine()) != null) {
                 System.out.println(" Ordre Recu " + inputReq);
 

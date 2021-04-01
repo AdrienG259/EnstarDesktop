@@ -104,8 +104,6 @@ public class Controleur {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-            Gestionuserctrl tmp = new Gestionuserctrl();
-            tmp = null;
         } else {
             label_feedback.setText("Compte administrateur requis");
         }
