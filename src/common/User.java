@@ -1,12 +1,14 @@
 package common;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Serializable {
     private final int id;
     private String pseudo;
     private List centre_interet;
+    private List<Conversation> listConversations;
 
     public User(int userID){
         id = userID;
@@ -16,6 +18,9 @@ public class User implements Serializable {
         return id;
     }
 
+    public List<Conversation> getConversations(){
+        return listConversations;
+    }
     /* Pas de setter car id est final */
 //    public void setId(int id) {
 //        this.id = id;

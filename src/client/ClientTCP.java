@@ -123,6 +123,30 @@ public class ClientTCP {
 		return chaineRetour;
 	}
 
+	public Serializable receiveSerializable(String message){
+		Serializable receivedObject = null;
+		System.out.println("\nClient connexionTransmettreChaine " + message);
+		if (connecterAuServeur()) {
+			try {
+				socOut.println(message);
+				socOut.flush();
+
+				ObjectInputStream ois=new ObjectInputStream(socketServeur.getInputStream());
+				receivedObject =(Serializable)ois.readObject();
+				ois.close();
+
+				System.out.println("Client object serializable\n");
+				deconnecterDuServeur();
+			} catch (Exception e) {
+				System.err.println("Exception lors de la connexion client:  " + e);
+			}
+		} else {
+			System.err.println("Connexion echouee");
+		}
+		return receivedObject;
+	}
+
+
 	public void creerConversation() {
 		String msgServer = null;
 		try {
