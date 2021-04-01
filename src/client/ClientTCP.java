@@ -110,7 +110,9 @@ public class ClientTCP {
 				System.out.println(msgServeur);
 				while (msgServeur != null && msgServeur.length() > 0) {
 					chaineRetour += msgServeur + "\n";
+					System.out.print(111);
 					msgServeur = socIn.readLine();
+					System.out.print(222);
 				}
 				System.out.println("Client msgServeur " + chaineRetour);
 				deconnecterDuServeur();

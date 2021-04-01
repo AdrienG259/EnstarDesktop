@@ -23,7 +23,7 @@ public class OtomatOuverture  extends Observable implements IOtomat{
     public int connexionUtilisateur(String userName, String password){
         System.out.println("Envoi d'un message");
         String message = userName+";"+password;
-        String ret = monClientTCP.transmettreChaineConnexionPonctuelle(message);
+        String ret = monClientTCP.transmettreChaineConnexionPonctuelle(message).split("\\n")[0];
         int entierRetour = Integer.parseInt(ret);
 //        setChanged();
 //        notifyObservers();
