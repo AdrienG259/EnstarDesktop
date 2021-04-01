@@ -45,4 +45,8 @@ public class User implements Serializable {
                 ", centre_interet=" + centre_interet +
                 '}';
     }
+    public List<Conversation> getConversation(){
+        List<Conversation> liste = null; //à changer pour récupérer la liste des conversations
+        return liste;
+    }
 }

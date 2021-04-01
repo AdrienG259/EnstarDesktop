@@ -29,20 +29,24 @@ public class NewConvControler {
     ListView listview_users;
     @FXML
     TextField txtfield_groupname;
+    @FXML Button btn_create;
 
-
+    public String get_groupname(){
+        String buffer_gpname = txtfield_groupname.getText();
+        return buffer_gpname;
+    }
     public void add_users() {
         String buffer_users = txtfield_users.getText();
-        if (verify_user(buffer_users)) {
-            listview_users.getItems().add(buffer_users);
+        listview_users.getItems().add(buffer_users);
+        /*if (verify_user(buffer_users)) {
 
         }
-
+*/
     }
 
     public boolean verify_user(String User) {
         //vérifier que l'utilisateur rentré correspond bien à la base de données
-        if (true) {
+        if (true) { //condition à changer
             return true;//l'utilisateur rentré est bien dans la base de données
         }
         return false;
@@ -50,20 +54,20 @@ public class NewConvControler {
 
     public void create_conv() {
         for (int i = 0; i < listview_users.getItems().size(); i++) {
-            listview_users.getItems();
+            Object new_user= listview_users.getItems().get(i); //on récupère tous les
             //créer un nouveau port pour la conversation
             // ajouter les utilisateurs à la liste des utilisateurs présents dans la conv
-            String buffer_groupname = txtfield_groupname.getText();
+            String groupname = get_groupname();
             //récupérer la liste des utilisateurs dans listView
             //à faire
             //si rien n'est rentré dans le nom groupe, par défaut prénom des utilisateurs
-            if (buffer_groupname==""){
+            if (groupname==""){
 
             }
-            Conversation new_conv = new Conversation(buffer_groupname, null); //members à changer
+            Conversation new_conv = new Conversation(groupname, null); //members à changer
+            // demander la création d'un nouveau port pour créer la conv 
 
-
-            //une fois la conversation terminée on rouvre la fenêtre avec toute les conversations
+            //une fois la conversation terminée on rouvre la fenêtre avec toute les conversations à jour avec la nouvelle
 //            Stage stage = (Stage) btn_new_conv.getScene().getWindow();
 //            root = FXMLLoader.load(getClass().getResource("createNewConv.fxml"));
 //            Scene scene = new Scene(root);
