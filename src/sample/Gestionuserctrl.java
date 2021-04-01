@@ -1,5 +1,6 @@
 package sample;
 
+import client.OtomatDelete;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,7 @@ public class Gestionuserctrl {
     Parent root;
 
     public AutorizedUser autorizedUsers = new AutorizedUser();
+    private OtomatDelete otomatDelete;
 
     public void initialize(){
         refresh();
@@ -63,12 +65,10 @@ public class Gestionuserctrl {
             feedback.setText("Selectionner un utilisateur.");
             return;
         }
-        DeleteUser del = new DeleteUser(autorizedUsers, choix.split(" - ")[0]);
-        del.SupprimerUser();
-        del = null;
+        otomatDelete = new OtomatDelete(10003);
+        otomatDelete.deleteUtilisateur(choix.split(" - ")[0]);
         refresh();
-        UpdateUser updateUsers = new UpdateUser(autorizedUsers.userMap);
-        updateUsers = null;
+        otomatDelete = null;
     }
 
     public void modif_pseudo(){

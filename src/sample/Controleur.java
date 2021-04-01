@@ -36,9 +36,6 @@ public class Controleur {
     private OtomatOuverture otomatOuverture;
     private OtomatCreation otomatCreation;
 
-    public AutorizedUser autorizedUsers = new AutorizedUser();
-
-
     public void try_connexion() throws IOException {
         otomatOuverture = new OtomatOuverture(10001);
         String log = txtfield_login.getText();
@@ -94,6 +91,7 @@ public class Controleur {
         } else if(can_add == 1) {
             label_feedback.setText("Utilisateur ajoute");
         }
+        otomatCreation = null;
     }
 
     public void gestion() throws IOException {
