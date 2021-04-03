@@ -20,7 +20,7 @@ public class OtomatCreation extends Observable implements IOtomat{
         monClientTCP.deconnecterDuServeur();
     }
 
-    public int creactionUtilisateur(String userName, String password){
+    public int creationUtilisateur(String userName, String password){
         System.out.println("Envoi d'un message");
         String message = userName+";"+password;
         String ret = monClientTCP.transmettreChaineConnexionPonctuelle(message).split("\\n")[0];

@@ -4,14 +4,14 @@ import java.io.*;
 import java.util.*;
 import java.util.regex.PatternSyntaxException;
 
-public class SharedVariables {
+public class SharedVariables implements Closeable{
     private final Map<String,Long> pointersMap;
     private final RandomAccessFile randomAccessFile;
 
     public SharedVariables(File file) throws IOException {
         randomAccessFile = new RandomAccessFile(file, "rw");
         pointersMap = new HashMap<>();
-
+        randomAccessFile.readLine();
         long pointer = randomAccessFile.getFilePointer();
         String bufferString = randomAccessFile.readLine();
 
@@ -27,9 +27,9 @@ public class SharedVariables {
         l'ajout de nouvelles variables */
         try {
             StringTokenizer st = new StringTokenizer(line);
-            st.nextToken("=");
-            // On get la valeur de la clé;
             String sharedVariable = st.nextToken("=");
+            // On get la valeur de la clé;
+//            String sharedVariable = st.nextToken("=");
 //            String[] sharedVariableAndValue = line.split("=");
             // On get la clé qui est le nom de la variable
 //            String sharedVariable = sharedVariableAndValue[0];

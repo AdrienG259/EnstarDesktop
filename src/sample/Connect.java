@@ -83,6 +83,7 @@ public class Connect{
     }
 
     //a rajouter -> clic sur une conversation= ouvrir un port
+    /*
     public void open_conv(){
         // dans la listView sur le côté, dès qu'on clic sur un utilisateur on ouvre un port de connexion correspondant à la conversation
         List<Conversation> lst_conversation= current_user.getConversation();
@@ -92,6 +93,7 @@ public class Connect{
 
 
     }
+    */
 //    public void deconnect(){
 //        //se déconnecter en cliquant sur le bouton
 //
@@ -104,4 +106,4 @@ public class Connect{
 //        }
 
     }
-}
+

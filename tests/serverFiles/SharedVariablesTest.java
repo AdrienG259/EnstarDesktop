@@ -81,6 +81,7 @@ public class SharedVariablesTest {
     * and temporary data that are used by test.*/
     public void tearDown() throws IOException {
         // on nettoie le fichier et on y met 3 variables partagées toto
+//        sharedVariables.close();
         testFile = new File("serverFiles/testSharedVariables");
         FileWriter fileWriter = new FileWriter(testFile, false);
         PrintWriter printWriter = new PrintWriter(fileWriter, false);
@@ -88,9 +89,10 @@ public class SharedVariablesTest {
         printWriter.close();
         fileWriter.close();
         testFile = null;
-        if (sharedVariables != null) {
-            sharedVariables.close();
-        }
+        sharedVariables.close();
+//        if (sharedVariables != null) {
+//            sharedVariables.close();
+//        }
     }
 
 
@@ -108,10 +110,17 @@ public class SharedVariablesTest {
         assertEquals(stringTest,valueToto1);
 
         // ajout d'une nouvelle clé
-        sharedVariables.addNewSharedVariable("testSetVariable", "^$ù*E");
+        sharedVariables.addNewSharedVariable("testSetVariable", "^$ù*Eyy");
         String valueTestSetVariable = sharedVariables.accessVariable("testSetVariable");
         assertNotEquals(stringTest,valueTestSetVariable);
-        assertEquals("^$ù*E",valueTestSetVariable);
+        assertEquals("^$ù*Eyy",valueTestSetVariable);
+
+        sharedVariables.setVariable("toto3", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        String valuetoto3 = sharedVariables.accessVariable("toto3");
+        assertEquals("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",valuetoto3);
+        valueTestSetVariable = sharedVariables.accessVariable("testSetVariable");
+        assertEquals("^$ù*Eyy",valueTestSetVariable);
+
     }
 
     @Test

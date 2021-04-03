@@ -1,9 +1,7 @@
 package sample;
 
-import client.Otomat;
 import client.OtomatCreation;
 import client.OtomatOuverture;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,9 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class Controleur {
     @FXML ImageView imgview_logo;
@@ -80,7 +75,7 @@ public class Controleur {
             return;
         }
         int can_add = 0;
-        can_add = otomatCreation.creactionUtilisateur(log, pass);
+        can_add = otomatCreation.creationUtilisateur(log, pass);
         if (can_add == -1){
             label_feedback.setText("Utilisateur deja existant");
         } else if(can_add == 1) {

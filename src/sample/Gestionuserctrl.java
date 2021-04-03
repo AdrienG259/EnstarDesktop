@@ -3,22 +3,14 @@ package sample;
 import client.OtomatAdmin;
 import client.OtomatCreation;
 import client.OtomatDelete;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.*;
 import java.util.HashMap;
-
-import server.UpdateUser;
-import server.VerifLogin;
-import server.AddUser;
-import server.AutorizedUser;
-import server.DeleteUser;
 
 public class Gestionuserctrl {
     @FXML ListView lst_users;
@@ -97,7 +89,7 @@ public class Gestionuserctrl {
 
         String new_pseudo = txt_name.getText();
         otomatCreation = new OtomatCreation(10002);
-        otomatCreation.creactionUtilisateur(new_pseudo, pass);
+        otomatCreation.creationUtilisateur(new_pseudo, pass);
         otomatCreation = null;
 
         refresh();
@@ -123,7 +115,7 @@ public class Gestionuserctrl {
 
         String new_pass = txt_pass.getText();
         otomatCreation = new OtomatCreation(10002);
-        otomatCreation.creactionUtilisateur(pseudo, new_pass);
+        otomatCreation.creationUtilisateur(pseudo, new_pass);
         otomatCreation = null;
 
         refresh();
@@ -142,7 +134,7 @@ public class Gestionuserctrl {
         String pass = txt_pass.getText();
 
         otomatCreation = new OtomatCreation(10002);
-        otomatCreation.creactionUtilisateur(pseudo, pass);
+        otomatCreation.creationUtilisateur(pseudo, pass);
         otomatCreation = null;
 
         refresh();
