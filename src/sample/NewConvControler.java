@@ -1,4 +1,6 @@
 package sample;
+import client.ControleurCreateConversation;
+import client.desktopBusinessRules;
 import common.Conversation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,7 @@ import java.net.URL;
 import java.util.*;
 import common.Message;
 import common.User;
+import serverFiles.InstantiateSerializable;
 
 public class NewConvControler {
     @FXML
@@ -30,6 +33,7 @@ public class NewConvControler {
     @FXML
     TextField txtfield_groupname;
     @FXML Button btn_create;
+
 
     public String get_groupname(){
         String buffer_gpname = txtfield_groupname.getText();
@@ -62,9 +66,15 @@ public class NewConvControler {
             //à faire
             //si rien n'est rentré dans le nom groupe, par défaut prénom des utilisateurs
             if (groupname==""){
-
             }
-            Conversation new_conv = new Conversation(groupname, null); //members à changer
+            ControleurCreateConversation controleurCreateConversation = new ControleurCreateConversation();
+            try {
+                Conversation new_conv = controleurCreateConversation.creerConversation(groupname);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
+//             = new Conversation(groupname, Arrays.asList(businessRules.getCurrentUser()),0); //members à changer
             // demander la création d'un nouveau port pour créer la conv 
 
             //une fois la conversation terminée on rouvre la fenêtre avec toute les conversations à jour avec la nouvelle

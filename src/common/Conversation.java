@@ -13,25 +13,14 @@ public class Conversation implements IContext, Observer {
     // Attribut final : l'id unique de chaque conversation est le port du serveur sur lequel il communique
     private final int idConversation;
     private List<User> membres;
-    private Historique historique;
+    private final Historique historique;
 
     public Conversation(String nomGroupe, List<User> members, int idConversation) {
         this.nomGroupe = nomGroupe;
         this.membres = members;
         this.idConversation = idConversation;
-        this.historique = new Historique(this);
+        this.historique = new Historique();
     }
-
-    public Conversation(String nomGroupe, List<User> members) {
-        this.nomGroupe = nomGroupe;
-        this.membres = members;
-        this.idConversation = newId();
-        this.historique = new Historique(this);
-    }
-
-    protected int newId(){
-        return 0;
-    };
 
     public int getID(){return idConversation;}
 
@@ -45,9 +34,6 @@ public class Conversation implements IContext, Observer {
     public int getIdConversation() {
         return idConversation;
     }
-//    public void setIdConversation(int idConversation) {
-//        this.idConversation = idConversation;
-//    }
 
     public Historique getHistorique(){
         return historique;

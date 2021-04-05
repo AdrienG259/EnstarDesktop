@@ -30,9 +30,4 @@ public class AutorizedUser {
         } catch(Exception e) {}
 
     }
-
-
-    public static void main(String args[]) {
-        new AutorizedUser();
-    }
 }

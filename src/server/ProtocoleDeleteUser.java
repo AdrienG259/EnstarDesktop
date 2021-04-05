@@ -2,7 +2,7 @@ package server;
 
 import java.io.*;
 
-public class ProtocoleCreation implements IProtocole{
+public class ProtocoleDeleteUser implements IProtocole {
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
         Messagerie messagerie = (Messagerie)aContext;
@@ -11,25 +11,22 @@ public class ProtocoleCreation implements IProtocole{
                 anInputStream));
         PrintStream os = new PrintStream(anOutputStream);
         try {
-            String messageRetour = "-1";
+            String messageRetour = "-1\n";
             if ((inputReq = is.readLine()) != null) {
                 System.out.println(" Ordre Recu " + inputReq);
 
-                String[] loginpassword = inputReq.split(";");
-                String login = loginpassword[0];
-                String password = loginpassword[1];
+                String login = inputReq;
 
                 AutorizedUser autorizedUsers = new AutorizedUser();
-                AddUser adduser = new AddUser(autorizedUsers, login, password);
-                int can_add = adduser.ajouterUser();
+                DeleteUser del = new DeleteUser(autorizedUsers, login);
+                del.SupprimerUser();
                 UpdateUser updateUser = new UpdateUser(autorizedUsers.userMap);
-                messageRetour = can_add +"\n";
                 autorizedUsers = null;
-                adduser = null;
                 updateUser = null;
+                del = null;
                 os.println(messageRetour);
             }
-        } catch ( Exception e) {
+        } catch (Exception e) {
             System.out.println(" Pb d'exception ");
         }
     }

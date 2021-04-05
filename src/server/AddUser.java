@@ -1,5 +1,13 @@
 package server;
 
+import common.User;
+import serverFiles.InstantiateSerializable;
+import serverFiles.SharedVariableCannotAccess;
+import serverFiles.SharedVariables;
+
+import java.io.File;
+import java.io.IOException;
+
 public class AddUser {
 
     private final String identifiant;
@@ -12,7 +20,7 @@ public class AddUser {
         this.autorizedUser = autorizedUsers;
     }
 
-    public int ajouterUser(){
+    public int ajouterUser() throws IOException {
         //vérification si dans la hashmap
         for (String i : autorizedUser.userMap.keySet()){
             // i = key = username
@@ -22,7 +30,20 @@ public class AddUser {
             }
         }
         autorizedUser.userMap.put(this.identifiant, this.motdepasse);
-        //c'est ajouté
-        return 1;
+        SharedVariables sharedVariables = new SharedVariables("serverFiles/sharedVariables");
+        int newUserID = 0;
+        try {
+            newUserID = Integer.parseInt(sharedVariables.accessVariable("GLOBAL_NEWUSERID"));
+            File userFile = new File("serverFiles/users/" + newUserID);
+            InstantiateSerializable<User> userInstantiate = new InstantiateSerializable<User>(userFile);
+            User user = new User(newUserID);
+            userInstantiate.instanceToFile(user);
+            //c'est ajouté
+            return 1;
+        } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
+            sharedVariableCannotAccess.printStackTrace();
+            return -1;
+        }
+
     }
 }

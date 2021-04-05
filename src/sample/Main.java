@@ -1,14 +1,5 @@
 package sample;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.util.*;
-import java.lang.Integer;
-
-import client.ClientTCP;
-import client.Otomat;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

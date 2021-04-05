@@ -1,50 +1,24 @@
 package common;
 
-import serverFiles.SharedVariableAlreadyExists;
-import serverFiles.SharedVariables;
+import serverFiles.InstantiateSerializable;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Historique {
+public class Historique implements Serializable {
 
-    private Conversation conversation;
-    private List<Message> listeMessages;
-    private String pathHistorique;
+    private final List<Message> listeMessages;
 
-    public Historique(Conversation conversation, List<Message> messages) {
-        this.conversation = conversation;
+    public Historique(List<Message> messages) {
         listeMessages = messages;
-        pathHistorique = "conversations/historique" + Integer.toString(conversation.getIdConversation());
-        File fileHistorique = new File(pathHistorique);
-        if (!fileHistorique.exists()){
-            try {
-                fileHistorique.createNewFile();
-            } catch (IOException ioException) {
-                System.err.println("Impossible de créer le fichier \"" + fileHistorique.getName() + "\"");
-                ioException.printStackTrace();
-            }
-        }
-        SharedVariables sharedVariablesHistorique = null;
-        try {
-            sharedVariablesHistorique = new SharedVariables(fileHistorique);
-            for (Message message:listeMessages){
-                String stringID = Integer.toString(message.getID());
-                sharedVariablesHistorique.addNewSharedVariable(stringID, message.toString());
-            }
-            sharedVariablesHistorique.close();
-        } catch (IOException ioException) {
-            System.err.println("Impossible d'ouvrir le fichier \"" + fileHistorique.getName() + "\"");
-            ioException.printStackTrace();
-        } catch (SharedVariableAlreadyExists sharedVariableAlreadyExists) {
-            sharedVariableAlreadyExists.printStackTrace();
-        }
     }
 
-    public Historique(Conversation conversation){
-        this(conversation, new LinkedList<Message>());
+    public Historique() {
+        listeMessages = new ArrayList<Message>();
     }
 
     public List<Message> getListeMessages(){
@@ -58,27 +32,6 @@ public class Historique {
     public void addMessage(Message newMessage){
         // gestion du fichier à faire ici
         listeMessages.add(newMessage);
-        File fileHistorique = new File(pathHistorique);
-        if (!fileHistorique.exists()){
-            try {
-                fileHistorique.createNewFile();
-            } catch (IOException ioException) {
-                System.err.println("Impossible de créer le fichier \"" + fileHistorique.getName() + "\"");
-                ioException.printStackTrace();
-            }
-        }
-        SharedVariables sharedVariablesHistorique = null;
-        try {
-            sharedVariablesHistorique = new SharedVariables(fileHistorique);
-            String stringID = Integer.toString(newMessage.getID());
-            sharedVariablesHistorique.addNewSharedVariable(stringID, newMessage.toString());
-            sharedVariablesHistorique.close();
-        } catch (IOException ioException) {
-            System.err.println("Impossible d'ouvrir le fichier \"" + fileHistorique.getName() + "\"");
-            ioException.printStackTrace();
-        } catch (SharedVariableAlreadyExists sharedVariableAlreadyExists) {
-            sharedVariableAlreadyExists.printStackTrace();
-        }
     }
 
     public void removeMessage(Message message){

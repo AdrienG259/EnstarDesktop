@@ -7,30 +7,27 @@ import java.util.Observable;
 
 public class Messagerie extends Observable implements IContext, IMessagerie{
 
-    // équivalent de la classe Banque du TD3 pour ref
-    // c'est la classe qui se carge d'ouvrir les serveurs
-    // un serveur = une conversation
+    private static final int port_conv_generale = 6666;
+    private static final int port_conv_privee_1 = 7777;
+    private static final int port_GestionUser = 10002;
+//    private static int port_createUser = 10002;
+//    private static int port_deleteUser = 10003;
+    private static final int port_admin = 10004;
+    private static final int port_GestionConversations = 10005;
 
-    private int port_conv_generale = 6666;
-    private int port_conv_privee_1 = 7777;
-    private static int port_ouverture = 10001;
-    private static int port_creation = 10002;
-    private static int port_delete = 10003;
-    private static int portAdminHash = 10004;
-
-    public ArrayList<ServeurTCP> serveurs = new ArrayList<>();
-
-    private IProtocole protocole;
+    public ArrayList<ServeurTCP> serveurs = new ArrayList<>(20000);
 
     public Messagerie(){};
 
     public void ouvrirMessagerie(){
-        serveurs.add(new ServeurTCP(this, new ProtocoleServeurGroupe(), port_conv_generale));
-        serveurs.add(new ServeurTCP(this, new ProtocoleServeurPrivee(), port_conv_privee_1));
-        serveurs.add(new ServeurTCP(this, new ProtocoleOuverture(), port_ouverture));
-        serveurs.add(new ServeurTCP(this, new ProtocoleCreation(), port_creation));
-        serveurs.add(new ServeurTCP(this, new ProtocoleDelete(), port_delete));
-        serveurs.add(new ServeurTCP(this, new ProtocoleAdministrateurHashMap(), portAdminHash));
+        serveurs.set(port_conv_generale, new ServeurTCP(this, new ProtocoleServeurGroupe(), port_conv_generale));
+        serveurs.set(port_conv_privee_1, new ServeurTCP(this, new ProtocoleServeurPrivee(), port_conv_privee_1));
+        int port_connexion = 10001;
+        serveurs.set(port_connexion, new ServeurTCP(this, new ProtocoleConnexion(), port_connexion));
+        serveurs.set(port_GestionUser, new ServeurTCP(this, new ProtocoleUser(), port_GestionUser));
+//        serveurs.set(port_createUser, new ServeurTCP(this, new ProtocoleCreateUser(), port_createUser));
+//        serveurs.set(port_deleteUser, new ServeurTCP(this, new ProtocoleDeleteUser(), port_deleteUser));
+        serveurs.set(port_admin, new ServeurTCP(this, new ProtocoleAdministrateur(), port_admin));
         for(ServeurTCP s : serveurs){
             s.start();
         }
@@ -38,7 +35,7 @@ public class Messagerie extends Observable implements IContext, IMessagerie{
 
     @Override
     public void addConversation(Conversation newConversation, int port) {
-        serveurs.add(new ServeurTCP(this, new ProtocoleServeurGroupe(), port_conv_generale));
+        serveurs.set(newConversation.getID(), new ServeurTCP(this, new ProtocoleServeurGroupe(), port_conv_generale));
         this.notifyObservers(); //est-ce que c'est bon ?
     }
 }

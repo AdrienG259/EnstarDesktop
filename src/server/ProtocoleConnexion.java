@@ -1,8 +1,10 @@
 package server;
 
 import java.io.*;
+import server.AutorizedUser;
+import server.VerifLogin;
 
-public class ProtocoleDelete implements IProtocole {
+public class ProtocoleConnexion implements IProtocole {
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
         Messagerie messagerie = (Messagerie)aContext;
@@ -11,22 +13,24 @@ public class ProtocoleDelete implements IProtocole {
                 anInputStream));
         PrintStream os = new PrintStream(anOutputStream);
         try {
-            String messageRetour = "-1\n";
+            String messageRetour = "-1";
             if ((inputReq = is.readLine()) != null) {
                 System.out.println(" Ordre Recu " + inputReq);
 
-                String login = inputReq;
+                String[] loginpassword = inputReq.split(";");
+                String login = loginpassword[0];
+                String password = loginpassword[1];
 
                 AutorizedUser autorizedUsers = new AutorizedUser();
-                DeleteUser del = new DeleteUser(autorizedUsers, login);
-                del.SupprimerUser();
-                UpdateUser updateUser = new UpdateUser(autorizedUsers.userMap);
+                int can_connect = 0;
+                VerifLogin logger = new VerifLogin(autorizedUsers, login, password);
+                can_connect = logger.comparaison();
+                messageRetour= can_connect +"\n";
                 autorizedUsers = null;
-                updateUser = null;
-                del = null;
+                logger = null;
                 os.println(messageRetour);
             }
-        } catch (Exception e) {
+        } catch ( Exception e) {
             System.out.println(" Pb d'exception ");
         }
     }

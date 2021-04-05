@@ -1,23 +1,12 @@
 package client;
 
-import java.util.Observable;
+public class ControleurConnexion extends Controleur {
 
-public class OtomatOuverture extends Observable implements IOtomat{
-
-    private static int port = 10001;
+    private static int port_connexion = 10001;
     private ClientTCP monClientTCP;
 
-    public OtomatOuverture(int port) {
-        this.port = port;
-        monClientTCP = new ClientTCP("localhost", port);
-    }
-
-    public boolean connexionMessagerie() {
-        return monClientTCP.connecterAuServeur();
-    }
-
-    public void deconnexionMessagerie() {
-        monClientTCP.deconnecterDuServeur();
+    public ControleurConnexion() {
+        super(port_connexion);
     }
 
     public int connexionUtilisateur(String userName, String password){

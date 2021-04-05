@@ -145,18 +145,4 @@ public class ClientTCP {
 		}
 		return receivedObject;
 	}
-
-
-	public void creerConversation() {
-		String msgServer = null;
-		try {
-			System.out.println("Demande de création de conversation");
-			socOut.println("CreerConv");
-			socOut.flush();
-			msgServer = socIn.readLine();
-			System.out.println("Reponse serveur : " + msgServer);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }

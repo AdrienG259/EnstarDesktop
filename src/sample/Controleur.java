@@ -1,7 +1,7 @@
 package sample;
 
-import client.OtomatCreation;
-import client.OtomatOuverture;
+import client.ControleurCreationUser;
+import client.ControleurConnexion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,11 +22,11 @@ public class Controleur {
 
     Parent root;
 
-    private OtomatOuverture otomatOuverture;
-    private OtomatCreation otomatCreation;
+    private ControleurConnexion controleurConnexion;
+    private ControleurCreationUser controleurCreationUser;
 
     public void try_connexion() throws IOException {
-        otomatOuverture = new OtomatOuverture(10001);
+        controleurConnexion = new ControleurConnexion();
         String log = txtfield_login.getText();
         String pass = txtfiled_password.getText();
         label_feedback.setText("");
@@ -40,7 +40,7 @@ public class Controleur {
             return;
         }
 
-        int can_connect = otomatOuverture.connexionUtilisateur(log, pass);
+        int can_connect = controleurConnexion.connexionUtilisateur(log, pass);
         System.out.println(can_connect);
         if(can_connect == 0){
             label_feedback.setText("Identifiants incorrects");
@@ -57,11 +57,11 @@ public class Controleur {
         } else if (can_connect == -1){
             label_feedback.setText("Identifiant non trouve");
         }
-        otomatOuverture = null;
+        controleurConnexion = null;
     }
 
     public void create_account(){
-        otomatCreation = new OtomatCreation(10002);
+        controleurCreationUser = new ControleurCreationUser();
         String log = txtfield_login.getText();
         String pass = txtfiled_password.getText();
         label_feedback.setText("");
@@ -75,13 +75,13 @@ public class Controleur {
             return;
         }
         int can_add = 0;
-        can_add = otomatCreation.creationUtilisateur(log, pass);
+        can_add = controleurCreationUser.creationUtilisateur(log, pass);
         if (can_add == -1){
             label_feedback.setText("Utilisateur deja existant");
         } else if(can_add == 1) {
             label_feedback.setText("Utilisateur ajoute");
         }
-        otomatCreation = null;
+        controleurCreationUser = null;
     }
 
     public void gestion() throws IOException {

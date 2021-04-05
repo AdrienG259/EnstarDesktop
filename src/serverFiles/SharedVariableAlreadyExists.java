@@ -1,5 +1,6 @@
 package serverFiles;
 
+
 public class SharedVariableAlreadyExists extends Exception{
     public SharedVariableAlreadyExists(){
         super("Shared variable already exists");

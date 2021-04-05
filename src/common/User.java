@@ -29,10 +29,6 @@ public class User implements Serializable {
     public List<Integer> getIDConversations(){
         return listIDConversations;
     }
-    /* Pas de setter car id est final */
-//    public void setId(int id) {
-//        this.id = id;
-//    }
 
     public String getPseudo() {
         return pseudo;
