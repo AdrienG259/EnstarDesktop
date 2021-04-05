@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
 
-        Parent root = FXMLLoader.load(getClass().getResource("acceuil.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("accueil.fxml"));
         //Parent root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
         FXMLLoader loader = new FXMLLoader();
         loader.setController(new Connect());

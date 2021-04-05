@@ -48,7 +48,6 @@ public class Conversation implements IContext, Observer {
 
     //possibilité d'ajouter un membre add_member
     public void addMember(User member){
-        // gestion fichier
         if (!membres.contains(member)) {
             membres.add(member);
         }

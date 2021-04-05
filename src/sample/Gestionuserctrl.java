@@ -142,7 +142,7 @@ public class Gestionuserctrl {
 
     public void quitter() throws IOException {
         Stage stage = (Stage) btn_quit.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("acceuil.fxml"));
+        root = FXMLLoader.load(getClass().getResource("accueil.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

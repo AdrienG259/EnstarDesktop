@@ -3,7 +3,6 @@ package client;
 public class ControleurConnexion extends Controleur {
 
     private static int port_connexion = 10001;
-    private ClientTCP monClientTCP;
 
     public ControleurConnexion() {
         super(port_connexion);

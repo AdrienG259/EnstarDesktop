@@ -2,6 +2,7 @@ package server;
 
 import common.User;
 import serverFiles.InstantiateSerializable;
+import serverFiles.SharedVariableAlreadyExists;
 import serverFiles.SharedVariableCannotAccess;
 import serverFiles.SharedVariables;
 
@@ -41,9 +42,14 @@ public class AddUser {
             //c'est ajouté
             return 1;
         } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
-            sharedVariableCannotAccess.printStackTrace();
-            return -1;
-        }
+            try {
+                sharedVariables.addNewSharedVariable("GLOBAL_NEWUSERID", "0");
+                return ajouterUser();
+            } catch (SharedVariableAlreadyExists sharedVariableAlreadyExists) {
+                sharedVariableAlreadyExists.printStackTrace();
+                return -1;
+            }
 
+        }
     }
 }
