@@ -25,7 +25,7 @@ public class Messagerie extends Observable implements IContext, IMessagerie{
         serveurs[port_conv_generale] = new ServeurTCP(this, new ProtocoleServeurGroupe(), port_conv_generale);
         serveurs[port_conv_privee_1] = new ServeurTCP(this, new ProtocoleServeurPrivee(), port_conv_privee_1);
         serveurs[port_connexion] = new ServeurTCP(this, new ProtocoleConnexion(), port_connexion);
-        serveurs[port_GestionUser] = new ServeurTCP(this, new ProtocoleUser(), port_GestionUser);
+        serveurs[port_GestionUser] = new ServeurTCP(this, new ProtocoleGestionPortUser(), port_GestionUser);
 //        serveurs.set(port_createUser, new ServeurTCP(this, new ProtocoleCreateUser(), port_createUser));
 //        serveurs.set(port_deleteUser, new ServeurTCP(this, new ProtocoleDeleteUser(), port_deleteUser));
         serveurs[port_admin] = new ServeurTCP(this, new ProtocoleAdministrateur(), port_admin);
@@ -41,4 +41,6 @@ public class Messagerie extends Observable implements IContext, IMessagerie{
 //        serveurs.set(newConversation.getID(), new ServeurTCP(this, new ProtocoleServeurGroupe(), port_conv_generale));
         this.notifyObservers(); //est-ce que c'est bon ?
     }
+
+
 }

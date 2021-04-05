@@ -1,5 +1,8 @@
 package server;
 
+import common.User;
+import serverFiles.InstantiateSerializable;
+
 import java.io.*;
 
 public class ProtocoleSendMessage implements IProtocole{
@@ -10,7 +13,5 @@ public class ProtocoleSendMessage implements IProtocole{
         /* Pour l'instant Protocole inutile car non lié à un contexte
         * Il faudrait que le morceau de code en dessous qui permet de récupérer un objet sérialisé soit mis dans
         * une classe spécialement créée*/
-
-
     }
 }
