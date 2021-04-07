@@ -14,7 +14,7 @@ public class ControleurConversation extends Controleur {
         super(port_GestionConversations);
     }
 
-    public String sendMessage(Message message){
+    public String sendMessage(Message message, Conversation conversation){
 
         System.out.println("Envoi d'un message");
         monClientTCP.connecterAuServeur();
@@ -28,6 +28,7 @@ public class ControleurConversation extends Controleur {
             String ret = monClientTCP.sendSerializableObject((Serializable) message);
             if (ret == "0") {
                 System.out.println("Message transmis");
+                conversation.getHistorique().addMessage(message);
                 monClientTCP.deconnecterDuServeur();
                 setChanged();
                 notifyObservers();
@@ -48,7 +49,7 @@ public class ControleurConversation extends Controleur {
     public Message receiveMessage(){
         System.out.println("Reception d'un message");
         monClientTCP.connecterAuServeur();
-        Message message = (Message) monClientTCP.receiveSerializable("please send me a message");
+        Message message = (Message) monClientTCP.receiveSerializable("Please send me a message");
         monClientTCP.deconnecterDuServeur();
         setChanged();
         notifyObservers();
@@ -65,9 +66,9 @@ public class ControleurConversation extends Controleur {
         String msgServer = monClientTCP.transmettreChaine(intention);
 
         // Si le serveur a bien reçu l'intention et qu'il n'y a pas eu d'erreur on transmet le message
-        if (msgServer == "0") {
+        if (msgServer.equals("0")) {
             String ret = monClientTCP.sendSerializableObject((Serializable) conversation.getHistorique());
-            if (ret == "0") {
+            if (ret.equals("0")) {
                 System.out.println("Message transmis");
             } else {
                 System.out.println("Erreur lors de la transmission du message");
