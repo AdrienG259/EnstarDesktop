@@ -21,11 +21,11 @@ public class ProtocoleGestionPortConversation implements IProtocole {
                         reponse = "0";
                     }
                     case "receiveMessage" -> {
-                        protocole = new ProtocoleDeleteUser();
+                        protocole = new ProtocoleReceiveMessage();
                         reponse = "0";
                     }
                     case "getHistorique" -> {
-                        protocole = new ProtocoleGetUser();
+                        protocole = new ProtocoleGetHistorique();
                         reponse = "0";
                     }
                     default -> {
@@ -43,8 +43,8 @@ public class ProtocoleGestionPortConversation implements IProtocole {
                 protocole.execute(aContext, anInputStream, anOutputStream);
 
             }
-        } catch ( IOException ioException) {
-            System.err.println(" Problème d'exception IO sur un OutputStream");
+        } catch (IOException ioException) {
+            System.err.println("Problème d'exception IO sur un OutputStream");
             ioException.printStackTrace();
         }
     }
