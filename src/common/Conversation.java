@@ -27,12 +27,9 @@ public class Conversation implements IContext, Observer {
     public String getNomGroupe() {
         return nomGroupe;
     }
+
     public void setNomGroupe(String nomGroupe) {
         this.nomGroupe = nomGroupe;
-    }
-
-    public int getIdConversation() {
-        return idConversation;
     }
 
     public Historique getHistorique(){
@@ -42,6 +39,7 @@ public class Conversation implements IContext, Observer {
     public List<User> getMembres() {
         return membres;
     }
+
     public void setMembres(List<User> membres) {
         this.membres = membres;
     }
