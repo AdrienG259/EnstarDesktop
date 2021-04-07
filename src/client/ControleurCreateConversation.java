@@ -26,7 +26,7 @@ public class ControleurCreateConversation extends Controleur {
         String ret = monClientTCP.transmettreChaineConnexionPonctuelle("creerConversation");
         int newPort = Integer.parseInt(ret);
         if (newPort==-1){
-            throw new Error("Can't find a port on which open a new covnersation");
+            throw new Error("Impossible de trouver un port sur lequel ouvrir la conversation");
         }
         Conversation newConversation = new Conversation(nomConversation, Arrays.asList(businessRules.getCurrentUser()), newPort);
         businessRules.getListConversations().add(newConversation);
