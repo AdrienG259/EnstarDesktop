@@ -23,7 +23,7 @@ public class ProtocoleCreateUser implements IProtocole{
                 AddUser adduser = new AddUser(autorizedUsers, login, password);
                 int can_add = adduser.ajouterUser();
                 UpdateUser updateUser = new UpdateUser(autorizedUsers.userMap);
-                messageRetour = can_add +"\n";
+                messageRetour = can_add + "\n";
                 autorizedUsers = null;
                 adduser = null;
                 updateUser = null;

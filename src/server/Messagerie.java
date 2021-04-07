@@ -41,6 +41,4 @@ public class Messagerie extends Observable implements IContext, IMessagerie{
 //        serveurs.set(newConversation.getID(), new ServeurTCP(this, new ProtocoleServeurGroupe(), port_conv_generale));
         this.notifyObservers(); //est-ce que c'est bon ?
     }
-
-
 }

@@ -16,7 +16,7 @@ public class ControleurUser extends Controleur {
 
         /* Premier message, l'intention */
         String intention = "createUser";
-        System.out.println("intention = createUser "+ "paramètres = " + userName + " " + password);
+        System.out.println("intention = createUser "+ "paramètres = " + userName + ";" + password);
 
         /* On l'envoie et on récupère le retour */
         String retIntention = monClientTCP.transmettreChaineConnexionPonctuelle(intention).split("\\n")[0];
@@ -25,7 +25,7 @@ public class ControleurUser extends Controleur {
         /* On interprète le retour */
         if (entierRetIntention == 0){
             /* Cas où le retour nous confirme qu'on peut envoyer les paramètres */
-            String parametres = userName + " " +password;
+            String parametres = userName + ";" +password;
             /*retour : -1 si utilisateur deja existant, 0 sinon*/
             String retParametres = monClientTCP.transmettreChaineConnexionPonctuelle(parametres).split("\\n")[0];
 

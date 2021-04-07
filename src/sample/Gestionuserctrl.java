@@ -3,6 +3,7 @@ package sample;
 import client.ControleurAdmin;
 import client.ControleurCreationUser;
 import client.ControleurDeleteUser;
+import client.ControleurUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,9 +26,8 @@ public class Gestionuserctrl {
 
     Parent root;
 
-    private ControleurDeleteUser controleurDeleteUser;
+    private ControleurUser controleurUser;
     private ControleurAdmin controleurAdmin;
-    private ControleurCreationUser controleurCreationUser;
 
     public void initialize(){
         refresh();
@@ -63,13 +63,14 @@ public class Gestionuserctrl {
             feedback.setText("Selectionner un utilisateur.");
             return;
         }
-        controleurDeleteUser = new ControleurDeleteUser();
-        controleurDeleteUser.deleteUtilisateur(choix.split(" - ")[0]);
+        controleurUser = new ControleurUser();
+        controleurUser.deleteUser(choix.split(" - ")[0]);
+        controleurUser = null;
         refresh();
-        controleurDeleteUser = null;
     }
 
     public void modif_pseudo(){
+        controleurUser = new ControleurUser();
         String choix = (String) lst_users.getSelectionModel().getSelectedItem();
         if(choix == null){
             feedback.setText("Selectionner un utilisateur.");
@@ -83,15 +84,12 @@ public class Gestionuserctrl {
         String pseudo = splitted[0];
         String pass = splitted[1];
 
-        controleurDeleteUser = new ControleurDeleteUser();
-        controleurDeleteUser.deleteUtilisateur(pseudo);
-        controleurDeleteUser = null;
+        controleurUser = new ControleurUser();
+        controleurUser.deleteUser(pseudo);
 
         String new_pseudo = txt_name.getText();
-        controleurCreationUser = new ControleurCreationUser();
-        controleurCreationUser.creationUtilisateur(new_pseudo, pass);
-        controleurCreationUser = null;
-
+        controleurUser.createUser(new_pseudo, pass);
+        controleurUser = null;
         refresh();
     }
 
@@ -109,15 +107,12 @@ public class Gestionuserctrl {
         String[] splitted = choix.split(" - ");
         String pseudo = splitted[0];
 
-        controleurDeleteUser = new ControleurDeleteUser();
-        controleurDeleteUser.deleteUtilisateur(pseudo);
-        controleurDeleteUser = null;
+        controleurUser = new ControleurUser();
+        controleurUser.deleteUser(pseudo);
 
         String new_pass = txt_pass.getText();
-        controleurCreationUser = new ControleurCreationUser();
-        controleurCreationUser.creationUtilisateur(pseudo, new_pass);
-        controleurCreationUser = null;
-
+        controleurUser.createUser(pseudo, new_pass);
+        controleurUser = null;
         refresh();
     }
 
@@ -133,10 +128,9 @@ public class Gestionuserctrl {
         String pseudo = txt_name.getText();
         String pass = txt_pass.getText();
 
-        controleurCreationUser = new ControleurCreationUser();
-        controleurCreationUser.creationUtilisateur(pseudo, pass);
-        controleurCreationUser = null;
-
+        controleurUser = new ControleurUser();
+        controleurUser.createUser(pseudo, pass);
+        controleurUser = null;
         refresh();
     }
 
@@ -146,5 +140,6 @@ public class Gestionuserctrl {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 }
