@@ -131,8 +131,8 @@ public class ClientTCP {
 				socOut.println(message);
 				socOut.flush();
 
-				ObjectInputStream ois=new ObjectInputStream(socketServeur.getInputStream());
-				receivedObject =(Serializable)ois.readObject();
+				ObjectInputStream ois = new ObjectInputStream(socketServeur.getInputStream());
+				receivedObject = (Serializable)ois.readObject();
 				ois.close();
 
 				System.out.println("Client object serializable\n");
