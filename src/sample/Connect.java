@@ -48,14 +48,17 @@ public class Connect {
 
     public AutorizedUser autorizedUser = new AutorizedUser();
     public User current_user;
+    public Conversation current_conversation;
+
 
 
     public void initialize() {
-        //print_users_in_list();
-        List<User> membres= new ArrayList<User>();
-        membres.add(new User(1, "toto", null, null));
-        lstview_users.getItems().add(new User(1,"toto",null,null));
-        lstview_users.getItems().add(new Conversation("toto",membres, 1));
+        print_conversations();
+        //pour tester si ça marche correctement
+//        List<User> membres= new ArrayList<User>();
+//        membres.add(new User(1, "toto", null, null));
+//        lstview_users.getItems().add(new User(1,"toto",null,null));
+//        lstview_users.getItems().add(new Conversation("toto",membres, 1));
 
 //        try {
 //            File connected_user = new File("connected_user.txt");
@@ -85,22 +88,16 @@ public class Connect {
         String buffer_msg = txtfield_msg.getText();
         Message new_message = new Message(buffer_msg, user);
         ControleurConversation control_conv= new ControleurConversation();
-        if (control_conv.sendMessage(new_message)=="0"){ //si le message a bien été envoyé, on fait un update
+        if (control_conv.sendMessage(new_message,current_conversation)=="0"){ //si le message a bien été envoyé, on fait un update
             update(); //
         }
         System.out.println(new_message);
 
-        //afficher dans le text field
 
-//        Stage stage = (Stage) btn_envoyer.getScene().getWindow();
-//        root = FXMLLoader.load(getClass().getResource("connectedpage.fxml")); //rafraichit la page
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
+
 
     }
 
-    //a rajouter -> clic sur une conversation= ouvrir un port
     public void print_message(){
         lstview_currentconv.getItems().add("blabla");
 
@@ -113,11 +110,27 @@ public class Connect {
     public void update(){
 
     }
+    public void print_conversations(){
+        //récupérer du serveur toutes les conversations dans lesquelles l'user est impliqué
+        ControleurConversation control_conv= new ControleurConversation();
+        List<Conversation> conv= control_conv.getConversation();
+        for (Conversation uneconv:conv){
+            lstview_users.getItems().add(uneconv);
+        }
+    }
 
 
 
-    public void deconnect() {
+    public void deconnect() throws IOException {
         //se déconnecter en cliquant sur le bouton
+        // envoyer la demande de déconnexion au serveur //
+        // /!\ //
+        Stage stage = (Stage) btn_envoyer.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("accueil.fxml")); //rafraichit la page
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
 
     }
 
@@ -128,6 +141,7 @@ public class Connect {
         System.out.println("clicked on " + lstview_users.getSelectionModel().getSelectedItem()); //on affiche sur quoi on a cliqué
         //print_message();
         open_conv(conv);
+        current_conversation=conv;
 
 
     }
