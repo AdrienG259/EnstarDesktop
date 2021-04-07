@@ -106,7 +106,7 @@ public class Connect {
 
     }
     public void open_conv(Conversation aConv){
-
+    //
 
 
     }
