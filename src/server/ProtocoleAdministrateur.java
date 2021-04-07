@@ -17,14 +17,14 @@ public class ProtocoleAdministrateur implements IProtocole {
 
                 switch (inputReq){
                     case "userMap": sendUserMap(os);
-                    default: messageRetour =  "-1";
+                    default: messageRetour = "-1";
                 }
 
                 os.println(messageRetour);
                 os.close();
             }
-        } catch ( IOException ioException) {
-            System.err.println(" Problème d'exception IO sur un OutputStream");
+        } catch (IOException ioException) {
+            System.err.println("Problème d'exception IO sur un OutputStream");
             ioException.printStackTrace();
         }
     }
