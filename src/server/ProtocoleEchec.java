@@ -16,6 +16,7 @@ public class ProtocoleEchec implements IProtocole {
                 os.println(messageRetour);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(" Pb d'exception ");
         }
     }

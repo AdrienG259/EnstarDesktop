@@ -2,6 +2,7 @@ package sample;
 
 import client.ControleurCreationUser;
 import client.ControleurConnexion;
+import client.ControleurUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +24,7 @@ public class Controleur {
     Parent root;
 
     private ControleurConnexion controleurConnexion;
-    private ControleurCreationUser controleurCreationUser;
+    private ControleurUser controleurUser;
 
     public void try_connexion() throws IOException {
         controleurConnexion = new ControleurConnexion();
@@ -61,7 +62,6 @@ public class Controleur {
     }
 
     public void create_account(){
-        controleurCreationUser = new ControleurCreationUser();
         String log = txtfield_login.getText();
         String pass = txtfiled_password.getText();
         label_feedback.setText("");
@@ -75,13 +75,14 @@ public class Controleur {
             return;
         }
         int can_add = 0;
-        can_add = controleurCreationUser.creationUtilisateur(log, pass);
+        controleurUser = new ControleurUser();
+        can_add = controleurUser.createUser(log, pass);
         if (can_add == -1){
             label_feedback.setText("Utilisateur deja existant");
         } else if(can_add == 1) {
             label_feedback.setText("Utilisateur ajoute");
         }
-        controleurCreationUser = null;
+        controleurUser = null;
     }
 
     public void gestion() throws IOException {

@@ -33,7 +33,7 @@ public class ProtocoleGestionPortUser implements IProtocole {
                     }
                     default -> {
                         protocole = new ProtocoleEchec();
-                        reponse = "-1";
+                        reponse = "-2";
                     }
                 }
                 PrintStream os = new PrintStream(anOutputStream);
