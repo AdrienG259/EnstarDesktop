@@ -3,7 +3,6 @@ package client;
 import common.Message;
 
 import java.io.Serializable;
-import java.util.Observable;
 
 public class ControleurConversation extends Controleur {
 
@@ -13,7 +12,7 @@ public class ControleurConversation extends Controleur {
         super(port_GestionConversations);
     }
 
-    public void sendMessage(Message message){
+    public String sendMessage(Message message){
 
         System.out.println("Envoi d'un message");
         monClientTCP.connecterAuServeur();
@@ -27,6 +26,11 @@ public class ControleurConversation extends Controleur {
             String ret = monClientTCP.sendSerializableObject((Serializable) message);
             if (ret == "0") {
                 System.out.println("Message transmis");
+                monClientTCP.deconnecterDuServeur();
+                setChanged();
+                notifyObservers();
+                System.out.println("Envoi terminé");
+                return ret;
             } else {
                 System.out.println("Erreur lors de la transmission du message");
             }
@@ -35,10 +39,8 @@ public class ControleurConversation extends Controleur {
         }
 
         // On se déconnecte et on informe les observateurs qu'un message a été transmis
-        monClientTCP.deconnecterDuServeur();
-        setChanged();
-        notifyObservers();
-        System.out.println("Envoi terminé");
+
+        return "Le message n'a pas pu être envoyé";
     }
 
     public Message receiveMessage(){

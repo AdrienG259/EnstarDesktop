@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Message {
+
     // Toutes les variables sont en private final (immuables)
     private final String contenu;
     private final String date;
@@ -20,7 +21,6 @@ public class Message {
         this(dataString, expediteurID, (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date()));
     }
 
-
     public String getContenu() {
         return contenu;
     }
@@ -32,7 +32,6 @@ public class Message {
     public int getExpediteur() {
         return expediteurID;
     }
-
 
     public String toString(){
         String stringMessage = "";
