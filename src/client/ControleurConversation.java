@@ -39,7 +39,7 @@ public class ControleurConversation extends Controleur {
         }
 
         // On se déconnecte et on informe les observateurs qu'un message a été transmis
-
+        monClientTCP.deconnecterDuServeur();
         return "Le message n'a pas pu être envoyé";
     }
 
