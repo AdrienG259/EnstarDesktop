@@ -7,6 +7,7 @@ import common.User;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Observable;
 
 
@@ -21,14 +22,15 @@ public class ControleurCreateConversation extends Controleur {
 //        this.businessRules = businessRules;
     }
 
-    public Conversation creerConversation(String nomConversation) throws Error, IOException {
+    public Conversation creerConversation(String nomConversation, List<User> membres) throws Error, IOException {
+
         System.out.println("Création d'une nouvelle conversation");
         String ret = monClientTCP.transmettreChaineConnexionPonctuelle("creerConversation");
         int newPort = Integer.parseInt(ret);
         if (newPort==-1){
-            throw new Error("Impossible de trouver un port sur lequel ouvrir la conversation");
+            throw new Error("Can't find a port on which open a new conversation");
         }
-        Conversation newConversation = new Conversation(nomConversation, Arrays.asList(businessRules.getCurrentUser()), newPort);
+        Conversation newConversation = new Conversation(nomConversation,membres, newPort);
         businessRules.getListConversations().add(newConversation);
         setChanged();
         notifyObservers();

@@ -1,5 +1,6 @@
 package sample;
 import client.ControleurCreateConversation;
+import client.ControleurUser;
 import client.desktopBusinessRules;
 import common.Conversation;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import org.w3c.dom.Text;
 import server.AutorizedUser;
+
 
 import java.io.*;
 import java.net.URL;
@@ -35,44 +37,45 @@ public class NewConvControler {
     @FXML Button btn_create;
 
 
-    public String get_groupname(){
-        String buffer_gpname = txtfield_groupname.getText();
-        return buffer_gpname;
-    }
-    public void add_users() {
+
+    public void add_users() { //on ajoute tous les utilisateurs à une liste qui est retournée par la méthode add_users
         String buffer_users = txtfield_users.getText();
-        listview_users.getItems().add(buffer_users);
-        /*if (verify_user(buffer_users)) {
-
+        //trouver un moyen de matcher le texte rentré avec une liste des utilisateurs
+        ControleurUser control_user= new ControleurUser();
+        User to_add = control_user.matchUser(buffer_users);
+        if (to_add==null){
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Le pseudo rentré ne correspond à aucun utilisateur");
+            alert.show(); //raise message d'erreur pour dire qu'on n'a pas rentré un User valid
         }
-*/
-    }
-
-    public boolean verify_user(String User) {
-        //vérifier que l'utilisateur rentré correspond bien à la base de données
-        if (true) { //condition à changer
-            return true;//l'utilisateur rentré est bien dans la base de données
+        else{
+            listview_users.getItems().add(to_add);
         }
-        return false;
+
+
     }
 
     public void create_conv() {
+        String buffer_gpname = txtfield_groupname.getText();
+        List<User> membres= new ArrayList<User>();
+        membres.add(null);//ajouter l'utilisateur courant à la liste des membres
         for (int i = 0; i < listview_users.getItems().size(); i++) {
-            Object new_user= listview_users.getItems().get(i); //on récupère tous les
+            User new_user= (User)listview_users.getItems().get(i); //on récupère tous les users
             //créer un nouveau port pour la conversation
             // ajouter les utilisateurs à la liste des utilisateurs présents dans la conv
-            String groupname = get_groupname();
-            //récupérer la liste des utilisateurs dans listView
-            //à faire
-            //si rien n'est rentré dans le nom groupe, par défaut prénom des utilisateurs
-            if (groupname==""){
-            }
-            ControleurCreateConversation controleurCreateConversation = new ControleurCreateConversation();
-            try {
-                Conversation new_conv = controleurCreateConversation.creerConversation(groupname);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            membres.add(new_user);
+        }
+        //si rien n'est rentré dans le nom groupe, par défaut prénom des utilisateurs
+        if (membres.size()==2||buffer_gpname=="") { //
+            buffer_gpname = membres.get(1).getPseudo();
+        }
+        ControleurCreateConversation controleurCreateConversation = new ControleurCreateConversation();
+        try {
+            Conversation new_conv = controleurCreateConversation.creerConversation(buffer_gpname, membres);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
 
 //             = new Conversation(groupname, Arrays.asList(businessRules.getCurrentUser()),0); //members à changer
             // demander la création d'un nouveau port pour créer la conv 
@@ -87,4 +90,4 @@ public class NewConvControler {
 
 
     }
-}
+
