@@ -41,9 +41,10 @@ public class ProtocoleGestionPortUser implements IProtocole {
                 os.println(reponse);
                 /* On ferme les os et is car utilisent anInputStream et anOutputStream qui vont être réutilisés dans
                 le nouveau protocole qu'on va éxécuter*/
-                os.close(); is.close();
+
                 /* On éxécute le protocole adéquat, déterminé par le switch case*/
                 protocole.execute(aContext, anInputStream, anOutputStream);
+                os.close(); is.close();
 
             }
         } catch ( IOException ioException) {
