@@ -1,12 +1,8 @@
 package server;
 
-import common.Conversation;
-import serverFiles.InstantiateSerializable;
-
 import java.io.*;
 
 public class ProtocoleGestionPortConversation implements IProtocole {
-
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
         String intentionClient;
@@ -28,6 +24,10 @@ public class ProtocoleGestionPortConversation implements IProtocole {
                         protocole = new ProtocoleDeleteUser();
                         reponse = "0";
                     }
+                    case "getHistorique" -> {
+                        protocole = new ProtocoleGetUser();
+                        reponse = "0";
+                    }
                     default -> {
                         protocole = new ProtocoleEchec();
                         reponse = "-1";
@@ -43,10 +43,9 @@ public class ProtocoleGestionPortConversation implements IProtocole {
                 protocole.execute(aContext, anInputStream, anOutputStream);
 
             }
-        } catch (IOException ioException) {
-            System.err.println("Problème d'exception IO sur un OutputStream");
+        } catch ( IOException ioException) {
+            System.err.println(" Problème d'exception IO sur un OutputStream");
             ioException.printStackTrace();
         }
     }
-
 }
