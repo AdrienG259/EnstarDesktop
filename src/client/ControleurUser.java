@@ -47,9 +47,9 @@ public class ControleurUser extends Controleur {
         /* Intention */
         String intention = "deleteUser";
         System.out.println("intention = deleteUser "+ "paramètres = " + userName);
-
+        monClientTCP.connecterAuServeur();
         /*Envoie intention et retour du serveur*/
-        String retIntention = monClientTCP.transmettreChaineConnexionPonctuelle(intention).split("\\n")[0];
+        String retIntention = monClientTCP.transmettreChaine(intention).split("\\n")[0];
         int entierRetIntention = Integer.parseInt(retIntention);
 
         /* Interprétation du retour */
@@ -57,7 +57,8 @@ public class ControleurUser extends Controleur {
             /* Serveur prêt pour la réception des paramètres */
             String parametres = userName;
             /* retour : ? */
-            String retParametres = monClientTCP.transmettreChaineConnexionPonctuelle(parametres).split("\\n")[0];
+            String retParametres = monClientTCP.transmettreChaine(parametres).split("\\n")[0];
+            monClientTCP.deconnecterDuServeur();
             setChanged();
             notifyObservers();
             return Integer.parseInt(retParametres);
@@ -65,6 +66,7 @@ public class ControleurUser extends Controleur {
             /* Cas d'échec, on ne peut pas envoyer les paramètres, le serveur n'est pas préparé à les recevoir */
             System.err.println("Problème communication, intention "+intention+ " non prise en compte par le serveur");
             //On peut renvoyer une exception sinon
+            monClientTCP.deconnecterDuServeur();
             return -2;
         }
     }
@@ -76,7 +78,7 @@ public class ControleurUser extends Controleur {
         System.out.println("intention = getUser "+ "paramètres = " + userID);
 
         /*Envoie intention et retour du serveur*/
-        String retIntention = monClientTCP.transmettreChaineConnexionPonctuelle(intention).split("\\n")[0];
+        String retIntention = monClientTCP.transmettreChaine(intention).split("\\n")[0];
         int entierRetIntention = Integer.parseInt(retIntention);
 
         /* Interprétation du retour */
