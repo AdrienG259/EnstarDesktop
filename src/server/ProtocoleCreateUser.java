@@ -29,7 +29,8 @@ public class ProtocoleCreateUser implements IProtocole{
                 updateUser = null;
                 os.println(messageRetour);
             }
-        } catch ( Exception e) {
+        } catch ( IOException e) {
+            e.printStackTrace();
             System.out.println(" Pb d'exception ");
         }
     }

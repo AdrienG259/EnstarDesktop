@@ -31,25 +31,27 @@ public class AddUser {
             }
         }
         autorizedUser.userMap.put(this.identifiant, this.motdepasse);
+        new UpdateUser(autorizedUser.userMap);
         SharedVariables sharedVariables = new SharedVariables("serverFiles/sharedVariables");
         int newUserID = 0;
-        try {
-            newUserID = Integer.parseInt(sharedVariables.accessVariable("GLOBAL_NEWUSERID"));
-            File userFile = new File("serverFiles/users/" + newUserID);
-            InstantiateSerializable<User> userInstantiate = new InstantiateSerializable<User>(userFile);
-            User user = new User(newUserID);
-            userInstantiate.instanceToFile(user);
-            //c'est ajouté
-            return 1;
-        } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
-            try {
-                sharedVariables.addNewSharedVariable("GLOBAL_NEWUSERID", "0");
-                return ajouterUser();
-            } catch (SharedVariableAlreadyExists sharedVariableAlreadyExists) {
-                sharedVariableAlreadyExists.printStackTrace();
-                return -1;
-            }
-
-        }
+//        try {
+//            newUserID = Integer.parseInt(sharedVariables.accessVariable("GLOBAL_NEWUSERID"));
+//            File userFile = new File("serverFiles/users/" + newUserID);
+//            InstantiateSerializable<User> userInstantiate = new InstantiateSerializable<User>(userFile);
+//            User user = new User(newUserID);
+//            userInstantiate.instanceToFile(user);
+//            //c'est ajouté
+//            return 1;
+//        } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
+//            try {
+//                sharedVariables.addNewSharedVariable("GLOBAL_NEWUSERID", "0");
+//                return ajouterUser();
+//            } catch (SharedVariableAlreadyExists sharedVariableAlreadyExists) {
+//                sharedVariableAlreadyExists.printStackTrace();
+//                return -1;
+//            }
+//
+        return 0;
     }
+
 }

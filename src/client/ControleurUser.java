@@ -19,7 +19,8 @@ public class ControleurUser extends Controleur {
         System.out.println("intention = createUser "+ "paramètres = " + userName + ";" + password);
 
         /* On l'envoie et on récupère le retour */
-        String retIntention = monClientTCP.transmettreChaineConnexionPonctuelle(intention).split("\\n")[0];
+        monClientTCP.connecterAuServeur();
+        String retIntention = monClientTCP.transmettreChaine(intention).split("\\n")[0];
         int entierRetIntention = Integer.parseInt(retIntention);
 
         /* On interprète le retour */
@@ -27,8 +28,8 @@ public class ControleurUser extends Controleur {
             /* Cas où le retour nous confirme qu'on peut envoyer les paramètres */
             String parametres = userName + ";" +password;
             /*retour : -1 si utilisateur deja existant, 0 sinon*/
-            String retParametres = monClientTCP.transmettreChaineConnexionPonctuelle(parametres).split("\\n")[0];
-
+            String retParametres = monClientTCP.transmettreChaine(parametres).split("\\n")[0];
+            monClientTCP.deconnecterDuServeur();
             setChanged();
             notifyObservers();
             return Integer.parseInt(retParametres);
@@ -36,6 +37,7 @@ public class ControleurUser extends Controleur {
             /* Cas d'échec, on ne peut pas envoyer les paramètres, le serveur n'est pas préparé à les recevoir */
             System.err.println("Problème communication, intention "+intention+ " non prise en compte par le serveur");
             //On peut renvoyer une exception sinon
+            monClientTCP.deconnecterDuServeur();
             return -2;
         }
     }
