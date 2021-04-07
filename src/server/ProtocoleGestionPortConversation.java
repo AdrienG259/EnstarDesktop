@@ -3,6 +3,7 @@ package server;
 import java.io.*;
 
 public class ProtocoleGestionPortConversation implements IProtocole {
+
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
         String intentionClient;
