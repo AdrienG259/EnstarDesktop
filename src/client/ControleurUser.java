@@ -98,6 +98,11 @@ public class ControleurUser extends Controleur {
         }
 
     }
+    public User matchUser(String aUser){ //à faire
+        User user_found=null;
+        return  user_found;
+
+    }
 
 
 }

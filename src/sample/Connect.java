@@ -113,10 +113,11 @@ public class Connect {
     public void print_conversations(){
         //récupérer du serveur toutes les conversations dans lesquelles l'user est impliqué
         ControleurConversation control_conv= new ControleurConversation();
-        List<Conversation> conv= control_conv.getConversation();
+        List<Conversation> conv= control_conv.getConversation(0);
         for (Conversation uneconv:conv){
             lstview_users.getItems().add(uneconv);
         }
+        //Collections.reverse(lstview_users);
     }
 
 
