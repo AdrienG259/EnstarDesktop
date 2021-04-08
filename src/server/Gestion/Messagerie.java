@@ -39,7 +39,13 @@ public class Messagerie extends Observable implements IContext, IMessagerie {
     @Override
     public void addConversation(Conversation newConversation, int port) {
 
+        // On ajoute le nouveau ServeurTCP sur le port souhaité
         serveurs[port] = new ServeurTCP(newConversation, new ProtocoleGestionPortConversation(), port);
-        this.notifyObservers(); //est-ce que c'est bon ?
+
+        // On ouvre le serveur
+        serveurs[port].start();
+
+        // On notifie les observateurs
+        this.notifyObservers();
     }
 }
