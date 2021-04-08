@@ -16,11 +16,11 @@ public class InstantiateSerializable<A extends Serializable> implements Instanci
     public InstantiateSerializable(File file) throws IOException {
         /*On suppose que le fichier existe, on créé l'objet de type File à l'extéiruer de cette classe*/
 
-        boolean exist = file.exists() && file.isDirectory();
+        boolean exist = file.exists();
         absolutePathDirectory = file.getAbsolutePath().replace(file.getName(),"");
         fileSerializable = file;
         if (!exist){
-            throw new IOException("Directory " + absolutePathDirectory + " not found\n");
+            throw new IOException("File " + file.getAbsolutePath() + " not found\n");
         }
     }
 

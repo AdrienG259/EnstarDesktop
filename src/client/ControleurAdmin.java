@@ -1,6 +1,7 @@
 package client;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Observable;
 
@@ -12,13 +13,20 @@ public class ControleurAdmin extends Controleur {
         super(port_admin);
     }
 
-    public HashMap<String,String> getuserMap(){
-        String message = "userMap";
-        Serializable ret = monClientTCP.receiveSerializable(message);
-        HashMap<String,String> userMap = (HashMap<String,String>) ret;
+    public HashMap<String,Integer> getLoginUserIDMap(){
+        String message = "getLoginUserIDMap";
+        HashMap<String,Integer> loginUserIDMap = (HashMap<String,Integer>) monClientTCP.receiveSerializable(message);
         setChanged();
         notifyObservers();
-        return userMap;
+        return loginUserIDMap;
+    }
+
+    public HashMap<Integer,String> getUserIDPasswordMap(){
+        String message = "getUserIDPasswordMap";
+        HashMap<Integer,String> userIDPasswordMap = (HashMap<Integer,String>)monClientTCP.receiveSerializable(message);
+        setChanged();
+        notifyObservers();
+        return userIDPasswordMap;
     }
 
 }

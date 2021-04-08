@@ -25,11 +25,13 @@ public class ProtocoleConnexion implements IProtocole {
 
                 ActionUser actionUser = new ActionUser();
                 int can_connect =actionUser.comparaison(login ,password);
+                System.out.println(can_connect);
                 messageRetour= can_connect +"\n";
                 os.println(messageRetour);
             }
         } catch ( Exception e) {
             System.out.println(" Pb d'exception ");
+            e.printStackTrace();
         }
     }
 }

@@ -2,6 +2,7 @@ package server.Protocoles;
 
 import server.*;
 import server.Gestion.Messagerie;
+import serverFiles.SharedVariableAlreadyExists;
 import serverFiles.SharedVariableCannotAccess;
 
 import java.io.*;
@@ -47,7 +48,7 @@ public class ProtocoleCreateUser implements IProtocole {
 
                 os.println(messageRetour);
             }
-        } catch (IOException | ClassNotFoundException | SharedVariableCannotAccess e) {
+        } catch (IOException | ClassNotFoundException | SharedVariableCannotAccess | SharedVariableAlreadyExists e) {
             e.printStackTrace();
             System.out.println(" Pb d'exception ");
         }

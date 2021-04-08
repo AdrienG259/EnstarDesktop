@@ -20,13 +20,22 @@ public class ProtocoleAdministrateur implements IProtocole {
                 System.out.println(" Ordre Recu " + inputReq);
 
                 switch (inputReq){ // 1 seul cas mais on peut supposer qu'il y en aura plus
-                    case "userMap":
+                    case "getLoginUserIDMap":
                         try{
-                            sendUserMap(os);
+                            sendLoginUserIDMap(os);
                             messageRetour = "0";
                         }catch(ClassNotFoundException classNotFoundException){
                             classNotFoundException.printStackTrace();
-                            messageRetour = "-1";
+                            messageRetour = "-2";
+                        }
+                        break;
+                    case "getUserIDPasswordMap":
+                        try{
+                            sendUserIDPasswordMap(os);
+                            messageRetour = "0";
+                        }catch(ClassNotFoundException classNotFoundException){
+                            classNotFoundException.printStackTrace();
+                            messageRetour = "-2";
                         }
                         break;
                     default: messageRetour = "-1";
@@ -40,10 +49,17 @@ public class ProtocoleAdministrateur implements IProtocole {
             ioException.printStackTrace();
         }
     }
-    private void sendUserMap(OutputStream outputStream) throws IOException, ClassNotFoundException {
+    private void sendLoginUserIDMap(OutputStream outputStream) throws IOException, ClassNotFoundException {
         ObjectOutputStream oos = new ObjectOutputStream(outputStream);
         ActionUser actionUser = new ActionUser();
         oos.writeObject(actionUser.getLoginUserIDMap());
+        oos.flush();
+        oos.close();
+    }
+
+    private void sendUserIDPasswordMap(OutputStream outputStream) throws IOException, ClassNotFoundException {
+        ObjectOutputStream oos = new ObjectOutputStream(outputStream);
+        ActionUser actionUser = new ActionUser();
         oos.writeObject(actionUser.getUserIDPasswordMap());
         oos.flush();
         oos.close();

@@ -2,6 +2,7 @@ package server;
 
 import common.User;
 import serverFiles.InstantiateSerializable;
+import serverFiles.SharedVariableAlreadyExists;
 import serverFiles.SharedVariableCannotAccess;
 import serverFiles.SharedVariables;
 
@@ -21,11 +22,25 @@ public class ActionUser {
 
     public void instantiateMaps() throws IOException, ClassNotFoundException {
         File loginUserIDMapFile = new File("serverFiles/loginUserIDMap");
+        if (!loginUserIDMapFile.exists()){
+            loginUserIDMapFile.createNewFile();
+        }
         InstantiateSerializable<HashMap<String, Integer>> instantiate_loginUserIDMap = new InstantiateSerializable<>(loginUserIDMapFile);
         File userIDPasswordMapFile = new File("serverFiles/userIDPasswordMap");
+        if (!userIDPasswordMapFile.exists()){
+            userIDPasswordMapFile.createNewFile();
+        }
         InstantiateSerializable<HashMap<Integer, String>> instantiate_userIDPasswordMap = new InstantiateSerializable<>(userIDPasswordMapFile);
-        loginUserIDMap = instantiate_loginUserIDMap.fileToInstance();
-        userIDPasswordMap = instantiate_userIDPasswordMap.fileToInstance();
+        try {loginUserIDMap = instantiate_loginUserIDMap.fileToInstance();}
+        catch(EOFException eofException){
+            instantiate_loginUserIDMap.instanceToFile(new HashMap<String, Integer>());
+            loginUserIDMap = instantiate_loginUserIDMap.fileToInstance();
+        }
+        try {userIDPasswordMap = instantiate_userIDPasswordMap.fileToInstance();}
+        catch(EOFException eofException){
+            instantiate_userIDPasswordMap.instanceToFile(new HashMap<Integer, String>());
+            userIDPasswordMap = instantiate_userIDPasswordMap.fileToInstance();
+        }
     }
 
     private void saveMaps() throws IOException {
@@ -37,7 +52,7 @@ public class ActionUser {
         instantiate_userIDPasswordMap.instanceToFile(userIDPasswordMap);
     }
 
-    public int addUser(String identifiant, String motdepasse) throws IOException, SharedVariableCannotAccess {
+    public int addUser(String identifiant, String motdepasse) throws IOException, SharedVariableCannotAccess, SharedVariableAlreadyExists {
         //vérification si dans la hashmap
         for (String i : loginUserIDMap.keySet()){
             // i = key = username
@@ -49,7 +64,12 @@ public class ActionUser {
         /* Trouver un nouveau userID admissible */
 
         SharedVariables sharedVariables = new SharedVariables("serverFiles/sharedVariables");
-        String userIDString = sharedVariables.accessVariable("NEWUSERID");
+        String userIDString;
+        try{userIDString = sharedVariables.accessVariable("NEWUSERID");}
+        catch (SharedVariableCannotAccess sharedVariableCannotAccess){
+            sharedVariables.addNewSharedVariable("NEWUSERID", "0");
+            userIDString = sharedVariables.accessVariable("NEWUSERID");
+        }
         int userID = Integer.parseInt(userIDString);
         int newUserIDAdmissible = userID+1;
         sharedVariables.setVariable("NEWUSERID", Integer.toString(newUserIDAdmissible));

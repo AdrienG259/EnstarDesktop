@@ -1,8 +1,6 @@
 package sample;
 
 import client.ControleurAdmin;
-import client.ControleurCreationUser;
-import client.ControleurDeleteUser;
 import client.ControleurUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,9 +34,11 @@ public class Gestionuserctrl {
     public void refresh(){
         lst_users.getItems().setAll();
         controleurAdmin = new ControleurAdmin();
-        HashMap<String, String> userMap = controleurAdmin.getuserMap();
-        for (String i : userMap.keySet()) {
-            String chain = i + " - " + userMap.get(i);
+        HashMap<String, Integer> loginUserIDMap = controleurAdmin.getLoginUserIDMap();
+        HashMap<Integer, String> userIDPasswordMap = controleurAdmin.getUserIDPasswordMap();
+        for (String login : loginUserIDMap.keySet()) {
+            String pass = userIDPasswordMap.get(loginUserIDMap.get(login));
+            String chain = login + " - " + pass;
             lst_users.getItems().add(chain);
         }
         feedback.setText("");
