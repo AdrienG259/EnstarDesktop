@@ -22,16 +22,16 @@ public class TestCommunication {
 
 	static ServeurTCP aServer;
 	static ClientTCP client1;
-	
+
 	private ArrayList<String> messages;
 	private int result;
-	
+
 	// Chaque parametre est un argument, A� chaque test une nouvelle valeur est donnee.
 	public TestCommunication(ArrayList<String> messages, int result) {
 	    this.messages = messages;
 	    this.result = result;
 	}
-	
+
 	@BeforeClass
 	public static void beforeClass(){
 		System.out.println("before class");
@@ -39,13 +39,13 @@ public class TestCommunication {
 		client1 = new ClientTCP("localhost", 5678);
 		aServer.start();
 	}
-			
+
 	@AfterClass
 	public static void afterClass(){
 		System.out.println("after class");
 		assertTrue(aServer.isAlive());
 	}
-	
+
 	@Test
 	public void testCommunications() {
 		System.out.println("Test transmissions");
@@ -58,9 +58,9 @@ public class TestCommunication {
 		} catch (Exception e) {
 			fail();
 		}
-		
+
 	}
-	
+
 	@Parameterized.Parameters
 	public static Collection<Object[]> scenarios() {
 		ArrayList<String> scenario1 = new ArrayList<String>();
@@ -68,19 +68,19 @@ public class TestCommunication {
 		scenario1.add("demandeRetrait");
 		scenario1.add("demandeDepot");
 		scenario1.add("stop");
-		
+
 		ArrayList<String> scenario2 = new ArrayList<String>();
 		scenario2.add("send something");
 		scenario2.add("demandeDepot");
 		scenario2.add("demandeRetrait");
 		scenario2.add("stop");
-		
+
 		ArrayList<String> scenario3 = new ArrayList<String>();
 		scenario3.add("demandeDepot");
 		scenario3.add("demandeDepot");
 		scenario3.add("stop");
-		
-		
+
+
 	      return Arrays.asList(new Object[][] {
 	         { scenario1, 5000 },
 	         { scenario2, 5000 },

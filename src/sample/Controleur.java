@@ -24,13 +24,33 @@ public class Controleur {
     @FXML Button btn_newaccount;
     @FXML Button btn_gestion;
     @FXML Label label_feedback;
+    @FXML CheckBox chk_remember;
 
     Parent root;
 
     private ControleurConnexion controleurConnexion;
     private ControleurUser controleurUser;
+    private SharedVariables sharedVariables;
 
-    public void try_connexion() throws IOException {
+    public void initialize() throws IOException {
+        sharedVariables = new SharedVariables("clientFiles/sharedVariables");
+
+        try{
+            String remember = sharedVariables.accessVariable("remember_user");
+            if (remember.equals("true")){
+                try{
+                    String last_user_log = sharedVariables.accessVariable("current_user_log");
+                    txtfield_login.setText(last_user_log);
+                } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
+                    sharedVariableCannotAccess.printStackTrace();
+                }
+            }
+        } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
+            sharedVariableCannotAccess.printStackTrace();
+        }
+    }
+
+    public void try_connexion() throws IOException, SharedVariableCannotAccess {
         controleurConnexion = new ControleurConnexion();
         String log = txtfield_login.getText();
         String pass = txtfiled_password.getText();
@@ -53,8 +73,6 @@ public class Controleur {
         } else if (can_connect == 1){
             label_feedback.setText("Ok");
 
-            SharedVariables sharedVariables = new SharedVariables("clientFiles/sharedVariables");
-
             try {
                 sharedVariables.deleteSharedVariable("current_user_log");
             } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
@@ -67,6 +85,28 @@ public class Controleur {
                 sharedVariableAlreadyExists.printStackTrace();
             }
 
+            try {
+                sharedVariables.deleteSharedVariable("remember_user");
+            } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
+                sharedVariableCannotAccess.printStackTrace();
+            }
+            if(chk_remember.isSelected()){
+                try{
+                    sharedVariables.addNewSharedVariable("remember_user", "true");
+                } catch (SharedVariableAlreadyExists sharedVariableAlreadyExists) {
+                    sharedVariables.setVariable("remember_user", "true");
+                    sharedVariableAlreadyExists.printStackTrace();
+                }
+            } else {
+                try{
+                    sharedVariables.addNewSharedVariable("remember_user", "false");
+                } catch (SharedVariableAlreadyExists sharedVariableAlreadyExists) {
+                    sharedVariables.setVariable("remember_user", "false");
+                    sharedVariableAlreadyExists.printStackTrace();
+                }
+            }
+
+            sharedVariables = null;
             Stage stage = (Stage) btn_connexion.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
             Scene scene = new Scene(root);

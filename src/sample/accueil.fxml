@@ -7,7 +7,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controleur">
    <children>
       <TextField fx:id="txtfield_login" layoutX="510.0" layoutY="220.0" prefHeight="25.0" prefWidth="332.0" promptText="User name (login)" />
-      <TextField fx:id="txtfiled_password" layoutX="510.0" layoutY="288.0" prefHeight="25.0" prefWidth="332.0" promptText="Password" />
+      <TextField fx:id="txtfiled_password" layoutX="510.0" layoutY="274.0" prefHeight="25.0" prefWidth="332.0" promptText="Password" />
       <ImageView fx:id="imgview_logo" fitHeight="256.0" fitWidth="265.0" layoutX="138.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@logo.png" />
@@ -17,5 +17,6 @@
       <Label fx:id="label_feedback" alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="343.0" prefHeight="17.0" prefWidth="161.0" textAlignment="CENTER" />
       <Button fx:id="btn_newaccount" layoutX="510.0" layoutY="395.0" mnemonicParsing="false" onAction="#create_account" prefHeight="25.0" prefWidth="161.0" text="Créer un compte" />
       <Button fx:id="btn_gestion" layoutX="681.0" layoutY="395.0" mnemonicParsing="false" onAction="#gestion" prefHeight="25.0" prefWidth="161.0" text="Gérer les comptes" />
+      <CheckBox fx:id="chk_remember" layoutX="615.0" layoutY="308.0" mnemonicParsing="false" text="Se souvenir de moi" />
    </children>
 </Pane>
