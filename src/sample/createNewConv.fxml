@@ -11,8 +11,9 @@
       <Button fx:id="btn_add" layoutX="458.0" layoutY="120.0" mnemonicParsing="false" onAction="#add_users" text="Ajouter" />
       <ListView fx:id="listview_users" layoutX="207.0" layoutY="166.0" prefHeight="200.0" prefWidth="189.0" />
       <Text layoutX="194.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Création d'une nouvelle conversation" />
-      <Button fx:id="btn_create" layoutX="458.0" layoutY="322.0" mnemonicParsing="false" text="Créer la conversation" />
+      <Button fx:id="btn_create" layoutX="458.0" layoutY="322.0" mnemonicParsing="false" onAction="#create_conv" text="Créer la conversation" />
       <Text layoutX="66.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du groupe" />
       <TextField fx:id="txtfield_groupname" layoutX="207.0" layoutY="76.0" prefHeight="25.0" prefWidth="189.0" />
+      <Label fx:id="label_feedback" layoutX="207.0" layoutY="147.0" prefHeight="17.0" prefWidth="189.0" />
    </children>
 </Pane>

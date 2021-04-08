@@ -35,6 +35,7 @@ public class NewConvControler {
     @FXML
     TextField txtfield_groupname;
     @FXML Button btn_create;
+    @FXML Label label_feedback;
 
 
 
@@ -44,13 +45,11 @@ public class NewConvControler {
         ControleurUser control_user= new ControleurUser();
         User to_add = control_user.matchUser(buffer_users);
         if (to_add==null){
-            final Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Le pseudo rentré ne correspond à aucun utilisateur");
-            alert.show(); //raise message d'erreur pour dire qu'on n'a pas rentré un User valid
+            label_feedback.setText("L'utilisateur rentré n'est pas valide");
         }
         else{
             listview_users.getItems().add(to_add);
+            label_feedback.setText("");
         }
 
 
@@ -73,6 +72,7 @@ public class NewConvControler {
         ControleurCreateConversation controleurCreateConversation = new ControleurCreateConversation();
         try {
             Conversation new_conv = controleurCreateConversation.creerConversation(buffer_gpname, membres);
+
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

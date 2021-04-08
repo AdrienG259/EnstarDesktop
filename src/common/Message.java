@@ -35,9 +35,9 @@ public class Message {
 
     public String toString(){
         String stringMessage = "";
-        stringMessage += date + " - ";
         stringMessage += expediteurID + " - ";
-        stringMessage += contenu ;
+        stringMessage += contenu + " - " ;
+        stringMessage += date;
         return stringMessage;
     }
 }

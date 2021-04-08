@@ -57,7 +57,7 @@ public class ControleurConversation extends Controleur {
         return message;
     }
 
-    public Historique getHistorique(){
+    public Historique getHistorique(Conversation uneConversation){
 
         //je suis pas sûre duuuuuuu tout
         System.out.println("demande affichage historique");
@@ -83,7 +83,7 @@ public class ControleurConversation extends Controleur {
 
         return ret;
     }
-    public List<Conversation> getConversation(int IDConversation){
+    public List<Conversation> getConversation(List<Integer> listIDConversation){
         String intention = "getConversation";
         String msgServer = monClientTCP.transmettreChaine(intention);
 
@@ -91,7 +91,7 @@ public class ControleurConversation extends Controleur {
 
         // Si le serveur a bien reçu l'intention et qu'il n'y a pas eu d'erreur on transmet le message
         if (msgServer.equals("0")) {
-            String ret = monClientTCP.sendSerializableObject((Serializable) null); //trouver ce qu'on doit avoir
+            String ret = monClientTCP.sendSerializableObject((Serializable) listIDConversation); //trouver ce qu'on doit avoir
             if (ret.equals("0")) {
                 System.out.println("Message transmis");
             } else {

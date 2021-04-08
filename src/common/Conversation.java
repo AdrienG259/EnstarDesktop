@@ -60,6 +60,11 @@ public class Conversation implements IContext, Observer {
     }
 
     @Override
+    public String toString() {
+        return nomGroupe;
+    }
+
+    @Override
     public void update(Observable o, Object arg) {
 
     }
