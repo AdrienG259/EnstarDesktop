@@ -37,7 +37,7 @@ public class ActionUser {
         instantiate_userIDPasswordMap.instanceToFile(userIDPasswordMap);
     }
 
-    public int ajouterUser(String identifiant, String motdepasse) throws IOException, SharedVariableCannotAccess {
+    public int addUser(String identifiant, String motdepasse) throws IOException, SharedVariableCannotAccess {
         //vérification si dans la hashmap
         for (String i : loginUserIDMap.keySet()){
             // i = key = username
@@ -100,6 +100,17 @@ public class ActionUser {
 
     }
 
+    public int comparaison(String login, String motdepasse) {
+        Integer userID;
+        if ((userID = this.loginUserIDMap.get(login)) == null){
+            return -1;
+        }
+        if (this.userIDPasswordMap.get(userID).equals(motdepasse)){
+            return 1;
+        }
+        return 0;
+    }
+
     public int getUserIDFromLogin(String login){
         return loginUserIDMap.get(login);
     }
@@ -113,4 +124,11 @@ public class ActionUser {
         return userIDPasswordMap.get(userID);
     }
 
+    public HashMap<String,Integer> getLoginUserIDMap(){
+        return this.loginUserIDMap;
+    }
+
+    public HashMap<Integer,String> getUserIDPasswordMap(){
+        return this.userIDPasswordMap;
+    }
 }

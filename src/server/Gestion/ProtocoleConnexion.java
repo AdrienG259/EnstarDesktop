@@ -2,11 +2,9 @@ package server.Gestion;
 
 import java.io.*;
 
-import server.AutorizedUser;
-import server.Gestion.Messagerie;
+import server.ActionUser;
 import server.IContext;
 import server.IProtocole;
-import server.VerifLogin;
 
 public class ProtocoleConnexion implements IProtocole {
     @Override
@@ -25,13 +23,9 @@ public class ProtocoleConnexion implements IProtocole {
                 String login = loginpassword[0];
                 String password = loginpassword[1];
 
-                AutorizedUser autorizedUsers = new AutorizedUser();
-                int can_connect = 0;
-                VerifLogin logger = new VerifLogin(autorizedUsers, login, password);
-                can_connect = logger.comparaison();
+                ActionUser actionUser = new ActionUser();
+                int can_connect =actionUser.comparaison(login ,password);
                 messageRetour= can_connect +"\n";
-                autorizedUsers = null;
-                logger = null;
                 os.println(messageRetour);
             }
         } catch ( Exception e) {

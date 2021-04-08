@@ -1,6 +1,6 @@
 package server.Gestion;
 
-import server.AutorizedUser;
+import server.ActionUser;
 import server.IContext;
 import server.IProtocole;
 
@@ -14,13 +14,21 @@ public class ProtocoleAdministrateur implements IProtocole {
                 anInputStream));
         PrintStream os = new PrintStream(anOutputStream);
         try {
-            String messageRetour = "0";
+            String messageRetour;
             if ((inputReq = is.readLine()) != null) {
 
                 System.out.println(" Ordre Recu " + inputReq);
 
-                switch (inputReq){
-                    case "userMap": sendUserMap(os);
+                switch (inputReq){ // 1 seul cas mais on peut supposer qu'il y en aura plus
+                    case "userMap":
+                        try{
+                            sendUserMap(os);
+                            messageRetour = "0";
+                        }catch(ClassNotFoundException classNotFoundException){
+                            classNotFoundException.printStackTrace();
+                            messageRetour = "-1";
+                        }
+                        break;
                     default: messageRetour = "-1";
                 }
 
@@ -32,10 +40,11 @@ public class ProtocoleAdministrateur implements IProtocole {
             ioException.printStackTrace();
         }
     }
-    private void sendUserMap(OutputStream outputStream) throws IOException {
-        AutorizedUser autorizedUsers = new AutorizedUser();
+    private void sendUserMap(OutputStream outputStream) throws IOException, ClassNotFoundException {
         ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-        oos.writeObject(autorizedUsers.userMap);
+        ActionUser actionUser = new ActionUser();
+        oos.writeObject(actionUser.getLoginUserIDMap());
+        oos.writeObject(actionUser.getUserIDPasswordMap());
         oos.flush();
         oos.close();
     }

@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import org.w3c.dom.Text;
-import server.AutorizedUser;
 
 
 import java.io.*;
