@@ -98,10 +98,32 @@ public class ControleurUser extends Controleur {
         }
 
     }
-    public User matchUser(String aUser){ //à faire
-        User user_found=null;
-        return  user_found;
+    public User matchUser(String pseudo) {
 
+        /* Intention */
+        String intention = "matchUser";
+        System.out.println("intention = matchUser " + "paramètres = " + pseudo);
+
+        /*Envoie intention et retour du serveur*/
+        String retIntention = monClientTCP.transmettreChaine(intention).split("\\n")[0];
+        int entierRetIntention = Integer.parseInt(retIntention);
+
+        /* Interprétation du retour */
+        if (entierRetIntention == 0) {
+            /* Serveur prêt pour la réception des paramètres */
+            String parametres = String.valueOf(pseudo);
+            /* retour : Utilisateur demandé */
+            User retUser = (User) monClientTCP.receiveSerializable(parametres);
+            ;
+            setChanged();
+            notifyObservers();
+            return retUser;
+        } else {
+            /* Cas d'échec, on ne peut pas envoyer les paramètres, le serveur n'est pas préparé à les recevoir */
+            System.err.println("Problème communication, intention " + intention + " non prise en compte par le serveur");
+            //On retourne un objet null
+            return null;
+        }
     }
 
 
