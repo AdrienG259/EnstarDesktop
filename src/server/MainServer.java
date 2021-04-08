@@ -8,7 +8,5 @@ public class MainServer {
 		System.out.println("ouverture de la messagerie");
 		maMesssagerie.ouvrirMessagerie();
 
-
-
 	}
 }

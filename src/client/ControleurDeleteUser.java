@@ -2,7 +2,7 @@ package client;
 
 public class ControleurDeleteUser extends Controleur {
 
-    private static final int port_deleteUser = 10003;
+    private static final int port_deleteUser = 10002;
 
     public ControleurDeleteUser() {
         super(port_deleteUser);

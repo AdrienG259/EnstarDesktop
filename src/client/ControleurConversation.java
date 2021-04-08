@@ -9,7 +9,7 @@ import java.util.*;
 
 public class ControleurConversation extends Controleur {
 
-    private static final int port_GestionConversations = 10005;
+    private static final int port_GestionConversations = 10004;
 
     public ControleurConversation() {
         super(port_GestionConversations);

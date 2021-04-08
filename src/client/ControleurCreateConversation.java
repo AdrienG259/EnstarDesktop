@@ -13,7 +13,7 @@ import java.util.Observable;
 
 public class ControleurCreateConversation extends Controleur {
 
-    private static final int port_GestionConversations = 10005;
+    private static final int port_GestionConversations = 10004;
     private desktopBusinessRules businessRules;
 
 
