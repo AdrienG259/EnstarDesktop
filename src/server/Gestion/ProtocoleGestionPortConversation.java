@@ -1,11 +1,15 @@
-package server;
+package server.Gestion;
 
-import common.User;
-import serverFiles.InstantiateSerializable;
+import server.*;
+import server.Protocoles.ProtocoleEchec;
+import server.Protocoles.ProtocoleGetHistorique;
+import server.Protocoles.ProtocoleReceiveMessage;
+import server.Protocoles.ProtocoleSendMessage;
 
 import java.io.*;
 
-public class ProtocoleGestionPortUser implements IProtocole {
+public class ProtocoleGestionPortConversation implements IProtocole {
+
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
         String intentionClient;
@@ -19,21 +23,21 @@ public class ProtocoleGestionPortUser implements IProtocole {
                 String reponse;
 
                 switch (intentionClient) {
-                    case "createUser" -> {
-                        protocole = new ProtocoleCreateUser();
+                    case "sendMessage" -> {
+                        protocole = new ProtocoleSendMessage();
                         reponse = "0";
                     }
-                    case "deleteUser" -> {
-                        protocole = new ProtocoleDeleteUser();
+                    case "receiveMessage" -> {
+                        protocole = new ProtocoleReceiveMessage();
                         reponse = "0";
                     }
-                    case "getUser" -> {
-                        protocole = new ProtocoleGetUser();
+                    case "getHistorique" -> {
+                        protocole = new ProtocoleGetHistorique();
                         reponse = "0";
                     }
                     default -> {
                         protocole = new ProtocoleEchec();
-                        reponse = "-2";
+                        reponse = "-1";
                     }
                 }
                 PrintStream os = new PrintStream(anOutputStream);
@@ -41,16 +45,14 @@ public class ProtocoleGestionPortUser implements IProtocole {
                 os.println(reponse);
                 /* On ferme les os et is car utilisent anInputStream et anOutputStream qui vont être réutilisés dans
                 le nouveau protocole qu'on va éxécuter*/
-
+                os.close(); is.close();
                 /* On éxécute le protocole adéquat, déterminé par le switch case*/
                 protocole.execute(aContext, anInputStream, anOutputStream);
-                os.close(); is.close();
 
             }
-        } catch ( IOException ioException) {
-            System.err.println(" Problème d'exception IO sur un OutputStream");
+        } catch (IOException ioException) {
+            System.err.println("Problème d'exception IO sur un OutputStream");
             ioException.printStackTrace();
         }
     }
-
 }

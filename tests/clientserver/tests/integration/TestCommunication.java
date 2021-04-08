@@ -9,8 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import server.Messagerie;
-import server.ProtocoleServeurPrivee;
+import server.Gestion.Messagerie;
 import server.ServeurTCP;
 import client.ClientTCP;
 

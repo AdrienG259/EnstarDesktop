@@ -1,5 +1,7 @@
 package server;
 
+import server.Gestion.Messagerie;
+
 public class MainServer {
 
 	public static void main( String[] args) {

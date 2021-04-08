@@ -1,8 +1,10 @@
-package server;
+package server.Protocoles;
 
 import common.Conversation;
 import common.Historique;
 import common.User;
+import server.IContext;
+import server.IProtocole;
 import serverFiles.InstantiateSerializable;
 
 import java.io.*;

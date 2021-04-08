@@ -1,10 +1,11 @@
-package server;
+package server.Protocoles;
+
+import server.*;
+import server.Gestion.Messagerie;
 
 import java.io.*;
-import server.AutorizedUser;
-import server.VerifLogin;
 
-public class ProtocoleConnexion implements IProtocole {
+public class ProtocoleCreateUser implements IProtocole {
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
         Messagerie messagerie = (Messagerie)aContext;
@@ -22,15 +23,17 @@ public class ProtocoleConnexion implements IProtocole {
                 String password = loginpassword[1];
 
                 AutorizedUser autorizedUsers = new AutorizedUser();
-                int can_connect = 0;
-                VerifLogin logger = new VerifLogin(autorizedUsers, login, password);
-                can_connect = logger.comparaison();
-                messageRetour= can_connect +"\n";
+                AddUser adduser = new AddUser(autorizedUsers, login, password);
+                int can_add = adduser.ajouterUser();
+                UpdateUser updateUser = new UpdateUser(autorizedUsers.userMap);
+                messageRetour = can_add + "\n";
                 autorizedUsers = null;
-                logger = null;
+                adduser = null;
+                updateUser = null;
                 os.println(messageRetour);
             }
-        } catch ( Exception e) {
+        } catch ( IOException e) {
+            e.printStackTrace();
             System.out.println(" Pb d'exception ");
         }
     }

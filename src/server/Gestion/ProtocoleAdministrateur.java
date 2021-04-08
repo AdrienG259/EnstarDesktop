@@ -1,4 +1,8 @@
-package server;
+package server.Gestion;
+
+import server.AutorizedUser;
+import server.IContext;
+import server.IProtocole;
 
 import java.io.*;
 
