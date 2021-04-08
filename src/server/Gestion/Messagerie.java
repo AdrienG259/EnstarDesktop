@@ -49,4 +49,16 @@ public class Messagerie extends Observable implements IContext, IMessagerie {
         // On notifie les observateurs
         this.notifyObservers();
     }
+
+    public int getNewPort(){
+
+        // Cette méthode a pour but de fournir un numéro de port non utilisé pour créer les nouvelles conversations
+        for (int i = 0; i < 20000; i++) {
+            if (serveurs[i] == null){
+                return i;
+            }
+        }
+
+        return 0;
+    }
 }
