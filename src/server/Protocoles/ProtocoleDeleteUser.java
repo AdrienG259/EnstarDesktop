@@ -20,13 +20,9 @@ public class ProtocoleDeleteUser implements IProtocole {
 
                 String login = inputReq;
 
-                AutorizedUser autorizedUsers = new AutorizedUser();
-                DeleteUser del = new DeleteUser(autorizedUsers, login);
-                del.SupprimerUser();
-                UpdateUser updateUser = new UpdateUser(autorizedUsers.userMap);
-                autorizedUsers = null;
-                updateUser = null;
-                del = null;
+                ActionUser actionUser = new ActionUser();
+                actionUser.deleteUser(actionUser.getUserIDFromLogin(login));
+
                 os.println(messageRetour);
             }
         } catch (Exception e) {

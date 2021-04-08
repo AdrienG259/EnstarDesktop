@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import server.AutorizedUser;
 import javafx.scene.input.MouseEvent;
 
 import java.io.*;
@@ -41,7 +40,6 @@ public class Connect {
 
     Parent root;
 
-    public AutorizedUser autorizedUser = new AutorizedUser();
     public User current_user;
     public String current_user_log;
     public Conversation current_conversation;

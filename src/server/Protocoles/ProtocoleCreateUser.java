@@ -2,6 +2,7 @@ package server.Protocoles;
 
 import server.*;
 import server.Gestion.Messagerie;
+import serverFiles.SharedVariableCannotAccess;
 
 import java.io.*;
 
@@ -26,17 +27,12 @@ public class ProtocoleCreateUser implements IProtocole {
                 String login = loginpassword[0];
                 String password = loginpassword[1];
 
-                AutorizedUser autorizedUsers = new AutorizedUser();
-                AddUser adduser = new AddUser(autorizedUsers, login, password);
-                int can_add = adduser.ajouterUser();
-                UpdateUser updateUser = new UpdateUser(autorizedUsers.userMap);
+                ActionUser actionUser = new ActionUser();
+                int can_add = actionUser.addUser(login, password);
                 messageRetour = can_add + "\n";
-                autorizedUsers = null;
-                adduser = null;
-                updateUser = null;
                 os.println(messageRetour);
             }
-        } catch ( IOException e) {
+        } catch (IOException | ClassNotFoundException | SharedVariableCannotAccess e) {
             e.printStackTrace();
             System.out.println(" Pb d'exception ");
         }
