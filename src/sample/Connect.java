@@ -4,23 +4,16 @@ import client.ControleurConversation;
 import client.ControleurUser;
 import common.Conversation;
 import common.Historique;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import server.AutorizedUser;
 import javafx.scene.input.MouseEvent;
 
 import java.io.*;
-import java.net.URL;
 import java.util.*;
 import common.Message;
 import common.User;
@@ -56,6 +49,7 @@ public class Connect {
     public Conversation current_conversation;
     private ControleurConversation control_conv;
     private ControleurUser ctrl_user;
+    private Timer timer;
 
 
 
@@ -77,6 +71,15 @@ public class Connect {
             sharedVariableCannotAccess.printStackTrace();
         }
 
+        timer = new Timer();
+        TimerTask update = new TimerTask() {
+            @Override
+            public void run() {
+                //A CODER -- UPDATE
+                System.out.println("Task Timer on Fixed Rate");
+            };
+        };
+        timer.scheduleAtFixedRate(update, 500, 1000);
     }
 
     public void create_new_Conversation() throws IOException {
@@ -113,9 +116,11 @@ public class Connect {
             lstview_currentconv.getItems().add(msg);
         }
     }
+
     public void update(){
 
     }
+
     public void print_conversations(){
         //récupérer du serveur toutes les conversations dans lesquelles l'user est impliqué
         List<Integer> listIDconv= current_user.getIDConversations();
@@ -138,6 +143,8 @@ public class Connect {
         //se déconnecter en cliquant sur le bouton
         // envoyer la demande de déconnexion au serveur //
         // /!\ //
+        timer.cancel();
+
         Stage stage = (Stage) btn_envoyer.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("accueil.fxml")); //rafraichit la page
         Scene scene = new Scene(root);
