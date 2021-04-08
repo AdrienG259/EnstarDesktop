@@ -26,6 +26,7 @@ import common.User;
 import serverFiles.InstantiateSerializable;
 
 public class NewConvControler {
+    Parent root;
     @FXML
     TextField txtfield_users;
     @FXML
@@ -55,7 +56,7 @@ public class NewConvControler {
 
     }
 
-    public void create_conv() {
+    public void create_conv() throws IOException {
         String buffer_gpname = txtfield_groupname.getText();
         List<User> membres= new ArrayList<User>();
         membres.add(null);//ajouter l'utilisateur courant à la liste des membres
@@ -71,21 +72,19 @@ public class NewConvControler {
         }
         ControleurCreateConversation controleurCreateConversation = new ControleurCreateConversation();
         try {
-            Conversation new_conv = controleurCreateConversation.creerConversation(buffer_gpname, membres);
+            controleurCreateConversation.creerConversation(buffer_gpname, membres);
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
 
-//             = new Conversation(groupname, Arrays.asList(businessRules.getCurrentUser()),0); //members à changer
-            // demander la création d'un nouveau port pour créer la conv 
 
-            //une fois la conversation terminée on rouvre la fenêtre avec toute les conversations à jour avec la nouvelle
-//            Stage stage = (Stage) btn_new_conv.getScene().getWindow();
-//            root = FXMLLoader.load(getClass().getResource("createNewConv.fxml"));
-//            Scene scene = new Scene(root);
-//            stage.setScene(scene);
-//            stage.show();
+        //une fois la conversation terminée on rouvre la fenêtre avec toute les conversations à jour avec la nouvelle
+        Stage stage = (Stage) btn_create.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
         }
 
 
