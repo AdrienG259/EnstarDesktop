@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import server.Gestion.Messagerie;
-import server.ProtocoleConversation;
+import server.Gestion.ProtocoleGestionPortConversation;
 import server.ServeurTCP;
 
 public class TestServerTCP {
@@ -20,7 +20,7 @@ public class TestServerTCP {
 	@BeforeClass
 	public static void beforeClass(){
 		System.out.println("before class");
-		aServer = new ServeurTCP(new Messagerie(), new ProtocoleConversation(),5555 );
+		aServer = new ServeurTCP(new Messagerie(), new ProtocoleGestionPortConversation(),5555 );
 	}
 
 	@AfterClass
