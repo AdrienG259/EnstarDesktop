@@ -15,7 +15,9 @@ public class ControleurAdmin extends Controleur {
 
     public HashMap<String,Integer> getLoginUserIDMap(){
         String message = "getLoginUserIDMap";
+        monClientTCP.connecterAuServeur();
         HashMap<String,Integer> loginUserIDMap = (HashMap<String,Integer>) monClientTCP.receiveSerializable(message);
+        monClientTCP.deconnecterDuServeur();
         setChanged();
         notifyObservers();
         return loginUserIDMap;
@@ -23,7 +25,9 @@ public class ControleurAdmin extends Controleur {
 
     public HashMap<Integer,String> getUserIDPasswordMap(){
         String message = "getUserIDPasswordMap";
+        monClientTCP.connecterAuServeur();
         HashMap<Integer,String> userIDPasswordMap = (HashMap<Integer,String>)monClientTCP.receiveSerializable(message);
+        monClientTCP.deconnecterDuServeur();
         setChanged();
         notifyObservers();
         return userIDPasswordMap;
