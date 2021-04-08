@@ -6,6 +6,14 @@ import server.Gestion.Messagerie;
 import java.io.*;
 
 public class ProtocoleDeleteUser implements IProtocole {
+
+    /* Les classes présentes dans le package protocole ont pour but de répondre au client après que ce dernier a envoyé son intention
+     * ici l'intention est de créer un nouvel utilisateur à l'aide de son passeport et son login
+     * le message renvoyé au client est alors un int 0 ou -1 selon la réussite de l'action
+     * 0 l'user est ajouté à la HMap
+     * -1 échec pendant l'ajout
+     */
+
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
         Messagerie messagerie = (Messagerie)aContext;
