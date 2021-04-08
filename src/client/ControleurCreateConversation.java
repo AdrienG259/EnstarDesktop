@@ -25,7 +25,9 @@ public class ControleurCreateConversation extends Controleur {
     public Conversation creerConversation(String nomConversation, List<User> membres) throws Error, IOException {
 
         System.out.println("Création d'une nouvelle conversation");
-        String ret = monClientTCP.transmettreChaineConnexionPonctuelle("creerConversation");
+        monClientTCP.connecterAuServeur();
+        String ret = monClientTCP.transmettreChaine("creerConversation");
+        monClientTCP.deconnecterDuServeur();
         int newPort = Integer.parseInt(ret);
         if (newPort==-1){
             throw new Error("Can't find a port on which open a new conversation");

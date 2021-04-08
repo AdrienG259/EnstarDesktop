@@ -1,6 +1,5 @@
 package sample;
 
-import client.ControleurCreationUser;
 import client.ControleurConnexion;
 import client.ControleurUser;
 import javafx.fxml.FXML;

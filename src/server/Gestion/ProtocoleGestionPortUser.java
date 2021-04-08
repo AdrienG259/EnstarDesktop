@@ -17,7 +17,6 @@ public class ProtocoleGestionPortUser implements IProtocole {
 
                 IProtocole protocole;
                 String reponse;
-
                 switch (intentionClient) {
                     case "createUser" -> {
                         protocole = new ProtocoleCreateUser();
@@ -37,6 +36,14 @@ public class ProtocoleGestionPortUser implements IProtocole {
                     }
                     case "matchUser" -> {
                         protocole = new ProtocoleMatchUser();
+                        reponse = "0";
+                    }
+                    case "changePseudo" -> {
+                        protocole = new ProtocoleChangePseudo();
+                        reponse = "0";
+                    }
+                    case "changePassword" -> {
+                        protocole = new ProtocoleChangePassword();
                         reponse = "0";
                     }
                     default -> {

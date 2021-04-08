@@ -82,6 +82,7 @@ public class ActionUser {
         /* Instancier le nouvel User et l'enregistrer */
 
         File userFile = new File("serverFiles/users/"+userID);
+        userFile.createNewFile();
         InstantiateSerializable<User> instantiate_user = new InstantiateSerializable<>(userFile);
         User newUser = new User(userID, identifiant, new ArrayList<>(),new ArrayList<>());
         instantiate_user.instanceToFile(newUser);
@@ -150,5 +151,24 @@ public class ActionUser {
 
     public HashMap<Integer,String> getUserIDPasswordMap(){
         return this.userIDPasswordMap;
+    }
+
+    public void changePseudo(String pseudo, String newPseudo) throws IOException, ClassNotFoundException {
+        int userID = loginUserIDMap.get(pseudo);
+        File userFile = new File("serverFiles/users/" + userID);
+        InstantiateSerializable<User> userInstantiate = new InstantiateSerializable<User>(userFile);
+        User user = userInstantiate.fileToInstance();
+        user.setPseudo(newPseudo);
+        userInstantiate.instanceToFile(user);
+
+        loginUserIDMap.remove(pseudo);
+        loginUserIDMap.put(newPseudo, userID);
+        saveMaps();
+    }
+
+
+    public void changePassword(String pseudo, String newPassword) throws IOException {
+        userIDPasswordMap.replace(loginUserIDMap.get(pseudo), newPassword);
+        saveMaps();
     }
 }

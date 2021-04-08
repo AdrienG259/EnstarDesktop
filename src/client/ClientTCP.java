@@ -126,7 +126,7 @@ public class ClientTCP {
 	public Serializable receiveSerializable(String message){
 		Serializable receivedObject = null;
 		System.out.println("\nClient connexionTransmettreChaine " + message);
-		if (connecterAuServeur()) {
+//		if (connecterAuServeur()) {
 			try {
 				socOut.println(message);
 				socOut.flush();
@@ -136,13 +136,13 @@ public class ClientTCP {
 				ois.close();
 
 				System.out.println("Client object serializable\n");
-				deconnecterDuServeur();
+//				deconnecterDuServeur();
 			} catch (Exception e) {
 				System.err.println("Exception lors de la connexion client:  " + e);
 			}
-		} else {
-			System.err.println("Connexion echouee");
-		}
+//		} else {
+//			System.err.println("Connexion echouee");
+//		}
 		return receivedObject;
 	}
 }

@@ -78,6 +78,7 @@ public class ControleurUser extends Controleur {
         System.out.println("intention = getUser "+ "paramètres = " + userID);
 
         /*Envoie intention et retour du serveur*/
+        monClientTCP.connecterAuServeur();
         String retIntention = monClientTCP.transmettreChaine(intention).split("\\n")[0];
         int entierRetIntention = Integer.parseInt(retIntention);
 
@@ -87,12 +88,14 @@ public class ControleurUser extends Controleur {
             String parametres = String.valueOf(userID);
             /* retour : Utilisateur demandé */
             User retUser = (User) monClientTCP.receiveSerializable(parametres);;
+            monClientTCP.deconnecterDuServeur();
             setChanged();
             notifyObservers();
             return retUser;
         } else{
             /* Cas d'échec, on ne peut pas envoyer les paramètres, le serveur n'est pas préparé à les recevoir */
             System.err.println("Problème communication, intention "+intention+ " non prise en compte par le serveur");
+            monClientTCP.deconnecterDuServeur();
             //On retourne un objet null
             return null;
         }
@@ -105,6 +108,7 @@ public class ControleurUser extends Controleur {
         System.out.println("intention = matchUser " + "paramètres = " + pseudo);
 
         /*Envoie intention et retour du serveur*/
+        monClientTCP.connecterAuServeur();
         String retIntention = monClientTCP.transmettreChaine(intention).split("\\n")[0];
         int entierRetIntention = Integer.parseInt(retIntention);
 
@@ -117,14 +121,73 @@ public class ControleurUser extends Controleur {
             ;
             setChanged();
             notifyObservers();
+            monClientTCP.deconnecterDuServeur();
             return retUser;
         } else {
             /* Cas d'échec, on ne peut pas envoyer les paramètres, le serveur n'est pas préparé à les recevoir */
             System.err.println("Problème communication, intention " + intention + " non prise en compte par le serveur");
             //On retourne un objet null
+            monClientTCP.deconnecterDuServeur();
             return null;
         }
+
     }
 
+    public void changePseudo(String pseudo, String newPseudo) {
+
+        /* Intention */
+        String intention = "changePseudo";
+        System.out.println("intention = changePseudo " + "paramètres = " +pseudo+";"+ newPseudo);
+
+        /*Envoie intention et retour du serveur*/
+        monClientTCP.connecterAuServeur();
+        String retIntention = monClientTCP.transmettreChaine(intention).split("\\n")[0];
+        int entierRetIntention = Integer.parseInt(retIntention);
+        /* Interprétation du retour */
+        if (entierRetIntention == 0) {
+            /* Serveur prêt pour la réception des paramètres */
+            String parametres = String.valueOf(pseudo+ ";" + newPseudo);
+            /* retour : Utilisateur demandé */
+
+            String ret = monClientTCP.transmettreChaine(parametres);
+
+            setChanged();
+            notifyObservers();
+        } else {
+            /* Cas d'échec, on ne peut pas envoyer les paramètres, le serveur n'est pas préparé à les recevoir */
+            System.err.println("Problème communication, intention " + intention + " non prise en compte par le serveur");
+            //On retourne un objet null
+        }
+        monClientTCP.deconnecterDuServeur();
+    }
+
+    public void changePassword(String pseudo, String newPassword) {
+
+        /* Intention */
+        String intention = "changePassword";
+        System.out.println("intention = changePassword " + "paramètres = " +pseudo+";"+ newPassword);
+
+        /*Envoie intention et retour du serveur*/
+        monClientTCP.connecterAuServeur();
+        String retIntention = monClientTCP.transmettreChaine(intention).split("\\n")[0];
+        int entierRetIntention = Integer.parseInt(retIntention);
+
+        /* Interprétation du retour */
+        if (entierRetIntention == 0) {
+            /* Serveur prêt pour la réception des paramètres */
+            String parametres = String.valueOf(pseudo+ ";" + newPassword);
+            /* retour : Utilisateur demandé */
+
+            String ret = monClientTCP.transmettreChaine(parametres);
+            setChanged();
+            notifyObservers();
+        } else {
+            /* Cas d'échec, on ne peut pas envoyer les paramètres, le serveur n'est pas préparé à les recevoir */
+            System.err.println("Problème communication, intention " + intention + " non prise en compte par le serveur");
+
+            //On retourne un objet null
+        }
+        monClientTCP.deconnecterDuServeur();
+    }
 
 }

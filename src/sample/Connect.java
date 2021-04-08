@@ -64,6 +64,7 @@ public class Connect {
         try{
             current_user_log = sharedVariables.accessVariable("current_user_log");
             current_user= ctrl_user.matchUser(current_user_log); // Récuperer l'objet User associé au login
+            System.err.println(current_user);
         } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
             sharedVariableCannotAccess.printStackTrace();
         }

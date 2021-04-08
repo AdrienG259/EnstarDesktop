@@ -85,11 +85,13 @@ public class Gestionuserctrl {
         String pass = splitted[1];
 
         controleurUser = new ControleurUser();
-        controleurUser.deleteUser(pseudo);
+
+//        controleurUser.deleteUser(pseudo);
 
         String new_pseudo = txt_name.getText();
-        controleurUser.createUser(new_pseudo, pass);
-        controleurUser = null;
+//        controleurUser.createUser(new_pseudo, pass);
+        controleurUser.changePseudo(pseudo, new_pseudo);
+
         refresh();
     }
 
@@ -108,11 +110,13 @@ public class Gestionuserctrl {
         String pseudo = splitted[0];
 
         controleurUser = new ControleurUser();
-        controleurUser.deleteUser(pseudo);
-
+//        controleurUser.deleteUser(pseudo);
+//
         String new_pass = txt_pass.getText();
-        controleurUser.createUser(pseudo, new_pass);
-        controleurUser = null;
+//        controleurUser.createUser(pseudo, new_pass);
+//        controleurUser = null;
+
+        controleurUser.changePassword(pseudo, new_pass);
         refresh();
     }
 
