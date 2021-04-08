@@ -38,6 +38,7 @@ public class Controleur {
         try{
             String remember = sharedVariables.accessVariable("remember_user");
             if (remember.equals("true")){
+                chk_remember.setSelected(true);
                 try{
                     String last_user_log = sharedVariables.accessVariable("current_user_log");
                     txtfield_login.setText(last_user_log);
