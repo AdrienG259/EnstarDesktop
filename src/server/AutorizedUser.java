@@ -19,7 +19,7 @@ public class AutorizedUser {
     public void lecturemap() {
 
         try {
-            File toRead=new File("users");
+            File toRead = new File("users");
             FileInputStream fis=new FileInputStream(toRead);
             ObjectInputStream ois=new ObjectInputStream(fis);
 

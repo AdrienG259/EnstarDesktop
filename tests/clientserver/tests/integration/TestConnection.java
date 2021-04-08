@@ -10,6 +10,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import server.Gestion.Messagerie;
+import server.IProtocole;
+import server.ProtocoleConversation;
 import server.ServeurTCP;
 
 public class TestConnection {
@@ -22,7 +24,7 @@ public class TestConnection {
 	@BeforeClass
 	public static void beforeClass(){
 		System.out.println("before class");
-		aServer = new ServeurTCP( new Messagerie(), new ProtocoleServeurPrivee(),3456 );
+		aServer = new ServeurTCP( new Messagerie(), new ProtocoleConversation(),3456 );
 		assertNotNull(aServer);
 		aServer.start();
 		

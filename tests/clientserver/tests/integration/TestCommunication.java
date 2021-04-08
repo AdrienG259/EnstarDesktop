@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import server.Gestion.Messagerie;
+import server.ProtocoleConversation;
 import server.ServeurTCP;
 import client.ClientTCP;
 
@@ -34,7 +35,7 @@ public class TestCommunication {
 	@BeforeClass
 	public static void beforeClass(){
 		System.out.println("before class");
-		aServer = new ServeurTCP(new Messagerie(), new ProtocoleServeurPrivee(), 5678 );
+		aServer = new ServeurTCP(new Messagerie(), new ProtocoleConversation(), 5678 );
 		client1 = new ClientTCP("localhost", 5678);
 		aServer.start();
 	}
