@@ -12,6 +12,8 @@ public class ProtocoleGestionPortConversation implements IProtocole {
 
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
+
+        // Ce processus permet de gérer les actions à effectuer dans les conversations
         String intentionClient;
         BufferedReader is = new BufferedReader(new InputStreamReader(
                 anInputStream));
@@ -44,12 +46,12 @@ public class ProtocoleGestionPortConversation implements IProtocole {
                 /* On envoie la réponse */
                 os.println(reponse);
                 /* On ferme les os et is car utilisent anInputStream et anOutputStream qui vont être réutilisés dans
-                le nouveau protocole qu'on va éxécuter*/
+                le nouveau protocole qu'on va exécuter*/
                 os.close(); is.close();
-                /* On éxécute le protocole adéquat, déterminé par le switch case*/
+                /* On exécute le protocole adéquat, déterminé par le switch case*/
                 protocole.execute(aContext, anInputStream, anOutputStream);
-
             }
+
         } catch (IOException ioException) {
             System.err.println("Problème d'exception IO sur un OutputStream");
             ioException.printStackTrace();

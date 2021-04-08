@@ -6,8 +6,11 @@ import server.Protocoles.*;
 import java.io.*;
 
 public class ProtocoleGestionPortUser implements IProtocole {
+
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
+
+        // Ce processus a pour but de gérer les différentes actions pouvant être effectuées sur un utilisateur
         String intentionClient;
         BufferedReader is = new BufferedReader(new InputStreamReader(
                 anInputStream));
@@ -41,16 +44,17 @@ public class ProtocoleGestionPortUser implements IProtocole {
                     }
                     default -> {
                         protocole = new ProtocoleEchec();
-                        reponse = "-2";
+                        reponse = "-1";
                     }
                 }
+
                 PrintStream os = new PrintStream(anOutputStream);
                 /* On envoie la réponse */
                 os.println(reponse);
                 /* On ferme les os et is car utilisent anInputStream et anOutputStream qui vont être réutilisés dans
                 le nouveau protocole qu'on va éxécuter*/
 
-                /* On éxécute le protocole adéquat, déterminé par le switch case*/
+                /* On exécute le protocole adéquat, déterminé par le switch case */
                 protocole.execute(aContext, anInputStream, anOutputStream);
                 os.close(); is.close();
 
