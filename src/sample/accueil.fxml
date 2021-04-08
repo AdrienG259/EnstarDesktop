@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controleur">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Accueil">
    <children>
       <TextField fx:id="txtfield_login" layoutX="510.0" layoutY="220.0" prefHeight="25.0" prefWidth="332.0" promptText="User name (login)" />
       <TextField fx:id="txtfiled_password" layoutX="510.0" layoutY="274.0" prefHeight="25.0" prefWidth="332.0" promptText="Password" />
