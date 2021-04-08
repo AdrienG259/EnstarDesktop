@@ -1,6 +1,9 @@
-package server;
+package server.Protocoles;
 
 import common.User;
+import server.Gestion.Messagerie;
+import server.IContext;
+import server.IProtocole;
 import serverFiles.InstantiateSerializable;
 
 import java.io.*;
