@@ -13,7 +13,7 @@ public class ProtocoleUpdateUser implements IProtocole {
         String inputReq;
         BufferedReader is = new BufferedReader(new InputStreamReader(
                 anInputStream));
-        PrintStream os = new PrintStream(anOutputStream);
+
 
         try {
 

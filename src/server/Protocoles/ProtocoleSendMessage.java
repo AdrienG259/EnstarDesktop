@@ -1,6 +1,7 @@
 package server.Protocoles;
 
 import common.Conversation;
+import common.Message;
 import common.User;
 import server.IContext;
 import server.IProtocole;
@@ -12,24 +13,23 @@ public class ProtocoleSendMessage implements IProtocole {
 
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
-        //aContext pas encore utilisé car on sait pas encore ce que c'est : dépend des cas
-        // protocole conversation : conversation etc ...
-        /* Pour l'instant Protocole inutile car non lié à un contexte
-         * Il faudrait que le morceau de code en dessous qui permet de récupérer un objet sérialisé soit mis dans
-         * une classe spécialement créée*/
+        /* ProtocoleSendMessage sert à RECEVOIR  le message côté serveur, envoyé côté client par ControleurConversation
+        dans la méthode sendMessage.*/
 
         Conversation conversation = (Conversation) aContext;
-        String message;
-        BufferedReader is = new BufferedReader(new InputStreamReader(
-                anInputStream));
+        Message message;
+        PrintStream os = new PrintStream(anOutputStream);
 
         try {
-            if ((message = is.readLine()) != null) {
-                int id = conversation.getID();
-
+            ObjectInputStream ois = new ObjectInputStream(anInputStream);
+            if ((message = (Message) ois.readObject()) != null) {
+                conversation.getHistorique().addMessage(message);
+                os.println("0");
+            } else{
+                os.println("-1");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | ClassNotFoundException ioException) {
+            ioException.printStackTrace();
         }
     }
 }

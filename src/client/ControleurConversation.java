@@ -29,7 +29,9 @@ public class ControleurConversation extends Controleur {
             String ret = monClientTCP.sendSerializableObject((Serializable) message);
             if (ret == "0") {
                 System.out.println("Message transmis");
-                conversation.getHistorique().addMessage(message);
+//                conversation.getHistorique().addMessage(message);
+                Historique newHistorique = getHistorique(conversation);
+                conversation.setHistorique(newHistorique);
                 monClientTCP.deconnecterDuServeur();
                 setChanged();
                 notifyObservers();
