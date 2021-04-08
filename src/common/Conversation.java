@@ -40,6 +40,7 @@ public class Conversation implements IContext, Observer {
         this.historique = historique;
     }
 
+
     public List<User> getMembres() {
         return membres;
     }

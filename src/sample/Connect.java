@@ -30,8 +30,6 @@ public class Connect {
     @FXML
     ScrollBar scrollbar_left;
     @FXML
-    TextArea txtarea_currentconv;
-    @FXML
     TextField txtfield_msg;
     @FXML
     Button btn_envoyer;
@@ -51,16 +49,17 @@ public class Connect {
     private ControleurUser ctrl_user;
     private Timer timer;
 
-
-
-
     public void initialize() throws IOException {
         //print_conversations();
         //pour tester si ça marche correctement
         List<User> membres= new ArrayList<User>();
         membres.add(new User(1, "toto", null, null));
         Conversation aConv= new Conversation("toto",membres, 1);
-        aConv.getHistorique();
+        Historique aHist=new Historique();
+        Message new_msg= new Message("bonjour",1 );
+        aHist.addMessage(new_msg);
+        aConv.setHistorique(aHist);
+
         lstview_users.getItems().add(new Conversation("toto",membres, 1));
         SharedVariables sharedVariables = new SharedVariables("clientFiles/sharedVariables");
         ctrl_user=new ControleurUser();
@@ -83,7 +82,7 @@ public class Connect {
     }
 
     public void create_new_Conversation() throws IOException {
-
+        timer.cancel();
         //ouvrir une nouvelle fenêtre pour les paramètres d'une nouvelle conversation
         Stage stage = (Stage) btn_new_conv.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("createNewConv.fxml"));
@@ -99,9 +98,9 @@ public class Connect {
         Message new_message = new Message(buffer_msg, user);
         control_conv= new ControleurConversation();
         if (control_conv.sendMessage(new_message,current_conversation)=="0"){ //si le message a bien été envoyé, on fait un update
-            update(); //
+            System.out.println("message envoyé"+new_message);
         }
-        System.out.println("message envoyé"+new_message);
+
     }
 
     public void print_message(){
@@ -109,6 +108,7 @@ public class Connect {
 
     }
     public void open_conv(Conversation aConv){
+        lstview_currentconv.getItems().removeAll();
         control_conv= new ControleurConversation();
         Historique historique_conv= control_conv.getHistorique(aConv);
         List<Message> list_message=historique_conv.getListeMessages();
@@ -117,17 +117,13 @@ public class Connect {
         }
     }
 
-    public void update(){
-
-    }
-
     public void print_conversations(){
         //récupérer du serveur toutes les conversations dans lesquelles l'user est impliqué
         List<Integer> listIDconv= current_user.getIDConversations();
         control_conv= new ControleurConversation();
         List<Conversation> conv= control_conv.getConversation(listIDconv);
         if(conv==null){
-            lstview_users.getItems().add("rien à pas de conversation en cours ");
+            lstview_users.getItems().add("pas de conversation en cours ");
         }
         else{
             lstview_users.getItems().removeAll();
@@ -165,4 +161,5 @@ public class Connect {
 
 
     }
+
 }
