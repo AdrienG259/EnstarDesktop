@@ -22,6 +22,8 @@ import java.net.URL;
 import java.util.*;
 import common.Message;
 import common.User;
+import serverFiles.SharedVariableCannotAccess;
+import serverFiles.SharedVariables;
 
 public class Connect {
 
@@ -48,28 +50,28 @@ public class Connect {
 
     public AutorizedUser autorizedUser = new AutorizedUser();
     public User current_user;
+    public String current_user_log;
     public Conversation current_conversation;
 
 
 
-    public void initialize() {
-        print_conversations();
+
+    public void initialize() throws IOException {
+        //print_conversations();
         //pour tester si ça marche correctement
 //        List<User> membres= new ArrayList<User>();
 //        membres.add(new User(1, "toto", null, null));
 //        lstview_users.getItems().add(new User(1,"toto",null,null));
 //        lstview_users.getItems().add(new Conversation("toto",membres, 1));
+        SharedVariables sharedVariables = new SharedVariables("clientFiles/sharedVariables");
 
-//        try {
-//            File connected_user = new File("connected_user.txt");
-//            Scanner myReader = new Scanner(connected_user);
-//            current_user = myReader.nextLine();
-//            myReader.close();
-//            connected_user.delete();
-//        } catch (FileNotFoundException e) {
-//            System.out.println("Err lect fichier");
-//            e.printStackTrace();
-//        }
+        try{
+            current_user_log = sharedVariables.accessVariable("current_user_log");
+            // Récuperer l'objet User associé au login
+        } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
+            sharedVariableCannotAccess.printStackTrace();
+        }
+
     }
 
     public void create_new_Conversation() throws IOException {
