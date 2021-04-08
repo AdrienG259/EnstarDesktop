@@ -1,10 +1,7 @@
 package server.Gestion;
 
 import server.*;
-import server.Protocoles.ProtocoleCreateUser;
-import server.Protocoles.ProtocoleDeleteUser;
-import server.Protocoles.ProtocoleEchec;
-import server.Protocoles.ProtocoleGetUser;
+import server.Protocoles.*;
 
 import java.io.*;
 
@@ -32,6 +29,10 @@ public class ProtocoleGestionPortUser implements IProtocole {
                     }
                     case "getUser" -> {
                         protocole = new ProtocoleGetUser();
+                        reponse = "0";
+                    }
+                    case "updateUser" -> {
+                        protocole = new ProtocoleUpdateUser();
                         reponse = "0";
                     }
                     default -> {
