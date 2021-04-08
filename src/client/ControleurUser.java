@@ -62,7 +62,7 @@ public class ControleurUser extends Controleur {
             setChanged();
             notifyObservers();
             return Integer.parseInt(retParametres);
-        } else{
+        } else {
             /* Cas d'échec, on ne peut pas envoyer les paramètres, le serveur n'est pas préparé à les recevoir */
             System.err.println("Problème communication, intention "+intention+ " non prise en compte par le serveur");
             //On peut renvoyer une exception sinon

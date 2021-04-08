@@ -10,6 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import serverFiles.SharedVariableAlreadyExists;
+import serverFiles.SharedVariableCannotAccess;
+import serverFiles.SharedVariables;
+
 import java.io.*;
 
 public class Controleur {
@@ -48,6 +52,20 @@ public class Controleur {
 
         } else if (can_connect == 1){
             label_feedback.setText("Ok");
+
+            SharedVariables sharedVariables = new SharedVariables("clientFiles/sharedVariables");
+
+            try {
+                sharedVariables.deleteSharedVariable("current_user_log");
+            } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
+                sharedVariableCannotAccess.printStackTrace();
+            }
+
+            try {
+                sharedVariables.addNewSharedVariable("current_user_log", log);
+            } catch (SharedVariableAlreadyExists sharedVariableAlreadyExists) {
+                sharedVariableAlreadyExists.printStackTrace();
+            }
 
             Stage stage = (Stage) btn_connexion.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("connectedpage.fxml"));
@@ -99,5 +117,7 @@ public class Controleur {
             label_feedback.setText("Compte administrateur requis");
         }
     }
+
+
 }
 
