@@ -35,6 +35,10 @@ public class ProtocoleGestionPortUser implements IProtocole {
                         protocole = new ProtocoleUpdateUser();
                         reponse = "0";
                     }
+                    case "matchUser" -> {
+                        protocole = new ProtocoleMatchUser();
+                        reponse = "0";
+                    }
                     default -> {
                         protocole = new ProtocoleEchec();
                         reponse = "-2";

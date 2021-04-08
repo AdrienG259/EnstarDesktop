@@ -10,7 +10,6 @@ public class User implements Serializable {
     private List<String> centre_interet;
     private List<Integer> listIDConversations;
 
-
     public User(int userID, String pseudo, List<String> centre_interet, List<Integer> listIDConversations){
         id = userID;
         this.pseudo = pseudo;
