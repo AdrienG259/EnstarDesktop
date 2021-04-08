@@ -2,6 +2,7 @@ package server.Gestion;
 
 import common.Conversation;
 import server.*;
+import server.Protocoles.ProtocoleNewConversation;
 
 import java.util.Observable;
 
@@ -10,7 +11,7 @@ public class Messagerie extends Observable implements IContext, IMessagerie {
     private static final int port_connexion = 10001;
     private static final int port_GestionUser = 10002;
     private static final int port_admin = 10003;
-    private static final int port_GestionConversations = 10004;
+    private static final int port_CreationConversation = 10004;
 
     public ServeurTCP[] serveurs = new ServeurTCP[20000];
 
@@ -18,7 +19,7 @@ public class Messagerie extends Observable implements IContext, IMessagerie {
         return serveurs;
     }
 
-    public Messagerie(){};
+    public Messagerie(){}
 
     public void ouvrirMessagerie(){
 
@@ -26,10 +27,10 @@ public class Messagerie extends Observable implements IContext, IMessagerie {
         serveurs[port_connexion] = new ServeurTCP(this, new ProtocoleConnexion(), port_connexion);
         serveurs[port_GestionUser] = new ServeurTCP(this, new ProtocoleGestionPortUser(), port_GestionUser);
         serveurs[port_admin] = new ServeurTCP(this, new ProtocoleAdministrateur(), port_admin);
-        serveurs[port_GestionConversations] = new ServeurTCP(this, new ProtocoleGestionPortConversation(), port_GestionConversations);
+        serveurs[port_CreationConversation] = new ServeurTCP(this, new ProtocoleNewConversation(), port_CreationConversation);
 
         // On ouvre l'ensemble des serveurs
-        for(ServeurTCP s : serveurs){
+        for (ServeurTCP s : serveurs) {
             if (s != null) {
                 s.start();
             }
