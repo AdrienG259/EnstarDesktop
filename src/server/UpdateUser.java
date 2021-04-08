@@ -7,6 +7,7 @@ import java.util.Map;
 public class UpdateUser{
 
     public HashMap<String, String> userMap;
+
     // sert à faire un update de fichier users pour prendre en compte les modifications de la hashmap
     public UpdateUser(HashMap<String, String> userMap) {
         this.userMap = userMap;
