@@ -19,7 +19,6 @@ public class ProtocoleCreateUser implements IProtocole {
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
 
-        //Messagerie messagerie = (Messagerie)aContext;
         String inputReq;
         BufferedReader is = new BufferedReader(new InputStreamReader(
                 anInputStream));

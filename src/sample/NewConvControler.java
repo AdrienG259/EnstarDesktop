@@ -1,28 +1,18 @@
 package sample;
-import client.ControleurCreateConversation;
+import client.ControleurCreateDeleteConversation;
 import client.ControleurUser;
-import client.desktopBusinessRules;
-import common.Conversation;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 
 import java.io.*;
-import java.net.URL;
 import java.util.*;
-import common.Message;
+
 import common.User;
-import serverFiles.InstantiateSerializable;
 
 public class NewConvControler {
     Parent root;
@@ -69,9 +59,9 @@ public class NewConvControler {
         if (membres.size()==2||buffer_gpname=="") { //
             buffer_gpname = membres.get(1).getPseudo();
         }
-        ControleurCreateConversation controleurCreateConversation = new ControleurCreateConversation();
+        ControleurCreateDeleteConversation controleurCreateDeleteConversation = new ControleurCreateDeleteConversation();
         try {
-            controleurCreateConversation.creerConversation(buffer_gpname, membres);
+            controleurCreateDeleteConversation.creerConversation(buffer_gpname, membres);
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
