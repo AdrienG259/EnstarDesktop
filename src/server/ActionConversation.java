@@ -1,21 +1,22 @@
 package server;
 
 import common.Conversation;
+import common.Message;
 import common.User;
 import serverFiles.InstantiateSerializable;
-import serverFiles.SharedVariableAlreadyExists;
 import serverFiles.SharedVariableCannotAccess;
 import serverFiles.SharedVariables;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class ActionConversation {
 
     public ActionConversation() throws IOException, ClassNotFoundException {
+
+        // On crée un dossier dans lequel on va venir mettre les fichiers correspondant à la conversation
         File directoryConversations = new File("serverFiles/conversations");
         if (directoryConversations.exists()){
             if(!directoryConversations.isDirectory()){
@@ -34,106 +35,49 @@ public class ActionConversation {
             }
         }
     }
-//
-//    private void saveConversationAttributes(Conversation ){
-//
-//    }
-//
-//
-//    public int addConversation(Conversation newConversation){
-//
-//        /* Trouver un nouveau userID admissible */
-//
-//
-//        /* Ajouter dans les maps */
-//        loginUserIDMap.put(identifiant, userID);
-//        userIDPasswordMap.put(userID, motdepasse);
-//        saveMaps();
-//
-//        /* Instancier le nouvel User et l'enregistrer */
-//
-//        File userFile = new File("serverFiles/users/"+userID);
-//        userFile.createNewFile();
-//        InstantiateSerializable<User> instantiate_user = new InstantiateSerializable<>(userFile);
-//        User newUser = new User(userID, identifiant, new ArrayList<>(),new ArrayList<>());
-//        instantiate_user.instanceToFile(newUser);
-//
-//        return 0;
-//    }
-//
-//    public int deleteConversation(int userID) throws IOException, ClassNotFoundException {
-//        //vérification si dans la hashmap
-//        for (int userIDissudelamap : userIDPasswordMap.keySet()){
-//            // i = key = username
-//            if (userIDissudelamap == userID){
-//                // identifiant deja utilisé
-//                break;
-//            }
-//            else {
-//                return -1;
-//            }
-//        }
-//        /* Instancier le nouvel User et l'enregistrer */
-//
-//        File userFile = new File("serverFiles/users/"+userID);
-//        InstantiateSerializable<User> instantiate_user = new InstantiateSerializable<>(userFile);
-//        User newUser = instantiate_user.fileToInstance();
-//        boolean hasBeenDeleted = userFile.delete();
-//        if (!hasBeenDeleted){
-//            return -2;
-//        }
-//
-//        /* Ajouter dans les maps */
-//        loginUserIDMap.remove(newUser.getPseudo());
-//        userIDPasswordMap.remove(userID);
-//        saveMaps();
-//
-//        return 0;
-//
-//    }
-//
-//    public int addUser(String login, String motdepasse) {
-//        if (!membres.contains(member)) {
-//            membres.add(member);
-//            setChanged();
-//            notifyObservers();
-//        }
-//        else {
-//            System.err.println("Le membre " +member+ " appartient déjà à la conversation");
-//        }
-//    }
-//
-//    public int removeUser(String login){
-//        return loginUserIDMap.get(login);
-//    }
-//
-//    public String changeNomConversation(String login){
-//        int userID = this.getUserIDFromLogin(login);
-//        return userIDPasswordMap.get(userID);
-//    }
-//
-//    public String setHistorique(int userID){
-//        return userIDPasswordMap.get(userID);
-//    }
-//
-//    public void changePseudo(String pseudo, String newPseudo) throws IOException, ClassNotFoundException {
-//        int userID = loginUserIDMap.get(pseudo);
-//        File userFile = new File("serverFiles/users/" + userID);
-//        InstantiateSerializable<User> userInstantiate = new InstantiateSerializable<User>(userFile);
-//        User user = userInstantiate.fileToInstance();
-//        user.setPseudo(newPseudo);
-//        userInstantiate.instanceToFile(user);
-//
-//        loginUserIDMap.remove(pseudo);
-//        loginUserIDMap.put(newPseudo, userID);
-//        saveMaps();
-//    }
-//
-//
-//    public void changePassword(String pseudo, String newPassword) throws IOException {
-//        userIDPasswordMap.replace(loginUserIDMap.get(pseudo), newPassword);
-//        saveMaps();
-//    }
-//
-//    public void changeListDates(){}
+
+    private void saveNom(Conversation conversation) throws IOException, SharedVariableCannotAccess {
+        SharedVariables nom = new SharedVariables("serverFiles/conversations/" + conversation.getID());
+        nom.setVariable("nomGroupe", conversation.getNomGroupe());
+    }
+
+    private void saveMembres(Conversation conversation) throws IOException {
+        File fileusers = new File("serverFiles/conversations/" + conversation.getID() + "/membres");
+        if (!fileusers.exists()) {
+            fileusers.createNewFile();
+        }
+        InstantiateSerializable<ArrayList<Integer>> membres = new InstantiateSerializable<>(fileusers);
+        ArrayList<Integer> membresID = new ArrayList<>();
+        for (User m : conversation.getMembres()) {
+            membresID.add(m.getId());
+        }
+        membres.instanceToFile(membresID);
+    }
+
+    private void saveID(Conversation conversation) throws IOException, SharedVariableCannotAccess {
+        SharedVariables ID = new SharedVariables("serverFiles/conversations/" + conversation.getID());
+        ID.setVariable("ID", String.valueOf(conversation.getID()));
+    }
+
+    private void saveHistorique(Conversation conversation) throws IOException {
+        File filehistorique = new File("serverFiles/conversations/" + conversation.getID() + "/historique");
+        if (!filehistorique.exists()) {
+            filehistorique.createNewFile();
+        }
+        InstantiateSerializable<ArrayList<Message>> historique = new InstantiateSerializable<>(filehistorique);
+        ArrayList<Message> messages = new ArrayList<>();
+        for (Message m : conversation.getHistorique().getListeMessages()) {
+            messages.add(m);
+        }
+        historique.instanceToFile(messages);
+    }
+
+    public List<String> listeDernieresModifs(Conversation conversation) {
+        List<String> modifsServeur = conversation.getListDatesLastChanges();
+        return modifsServeur;
+    }
+
+    public void getConversation(Integer ID) {
+
+    }
 }
