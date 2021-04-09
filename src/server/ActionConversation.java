@@ -86,6 +86,16 @@ public class ActionConversation {
         conversation.setListDatesLastChanges(listLastChanges);
     }
 
+    public void saveLastChanges(Conversation conversation) throws IOException {
+        File filechanges = new File(path + conversation.getID() + "/dernierschangements");
+        if (!filechanges.exists()) {
+            filechanges.createNewFile();
+        }
+        InstantiateSerializable<ArrayList<String>> changes = new InstantiateSerializable<>(filechanges);
+        ArrayList<String> dates = new ArrayList<>();
+        changes.instanceToFile(dates);
+    }
+
     public List<String> listeDernieresModifs(Conversation conversation) {
         List<String> modifsServeur = conversation.getListDatesLastChanges();
         return modifsServeur;
@@ -120,6 +130,13 @@ public class ActionConversation {
         Historique historique = new Historique();
         historique.setListeMessages(listeMessages);
         return historique;
+    }
+
+    public ArrayList<String> getLastChanges(Integer ID) throws IOException, ClassNotFoundException {
+        File fileConversation = new File(path + ID);
+        InstantiateSerializable<ArrayList<String>> changesSerialise = new InstantiateSerializable<>(fileConversation);
+        ArrayList<String> changes = changesSerialise.fileToInstance();
+        return changes;
     }
 
 }
