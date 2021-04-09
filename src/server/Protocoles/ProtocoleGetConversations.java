@@ -36,7 +36,7 @@ public class ProtocoleGetConversations implements IProtocole {
                 List<Conversation> listConversation = new ArrayList<Conversation>() {
                 };
 
-                for(int i = 0; i < listIDConversation.size(); i++) {
+                for (int i = 0; i < listIDConversation.size(); i++) {
                     listConversation.add(actionConversation.getConversationID(listIDConversation.get(i)));
                 }
 

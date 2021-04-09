@@ -47,9 +47,10 @@ public class Connect {
     public void initialize() throws IOException {
         SharedVariables sharedVariables = new SharedVariables("clientFiles/sharedVariables");
         ctrl_user = new ControleurUser();
-        try{
+        try {
             current_user_log = sharedVariables.accessVariable("current_user_log");
             current_user = ctrl_user.matchUser(current_user_log); // Récuperer l'objet User associé au login
+            lstIDConv = current_user.getIDConversations();
             System.err.println(current_user);
         } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
             sharedVariableCannotAccess.printStackTrace();
@@ -62,7 +63,7 @@ public class Connect {
         TimerTask update = new TimerTask() {
             @Override
             public void run() {
-                //A CODER -- UPDATE
+                System.err.println(current_user_log);
                 refreshConvs();
                 refreshConv();
             }
@@ -72,7 +73,7 @@ public class Connect {
 
     public void refreshConvs(){
         lstIDConv = current_user.getIDConversations();
-        lstConv = controleurCreateDeleteConversation.getConversations(lstIDConv);
+        lstConv = controleurCreateDeleteConversation.getConversations(this.lstIDConv);
         for(Conversation conversation : lstConv){
             lstview_users.getItems().add(conversation);
         }

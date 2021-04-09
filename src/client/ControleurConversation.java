@@ -217,7 +217,6 @@ public class ControleurConversation extends Controleur {
 //        return retHist;
 //    }
 
-    @Override
     public void run() {
         Timer timer = new Timer();
         TimerTask update = new TimerTask() {
