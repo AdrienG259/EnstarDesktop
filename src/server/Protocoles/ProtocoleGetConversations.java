@@ -29,17 +29,20 @@ public class ProtocoleGetConversations implements IProtocole {
                 List<Integer> listIDConversation = (List<Integer>) ois.readObject();
                 os.println("0");
                 os.flush();
+                System.err.println(listIDConversation);
                 is.readLine();
 
                 ActionConversation actionConversation = new ActionConversation();
                 List<Conversation> listConversation = new ArrayList<Conversation>() {
                 };
+
                 for(int i = 0; i < listIDConversation.size(); i++) {
                     listConversation.add(actionConversation.getConversationID(listIDConversation.get(i)));
                 }
+
                 ObjectOutputStream oos = new ObjectOutputStream(anOutputStream);
                 oos.writeObject(listConversation);
-
+                System.err.println(listConversation);
                 oos.flush();
 //                oos.close();
             } else {
