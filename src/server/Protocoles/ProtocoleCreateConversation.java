@@ -12,7 +12,7 @@ import serverFiles.SharedVariableCannotAccess;
 import java.io.*;
 import java.util.List;
 
-public class ProtocoleNewConversation implements IProtocole {
+public class ProtocoleCreateConversation implements IProtocole {
 
     /* Les classes présentes dans le package protocole ont pour but de répondre au client après que ce dernier a envoyé son intention
      * ici l'intention est de créer une nouvelle conversation

@@ -1,9 +1,11 @@
 package server.Gestion;
 
 import common.Conversation;
+import common.User;
 import server.*;
 import server.Gestion.ProtocoleGestionConversations;
 
+import java.util.List;
 import java.util.Observable;
 
 public class Messagerie extends Observable implements IContext, IMessagerie {
@@ -46,6 +48,13 @@ public class Messagerie extends Observable implements IContext, IMessagerie {
 
         // On ouvre le serveur
         serveurs[port].start();
+
+        List<User> membres = newConversation.getMembres();
+        for (User m : membres) {
+            List<Integer> listConv = m.getIDConversations();
+            listConv.add(newConversation.getID());
+            m.setListIDConversations(listConv);
+        }
 
         // On notifie les observateurs
         this.notifyObservers();

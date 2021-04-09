@@ -24,7 +24,7 @@ public class ProtocoleGestionConversations implements IProtocole {
 
                 switch (intentionClient) {
                     case "createConversation" -> {
-                        protocole = new ProtocoleNewConversation();
+                        protocole = new ProtocoleCreateConversation();
                         reponse = "0";
                     }
                     case "deleteConversation" -> {
