@@ -36,6 +36,8 @@ public class ProtocoleDeleteUser implements IProtocole {
                 actionUser.deleteUser(actionUser.getUserIDFromLogin(login));
 
                 os.println(messageRetour);
+            } else {
+                os.println("-1");
             }
         } catch (Exception e) {
             System.out.println(" Pb d'exception ");

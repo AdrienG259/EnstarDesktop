@@ -38,7 +38,9 @@ public class ProtocoleGetConversations implements IProtocole {
                 oos.writeObject(listConversation);
 
                 oos.flush();
-                oos.close();
+//                oos.close();
+            } else {
+                os.println("-1");
             }
         } catch (Exception e) {
             System.out.println(" Pb d'exception ");

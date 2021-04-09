@@ -229,12 +229,16 @@ public class ControleurConversation extends Controleur implements Runnable{
     }
     
     public void notificationMethod(){
+        /* Methode servant à check à intervalle régulier si on a des changements côté serveur
+        * On sait qu'il y a eu un changement par rapport aux versions locales des instances en comparant
+        * les dates des derniers changements dans la liste listDatesLastChanges dans Conversation (on comapre la version
+        * locale à la version du serveur*/
         List<String> listDatesLastChangesServer = getListDatesLastChanges();
         ActionConversationClient actionConversationClient = null;
         System.out.println("[" + portConversation + "] - Task Timer on Fixed Rate");
         try {
             actionConversationClient = new ActionConversationClient();
-            List<String> listDatesLastChangesClient = actionConversationClient.getListDatesLastChanges(portConversation);
+            List<String> listDatesLastChangesClient = actionConversationClient.getLastChanges(portConversation);
             assert listDatesLastChangesServer != null;
             List<Boolean> datesBoolean = compareLists(listDatesLastChangesServer, listDatesLastChangesClient);
 
@@ -256,7 +260,8 @@ public class ControleurConversation extends Controleur implements Runnable{
             }
             else if (datesBoolean.get(2)){ // si la date du nom de groupe locale est inférieure à celle du serveur
                 String nomConversation = getNomConversation();
-
+                conversation.setNomGroupe(nomConversation);
+                actionConversationClient.saveNom(conversation);
             }
 
         } catch (IOException | ParseException | SharedVariableCannotAccess | ClassNotFoundException e) {

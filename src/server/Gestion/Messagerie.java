@@ -5,10 +5,11 @@ import common.User;
 import server.*;
 import server.Gestion.ProtocoleGestionConversations;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Observable;
 
-public class Messagerie extends Observable implements IContext, IMessagerie {
+public class Messagerie extends Observable implements IContext {
 
     private static final int port_connexion = 10001;
     private static final int port_GestionUser = 10002;
@@ -40,9 +41,8 @@ public class Messagerie extends Observable implements IContext, IMessagerie {
         }
     }
 
-    @Override
-    public void addConversation(Conversation newConversation, int port) {
-
+    public void addConversation(Conversation newConversation) {
+        int port = newConversation.getID();
         // On ajoute le nouveau ServeurTCP sur le port souhaité
         serveurs[port] = new ServeurTCP(newConversation, new ProtocoleGestionPortConversation(), port);
 
@@ -54,6 +54,13 @@ public class Messagerie extends Observable implements IContext, IMessagerie {
             List<Integer> listConv = m.getIDConversations();
             listConv.add(newConversation.getID());
             m.setListIDConversations(listConv);
+            try {
+                ActionUser actionUser = new ActionUser();
+                actionUser.addConversation(port, m.getId());
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
         }
 
         // On notifie les observateurs

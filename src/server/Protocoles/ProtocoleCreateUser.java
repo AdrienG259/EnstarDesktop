@@ -46,6 +46,8 @@ public class ProtocoleCreateUser implements IProtocole {
                 /* on renvoit 0 si l'utilisateur a été ajouté, -1 (String messae retour de base) sinon */
 
                 os.println(messageRetour);
+            } else {
+                os.println("-1");
             }
         } catch (IOException | ClassNotFoundException | SharedVariableCannotAccess | SharedVariableAlreadyExists e) {
             e.printStackTrace();
