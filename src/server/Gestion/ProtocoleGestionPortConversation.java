@@ -27,6 +27,7 @@ public class ProtocoleGestionPortConversation implements IProtocole {
                 switch (intentionClient) {
                     case "sendMessage" -> {
                         protocole = new ProtocoleSendMessage();
+                        System.err.println("Envoi d'un echec suite a l'intention = "+intentionClient);
                         reponse = "0";
                     }
                     case "receiveMessage" -> {
@@ -39,6 +40,7 @@ public class ProtocoleGestionPortConversation implements IProtocole {
                     }
                     default -> {
                         protocole = new ProtocoleEchec();
+
                         reponse = "-1";
                     }
                 }
