@@ -56,10 +56,10 @@ public class Connect {
 //        lstview_users.getItems().add(aConv);
 
         SharedVariables sharedVariables = new SharedVariables("clientFiles/sharedVariables");
-        ctrl_user=new ControleurUser();
+        ctrl_user = new ControleurUser();
         try{
             current_user_log = sharedVariables.accessVariable("current_user_log");
-            current_user= ctrl_user.matchUser(current_user_log); // Récuperer l'objet User associé au login
+            current_user = ctrl_user.matchUser(current_user_log); // Récuperer l'objet User associé au login
             System.err.println(current_user);
         } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
             sharedVariableCannotAccess.printStackTrace();
