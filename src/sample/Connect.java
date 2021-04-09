@@ -62,8 +62,8 @@ public class Connect {
             @Override
             public void run() {
                 //A CODER -- UPDATE
-                //refreshConvs();
-                //refreshConv();
+                refreshConvs();
+                refreshConv();
             }
         };
         timer.scheduleAtFixedRate(update, 500, 1000);

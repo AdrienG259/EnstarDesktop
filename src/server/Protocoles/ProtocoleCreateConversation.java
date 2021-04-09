@@ -45,7 +45,7 @@ public class ProtocoleCreateConversation implements IProtocole {
                 os.println(newPort);
                 if (newPort != -1) {
                     /* Si  le port est admissible*/
-                    messagerie.addConversation(new Conversation(nomConversation, membres, newPort), newPort);
+                    messagerie.addConversation(new Conversation(nomConversation, membres, newPort));
                 }
             } else {
                 os.println("-1");

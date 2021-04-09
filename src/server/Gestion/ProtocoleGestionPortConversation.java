@@ -39,6 +39,10 @@ public class ProtocoleGestionPortConversation implements IProtocole {
                         protocole = new ProtocoleGetLastChanges();
                         reponse = "0";
                     }
+                    case "getNomConversation" -> {
+                        protocole = new ProtocoleGetNomConversation();
+                        reponse = "0";
+                    }
                     default -> {
                         protocole = new ProtocoleEchec();
                         reponse = "-1";

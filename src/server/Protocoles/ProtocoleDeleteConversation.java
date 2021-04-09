@@ -40,6 +40,8 @@ public class ProtocoleDeleteConversation implements IProtocole {
                 serveurTCPConversation.interrupt();
                 messagerie.getServeurs()[conversationID] = null;
                 os.println(0);
+            } else {
+                os.println("-1");
             }
         } catch (IOException e) {
             System.out.println(" Pb d'exception ");

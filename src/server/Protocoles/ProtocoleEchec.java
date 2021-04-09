@@ -24,6 +24,8 @@ public class ProtocoleEchec implements IProtocole {
             if ((inputReq = is.readLine()) != null) {
                 System.out.println(" Ordre Recu " + inputReq);
                 os.println(messageRetour);
+            } else {
+                os.println("-1");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -41,9 +41,11 @@ public class ProtocoleGetUser implements IProtocole {
                     oos.writeObject(null);
                 } finally {
                     oos.flush();
-                    oos.close();
+//                    oos.close();
                 }
 
+            } else {
+                os.println("-1");
             }
         } catch (Exception e) {
             System.out.println(" Pb d'exception ");
