@@ -80,9 +80,6 @@ public class ActionConversation {
         return modifsServeur;
     }
 
-    public void findID(String path) {
-
-    }
     public Conversation getConversationID(Integer ID) throws IOException, SharedVariableCannotAccess, ClassNotFoundException {
         String nom = getNom(ID);
         ArrayList<User> membres = getMembres(ID);
