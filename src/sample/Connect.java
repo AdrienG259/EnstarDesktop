@@ -99,7 +99,6 @@ public class Connect {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
 
     public void envoyer_message() {
@@ -129,7 +128,7 @@ public class Connect {
 //        List<Integer> listIDconv= current_user.getIDConversations();
 //        control_conv= new ControleurConversation();
 //        List<Conversation> conv= control_conv.getConversation(listIDconv);
-//        if(conv==null){
+//        if(conv==null){"
 //            lstview_users.getItems().add("pas de conversation en cours ");
 //        }
 //        else{
@@ -167,6 +166,11 @@ public class Connect {
         current_conversation=conv;
 
 
+    }
+
+    public void update(Observable o) {
+        refreshConv();
+        refreshConvs();
     }
 
 }

@@ -4,6 +4,7 @@ import common.Conversation;
 import common.Historique;
 import common.Message;
 import common.User;
+import javafx.beans.Observable;
 import server.ActionConversation;
 import serverFiles.SharedVariableCannotAccess;
 
@@ -13,7 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ControleurConversation extends Controleur implements Runnable{
+public class ControleurConversation extends Controleur {
 
     private final int portConversation;
 
