@@ -14,7 +14,7 @@ public class ProtocoleGetConversations implements IProtocole {
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
 
-        Conversation conversation = (Conversation) aContext;
+
 
         String inputReq;
         BufferedReader is = new BufferedReader(new InputStreamReader(
@@ -22,10 +22,13 @@ public class ProtocoleGetConversations implements IProtocole {
         PrintStream os = new PrintStream(anOutputStream);
 
         try {
-
-            if ((inputReq = is.readLine()) != null) {
+            if (true) {
+            //if ((inputReq = is.readLine()) != null) {
                 ObjectInputStream ois = new ObjectInputStream(anInputStream);
                 List<Integer> listIDConversation = (List<Integer>) ois.readObject();
+                os.println("0");
+                os.flush();
+
 
                 ActionConversation actionConversation = new ActionConversation();
                 List<Conversation> listConversation = new ArrayList<Conversation>() {

@@ -86,7 +86,9 @@ public class ControleurCreateDeleteConversation extends Controleur {
         if (msgServer.equals("0")) {
             String ret = monClientTCP.sendSerializableObject((Serializable) listIDConversation); //trouver ce qu'on doit avoir
             if (ret.equals("0")) {
+               // liste = monClientTCP.receiveSerializable();
                 System.out.println("Message transmis");
+
             } else {
                 System.out.println("Erreur lors de la transmission du message");
             }

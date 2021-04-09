@@ -71,7 +71,6 @@ public class Connect {
     }
 
     public void refreshConvs(){
-        System.out.println("RefreshConvs");
         lstIDConv = current_user.getIDConversations();
         lstConv = controleurCreateDeleteConversation.getConversations(lstIDConv);
         for(Conversation conversation : lstConv){
@@ -80,7 +79,6 @@ public class Connect {
     }
 
     public void refreshConv(){
-        System.out.println("RefreshConv");
         selectedConv = (Conversation) lstview_users.getSelectionModel().getSelectedItem();
         if (selectedConv == null && currentConv == null){
             lstview_currentconv.getItems().removeAll();
