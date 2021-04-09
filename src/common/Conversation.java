@@ -1,12 +1,7 @@
 package common;
 
 import server.IContext;
-import server.Protocoles.ProtocoleMatchUser;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 
 public class Conversation extends Observable implements IContext {
@@ -23,6 +18,7 @@ public class Conversation extends Observable implements IContext {
         this.membres = members;
         this.idConversation = idConversation;
         this.historique = new Historique();
+        this.listDatesLastChanges = new ArrayList<String>(3);
     }
 
     public int getID(){return idConversation;}

@@ -110,7 +110,7 @@ public class Connect {
         String buffer_msg = txtfield_msg.getText();
         Message new_message = new Message(buffer_msg, current_user.getId());
         controleurConversation = new ControleurConversation(0);
-        if (controleurConversation.sendMessage(new_message, current_conversation) == "0"){ //si le message a bien été envoyé, on fait un update
+        if (controleurConversation.sendMessage(new_message) == "0"){ //si le message a bien été envoyé, on fait un update
             System.out.println("message envoyé "+new_message);
         }
     }
@@ -118,7 +118,7 @@ public class Connect {
     public void open_conv(Conversation aConv){
         lstview_currentconv.getItems().removeAll();
         controleurConversation = new ControleurConversation(0);
-        Historique historique_conv = controleurConversation.getHistorique(aConv);
+        Historique historique_conv = controleurConversation.getHistorique();
         List<Message> list_message = historique_conv.getListeMessages();
         for (Message msg:list_message){
             lstview_currentconv.getItems().add(msg);
