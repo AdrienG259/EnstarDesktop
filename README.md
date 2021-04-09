@@ -7,7 +7,10 @@ _Marie-Amélie Defresne - Adrien Grivey - Pierre-Olivier Pedreno - Emilie Simon 
 
 **Lancer l'application :**
 
-- 
+- Lire le fichier URL.docx
+- Installer la configuration tel qu'indiqué dans le fichier
+- Lancer le MainServeur
+- Lancer le Main
 
 
 **Fonctionnalités disponibles**
