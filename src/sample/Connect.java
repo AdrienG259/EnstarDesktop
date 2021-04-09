@@ -41,6 +41,8 @@ public class Connect {
     private ControleurCreateDeleteConversation controleurCreateDeleteConversation;
     private List<Integer> lstIDConv;
     private List<Conversation> lstConv;
+    private Conversation currentConv = null;
+    private Conversation selectedConv = null;
 
     public void initialize() throws IOException {
         SharedVariables sharedVariables = new SharedVariables("clientFiles/sharedVariables");
@@ -60,16 +62,34 @@ public class Connect {
             @Override
             public void run() {
                 //A CODER -- UPDATE
-                //refresh();
+                //refreshConvs();
+                //refreshConv();
             }
         };
         timer.scheduleAtFixedRate(update, 500, 1000);
     }
 
-    public void refresh(){
-        System.out.println("Refresh");
+    public void refreshConvs(){
+        System.out.println("RefreshConvs");
         lstIDConv = current_user.getIDConversations();
         lstConv = controleurCreateDeleteConversation.getConversations(lstIDConv);
+        for(Conversation conversation : lstConv){
+            lstview_users.getItems().add(conversation);
+        }
+    }
+
+    public void refreshConv(){
+        System.out.println("RefreshConv");
+        selectedConv = (Conversation) lstview_users.getSelectionModel().getSelectedItem();
+        if (selectedConv == null && currentConv == null){
+            lstview_currentconv.getItems().removeAll();
+            lstview_currentconv.getItems().add("Aucune conversation selectionee");
+        } else if (selectedConv == null && currentConv != null){
+            open_conv(currentConv);
+        } else if (selectedConv != null){
+            currentConv = selectedConv;
+            open_conv(currentConv);
+        }
     }
 
     public void create_new_Conversation() throws IOException {
@@ -83,21 +103,18 @@ public class Connect {
 
     }
 
-    public void envoyer_message() throws IOException {
-        int user = 1; //voir comment récupérer l'user ID
-        String buffer_msg = txtfield_msg.getText();
-        Message new_message = new Message(buffer_msg, user);
-        controleurConversation = new ControleurConversation(0);
-        if (controleurConversation.sendMessage(new_message,current_conversation)=="0"){ //si le message a bien été envoyé, on fait un update
-            System.out.println("message envoyé"+new_message);
+    public void envoyer_message() {
+        if(currentConv == null){
+            return;
         }
-
+        String buffer_msg = txtfield_msg.getText();
+        Message new_message = new Message(buffer_msg, current_user.getId());
+        controleurConversation = new ControleurConversation(0);
+        if (controleurConversation.sendMessage(new_message, current_conversation) == "0"){ //si le message a bien été envoyé, on fait un update
+            System.out.println("message envoyé "+new_message);
+        }
     }
 
-    public void print_message(){
-        lstview_currentconv.getItems().add("blabla");
-
-    }
     public void open_conv(Conversation aConv){
         lstview_currentconv.getItems().removeAll();
         controleurConversation = new ControleurConversation(0);
