@@ -35,26 +35,14 @@ public class Connect {
     public User current_user;
     public String current_user_log;
     public Conversation current_conversation;
-    private ControleurConversation control_conv;
+    private ControleurConversation controleurConversation;
     private ControleurUser ctrl_user;
     private Timer timer;
     private ControleurCreateDeleteConversation controleurCreateDeleteConversation;
+    private List<Integer> lstIDConv;
+    private List<Conversation> lstConv;
 
     public void initialize() throws IOException {
-        //print_conversations();
-        //pour tester si ça marche correctement
-
-//        List<User> membres = new ArrayList<User>();
-//        membres.add(new User(1, "toto", null, null));
-//        controleurCreateDeleteConversation = new ControleurCreateDeleteConversation();
-//        int portNouvConv = controleurCreateDeleteConversation.creerConversation("toto", membres);
-//        Conversation aConv = new Conversation("toto", membres, portNouvConv);
-//        Historique aHist = new Historique();
-//        Message new_msg = new Message("bonjour",1 );
-//        aHist.addMessage(new_msg);
-//        aConv.setHistorique(aHist);
-//        lstview_users.getItems().add(aConv);
-
         SharedVariables sharedVariables = new SharedVariables("clientFiles/sharedVariables");
         ctrl_user = new ControleurUser();
         try{
@@ -65,15 +53,23 @@ public class Connect {
             sharedVariableCannotAccess.printStackTrace();
         }
 
+        controleurCreateDeleteConversation = new ControleurCreateDeleteConversation();
+
         timer = new Timer();
         TimerTask update = new TimerTask() {
             @Override
             public void run() {
                 //A CODER -- UPDATE
-                System.out.println("Task Timer on Fixed Rate");
+                //refresh();
             }
         };
         timer.scheduleAtFixedRate(update, 500, 1000);
+    }
+
+    public void refresh(){
+        System.out.println("Refresh");
+        lstIDConv = current_user.getIDConversations();
+        lstConv = controleurCreateDeleteConversation.getConversations(lstIDConv);
     }
 
     public void create_new_Conversation() throws IOException {
@@ -91,8 +87,8 @@ public class Connect {
         int user = 1; //voir comment récupérer l'user ID
         String buffer_msg = txtfield_msg.getText();
         Message new_message = new Message(buffer_msg, user);
-        control_conv= new ControleurConversation(0);
-        if (control_conv.sendMessage(new_message,current_conversation)=="0"){ //si le message a bien été envoyé, on fait un update
+        controleurConversation = new ControleurConversation(0);
+        if (controleurConversation.sendMessage(new_message,current_conversation)=="0"){ //si le message a bien été envoyé, on fait un update
             System.out.println("message envoyé"+new_message);
         }
 
@@ -104,8 +100,8 @@ public class Connect {
     }
     public void open_conv(Conversation aConv){
         lstview_currentconv.getItems().removeAll();
-        control_conv = new ControleurConversation(0);
-        Historique historique_conv = control_conv.getHistorique(aConv);
+        controleurConversation = new ControleurConversation(0);
+        Historique historique_conv = controleurConversation.getHistorique(aConv);
         List<Message> list_message = historique_conv.getListeMessages();
         for (Message msg:list_message){
             lstview_currentconv.getItems().add(msg);

@@ -83,30 +83,5 @@ public class ControleurConversation extends Controleur {
 
         return retHist;
     }
-    public List<Conversation> getConversation(List<Integer> listIDConversation){
-        String intention = "getConversation";
-        String msgServer = monClientTCP.transmettreChaine(intention);
 
-        List<Conversation> liste=new ArrayList<Conversation>();
-
-        // Si le serveur a bien reçu l'intention et qu'il n'y a pas eu d'erreur on transmet le message
-        if (msgServer.equals("0")) {
-            String ret = monClientTCP.sendSerializableObject((Serializable) listIDConversation); //trouver ce qu'on doit avoir
-            if (ret.equals("0")) {
-                System.out.println("Message transmis");
-            } else {
-                System.out.println("Erreur lors de la transmission du message");
-            }
-        } else {
-            System.out.println("Erreur lors de la transmission de l'intention");
-        }
-
-        // On se déconnecte et on informe les observateurs qu'un message a été transmis
-        monClientTCP.deconnecterDuServeur();
-        setChanged();
-        notifyObservers();
-        System.out.println("Envoi terminé");
-
-        return liste;
-    }
 }
