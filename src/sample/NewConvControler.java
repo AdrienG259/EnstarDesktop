@@ -54,10 +54,11 @@ public class NewConvControler {
         //trouver un moyen de matcher le texte rentré avec une liste des utilisateurs
         ControleurUser control_user = new ControleurUser();
         User to_add = control_user.matchUser(buffer_users);
-        if (to_add==null){
+        if (to_add == null){
             label_feedback.setText("L'utilisateur rentré n'est pas valide");
-        }
-        else{
+        } else if (to_add.getPseudo().equals(current_user.getPseudo())){
+            label_feedback.setText("Tu ne peux pas t'ajouter toi\nmeme, réflechis un peu");
+        } else {
             listview_users.getItems().add(to_add);
             label_feedback.setText("");
         }
@@ -102,7 +103,7 @@ public class NewConvControler {
         User to_del = (User) listview_users.getSelectionModel().getSelectedItem();
             for (int i = 0; i < listview_users.getItems().size(); i++) {
                 if (listview_users.getItems().get(i).equals(current_user)){
-                    label_feedback.setText("Tu ne peux pas tu supprimer toi\nmeme, chien de la case");
+                    label_feedback.setText("Tu ne peux pas te supprimer toi\nmeme, chien de la casse");
                     break;
                 }
                 if (listview_users.getItems().get(i).equals(to_del)){

@@ -31,6 +31,10 @@ public class ProtocoleGestionConversations implements IProtocole {
                         protocole = new ProtocoleDeleteConversation();
                         reponse = "0";
                     }
+                    case "getConversations" -> {
+                        protocole = new ProtocoleGetConversations();
+                        reponse = "0";
+                    }
                     default -> {
                         protocole = new ProtocoleEchec();
                         reponse = "-1";

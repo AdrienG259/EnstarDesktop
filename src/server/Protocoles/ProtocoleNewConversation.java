@@ -14,6 +14,13 @@ import java.util.List;
 
 public class ProtocoleNewConversation implements IProtocole {
 
+    /* Les classes présentes dans le package protocole ont pour but de répondre au client après que ce dernier a envoyé son intention
+     * ici l'intention est de créer une nouvelle conversation
+     * le message renvoyé au client est alors un int 0 ou -1 selon la réussite de l'action
+     * 0 la nouvelle conversation a été créée
+     * -1 échec
+     */
+
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
 

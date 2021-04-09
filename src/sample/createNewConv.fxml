@@ -14,7 +14,7 @@
       <Button fx:id="btn_create" layoutX="288.0" layoutY="359.0" mnemonicParsing="false" onAction="#create_conv" prefHeight="25.0" prefWidth="143.0" text="Créer la conversation" />
       <Text layoutX="104.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du groupe" />
       <TextField fx:id="txtfield_groupname" layoutX="52.0" layoutY="108.0" prefHeight="25.0" prefWidth="189.0" />
-      <Label fx:id="label_feedback" contentDisplay="CENTER" layoutX="52.0" layoutY="316.0" prefHeight="61.0" prefWidth="189.0" textAlignment="CENTER" />
+      <Label fx:id="label_feedback" alignment="CENTER" contentDisplay="CENTER" layoutX="52.0" layoutY="316.0" prefHeight="61.0" prefWidth="189.0" textAlignment="CENTER" />
       <Button fx:id="btn_annuler" layoutX="437.0" layoutY="359.0" mnemonicParsing="false" onAction="#annuler" prefHeight="25.0" prefWidth="143.0" text="Annuler" />
       <Button fx:id="btn_delete" layoutX="52.0" layoutY="265.0" mnemonicParsing="false" onAction="#des_chiffres_et_delete" prefHeight="25.0" prefWidth="189.0" text="Supprimer" />
    </children>

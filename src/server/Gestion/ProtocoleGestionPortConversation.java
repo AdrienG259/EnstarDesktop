@@ -41,7 +41,6 @@ public class ProtocoleGestionPortConversation implements IProtocole {
                     }
                     default -> {
                         protocole = new ProtocoleEchec();
-
                         reponse = "-1";
                     }
                 }

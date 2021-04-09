@@ -2,24 +2,18 @@ package server.Protocoles;
 
 import common.Conversation;
 import common.Historique;
-import common.User;
+import server.ActionConversation;
 import server.IContext;
 import server.IProtocole;
-import serverFiles.InstantiateSerializable;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ProtocoleGetHistorique implements IProtocole {
-
-    /* Les classes présentes dans le package protocole ont pour but de répondre au client après que ce dernier a envoyé son intention
-     * ici l'intention est de récupérer l'historique d'une conversation en particulier
-     * et de le retransmettre au client
-     */
-
+public class ProtocoleGetConversations implements IProtocole {
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
 
-        //notre contexte est  ici une conversation
         Conversation conversation = (Conversation) aContext;
 
         String inputReq;
@@ -30,15 +24,19 @@ public class ProtocoleGetHistorique implements IProtocole {
         try {
 
             if ((inputReq = is.readLine()) != null) {
+                ObjectInputStream ois = new ObjectInputStream(anInputStream);
+                List<Integer> listIDConversation = (List<Integer>) ois.readObject();
 
-                //on récupère l'historique de la conversation
-                Historique historique = conversation.getHistorique();
-
+                ActionConversation actionConversation = new ActionConversation();
+                List<Conversation> listConversation = new ArrayList<Conversation>() {
+                };
+                for(int i = 0; i < listIDConversation.size(); i++) {
+                    listConversation.add(actionConversation.getConversation(listIDConversation));
+                }
                 ObjectOutputStream oos = new ObjectOutputStream(anOutputStream);
 
-                oos.writeObject(historique);
+                oos.writeObject(listConversation);
 
-                //renvoit de l'historique au client
                 oos.flush();
                 oos.close();
             }
