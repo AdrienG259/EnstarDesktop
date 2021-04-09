@@ -1,13 +1,14 @@
 package common;
 
 import server.IContext;
+import server.Protocoles.ProtocoleMatchUser;
 
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 
-public class Conversation implements IContext, Observer {
+public class Conversation extends Observable implements IContext {
 
     private String nomGroupe;
     // Attribut final : l'id unique de chaque conversation est le port du serveur sur lequel il communique
@@ -53,14 +54,20 @@ public class Conversation implements IContext, Observer {
     public void addMember(User member){
         if (!membres.contains(member)) {
             membres.add(member);
+            setChanged();
+            notifyObservers();
         }
         else {
-            System.err.println("Member " +member+ " is already in the conversation members' list");
+            System.err.println("Le membre " +member+ " appartient déjà à la conversation");
         }
     }
+
     public void removeMember(User member){
         if (!membres.remove(member)) {
-            System.err.println("Can't remove Member " +member+ ", User not in Conversation "+idConversation);
+            System.err.println("Le membre " + member + " n'appartient pas à la conversation " + idConversation);
+        } else {
+            setChanged();
+            notifyObservers();
         }
     }
 
@@ -68,11 +75,4 @@ public class Conversation implements IContext, Observer {
     public String toString() {
         return nomGroupe;
     }
-
-    @Override
-    public void update(Observable o, Object arg) {
-
-    }
-    //udpate_conv pour récup les derniers messages
-
 }
