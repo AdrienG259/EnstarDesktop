@@ -10,9 +10,16 @@ import serverFiles.InstantiateSerializable;
 import java.io.*;
 
 public class ProtocoleGetHistorique implements IProtocole {
+
+    /* Les classes présentes dans le package protocole ont pour but de répondre au client après que ce dernier a envoyé son intention
+     * ici l'intention est de récupérer l'historique d'une conversation en particulier
+     * et de le retransmettre au client
+     */
+
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
 
+        //notre contexte est  ici une conversation
         Conversation conversation = (Conversation) aContext;
 
         String inputReq;
@@ -24,12 +31,14 @@ public class ProtocoleGetHistorique implements IProtocole {
 
             if ((inputReq = is.readLine()) != null) {
 
+                //on récupère l'historique de la conversation
                 Historique historique = conversation.getHistorique();
 
                 ObjectOutputStream oos = new ObjectOutputStream(anOutputStream);
 
                 oos.writeObject(historique);
 
+                //renvoit de l'historique au client
                 oos.flush();
                 oos.close();
             }
