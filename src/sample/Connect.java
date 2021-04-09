@@ -54,7 +54,8 @@ public class Connect {
         } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
             sharedVariableCannotAccess.printStackTrace();
         }
-
+//        Thread threadNotificationConversation = new Thread(controleurConversation);
+//        controleurConversation.start();
         controleurCreateDeleteConversation = new ControleurCreateDeleteConversation();
 
         timer = new Timer();
@@ -117,7 +118,7 @@ public class Connect {
 
     public void open_conv(Conversation aConv){
         lstview_currentconv.getItems().removeAll();
-        controleurConversation = new ControleurConversation(0);
+        controleurConversation = new ControleurConversation(aConv.getID());
         Historique historique_conv = controleurConversation.getHistorique();
         List<Message> list_message = historique_conv.getListeMessages();
         for (Message msg:list_message){
