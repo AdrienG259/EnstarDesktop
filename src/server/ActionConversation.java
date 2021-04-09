@@ -1,6 +1,7 @@
 package server;
 
 import common.Conversation;
+import common.Historique;
 import common.Message;
 import common.User;
 import serverFiles.InstantiateSerializable;
@@ -14,10 +15,12 @@ import java.util.List;
 
 public class ActionConversation {
 
+    public static String path = "serverFiles/conversations";
+
     public ActionConversation() throws IOException, ClassNotFoundException {
 
         // On crée un dossier dans lequel on va venir mettre les fichiers correspondant à la conversation
-        File directoryConversations = new File("serverFiles/conversations");
+        File directoryConversations = new File(path);
         if (directoryConversations.exists()){
             if(!directoryConversations.isDirectory()){
                 if(!directoryConversations.delete()){
@@ -36,13 +39,13 @@ public class ActionConversation {
         }
     }
 
-    private void saveNom(Conversation conversation) throws IOException, SharedVariableCannotAccess {
-        SharedVariables nom = new SharedVariables("serverFiles/conversations/" + conversation.getID());
+    public void saveNom(Conversation conversation) throws IOException, SharedVariableCannotAccess {
+        SharedVariables nom = new SharedVariables(path + conversation.getID());
         nom.setVariable("nomGroupe", conversation.getNomGroupe());
     }
 
-    private void saveMembres(Conversation conversation) throws IOException {
-        File fileusers = new File("serverFiles/conversations/" + conversation.getID() + "/membres");
+    public void saveMembres(Conversation conversation) throws IOException {
+        File fileusers = new File(path + conversation.getID() + "/membres");
         if (!fileusers.exists()) {
             fileusers.createNewFile();
         }
@@ -54,13 +57,13 @@ public class ActionConversation {
         membres.instanceToFile(membresID);
     }
 
-    private void saveID(Conversation conversation) throws IOException, SharedVariableCannotAccess {
-        SharedVariables ID = new SharedVariables("serverFiles/conversations/" + conversation.getID());
+    public void saveID(Conversation conversation) throws IOException, SharedVariableCannotAccess {
+        SharedVariables ID = new SharedVariables(path + conversation.getID());
         ID.setVariable("ID", String.valueOf(conversation.getID()));
     }
 
-    private void saveHistorique(Conversation conversation) throws IOException {
-        File filehistorique = new File("serverFiles/conversations/" + conversation.getID() + "/historique");
+    public void saveHistorique(Conversation conversation) throws IOException {
+        File filehistorique = new File(path + conversation.getID() + "/historique");
         if (!filehistorique.exists()) {
             filehistorique.createNewFile();
         }
@@ -77,7 +80,38 @@ public class ActionConversation {
         return modifsServeur;
     }
 
-    public void getConversation(Integer ID) {
+    public void findID(String path) {
 
     }
+    public Conversation getConversationID(Integer ID) throws IOException, SharedVariableCannotAccess, ClassNotFoundException {
+        String nom = getNom(ID);
+        ArrayList<User> membres = getMembres(ID);
+        Historique historique = getHistorique(ID);
+        Conversation conversation = new Conversation(nom, membres, ID);
+        conversation.setHistorique(historique);
+        return conversation;
+    }
+
+    public String getNom(Integer ID) throws IOException, SharedVariableCannotAccess {
+        SharedVariables conv = new SharedVariables(path + ID);
+        String nom = conv.accessVariable("nomGroupe");
+        return nom;
+    }
+
+    public ArrayList<User> getMembres(Integer ID) throws IOException, ClassNotFoundException {
+        File fileConversation = new File(path + ID);
+        InstantiateSerializable<ArrayList<User>> membresSerialise = new InstantiateSerializable<>(fileConversation);
+        ArrayList<User> membres = membresSerialise.fileToInstance();
+        return membres;
+    }
+
+    public Historique getHistorique(Integer ID) throws IOException, ClassNotFoundException {
+        File fileConversation = new File(path + ID);
+        InstantiateSerializable<ArrayList<Message>> historiqueSerialise = new InstantiateSerializable<>(fileConversation);
+        ArrayList<Message> listeMessages = historiqueSerialise.fileToInstance();
+        Historique historique = new Historique();
+        historique.setListeMessages(listeMessages);
+        return historique;
+    }
+
 }

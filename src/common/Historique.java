@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Historique implements Serializable {
 
-    private final List<Message> listeMessages;
+    private List<Message> listeMessages;
 
     public Historique(List<Message> messages) {
         listeMessages = messages;
@@ -27,6 +27,10 @@ public class Historique implements Serializable {
 
     public Message getLastMessage(){
         return listeMessages.get(listeMessages.size()-1);
+    }
+
+    public void setListeMessages(List<Message> listeMessages) {
+        this.listeMessages = listeMessages;
     }
 
     public void addMessage(Message newMessage){
