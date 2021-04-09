@@ -3,6 +3,7 @@ package common;
 import server.IContext;
 import server.Protocoles.ProtocoleMatchUser;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,6 +16,7 @@ public class Conversation extends Observable implements IContext {
     private final int idConversation;
     private List<User> membres;
     private Historique historique;
+    private List<String> listDatesLastChanges;
 
     public Conversation(String nomGroupe, List<User> members, int idConversation) {
         this.nomGroupe = nomGroupe;
@@ -41,6 +43,13 @@ public class Conversation extends Observable implements IContext {
         this.historique = historique;
     }
 
+    public List<String> getListDatesLastChanges() {
+        return listDatesLastChanges;
+    }
+
+    public void setListDatesLastChanges(List<String> listDatesLastChanges) {
+        this.listDatesLastChanges = listDatesLastChanges;
+    }
 
     public List<User> getMembres() {
         return membres;
