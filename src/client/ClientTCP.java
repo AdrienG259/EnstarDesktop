@@ -64,7 +64,6 @@ public class ClientTCP {
 			ObjectOutputStream oos = new ObjectOutputStream(socketServeur.getOutputStream());
 			oos.writeObject(serializableObject);
 			oos.flush();
-			oos.close();
 		} catch (IOException ioException) {
 			System.err.println("Envoi client vers serveur impossible :\n" + ioException);
 			ioException.printStackTrace();

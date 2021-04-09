@@ -16,23 +16,19 @@ import common.User;
 
 public class NewConvControler {
     Parent root;
-    @FXML
-    TextField txtfield_users;
-    @FXML
-    Button btn_add;
-    @FXML
-    ListView listview_users;
-    @FXML
-    TextField txtfield_groupname;
+    @FXML TextField txtfield_users;
+    @FXML Button btn_add;
+    @FXML ListView listview_users;
+    @FXML TextField txtfield_groupname;
     @FXML Button btn_create;
     @FXML Label label_feedback;
 
-
+    private ControleurCreateDeleteConversation controleurCreateDeleteConversation;
 
     public void add_users() { //on ajoute tous les utilisateurs à une liste qui est retournée par la méthode add_users
         String buffer_users = txtfield_users.getText();
         //trouver un moyen de matcher le texte rentré avec une liste des utilisateurs
-        ControleurUser control_user= new ControleurUser();
+        ControleurUser control_user = new ControleurUser();
         User to_add = control_user.matchUser(buffer_users);
         if (to_add==null){
             label_feedback.setText("L'utilisateur rentré n'est pas valide");
@@ -59,10 +55,9 @@ public class NewConvControler {
         if (membres.size()==2||buffer_gpname=="") { //
             buffer_gpname = membres.get(1).getPseudo();
         }
-        ControleurCreateDeleteConversation controleurCreateDeleteConversation = new ControleurCreateDeleteConversation();
+        controleurCreateDeleteConversation = new ControleurCreateDeleteConversation();
         try {
             controleurCreateDeleteConversation.creerConversation(buffer_gpname, membres);
-
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -75,7 +70,5 @@ public class NewConvControler {
         stage.setScene(scene);
         stage.show();
         }
-
-
     }
 

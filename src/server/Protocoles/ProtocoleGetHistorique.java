@@ -13,7 +13,7 @@ public class ProtocoleGetHistorique implements IProtocole {
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
 
-        Conversation conversation = (Conversation)aContext;
+        Conversation conversation = (Conversation) aContext;
 
         String inputReq;
         BufferedReader is = new BufferedReader(new InputStreamReader(
