@@ -35,6 +35,7 @@ public class ProtocoleConnexion implements IProtocole {
             }
         } catch (Exception e) {
             System.out.println("Problème d'exception");
+            e.printStackTrace();
         }
     }
 }

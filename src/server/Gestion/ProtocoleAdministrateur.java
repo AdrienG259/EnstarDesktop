@@ -67,7 +67,7 @@ public class ProtocoleAdministrateur implements IProtocole {
         ActionUser actionUser = new ActionUser();
         oos.writeObject(actionUser.getLoginUserIDMap());
         oos.flush();
-        oos.close();
+//        oos.close();
     }
 
     // Cette méthode renvoie la Hashmap contenant les userID et les password
@@ -76,6 +76,6 @@ public class ProtocoleAdministrateur implements IProtocole {
         ActionUser actionUser = new ActionUser();
         oos.writeObject(actionUser.getUserIDPasswordMap());
         oos.flush();
-        oos.close();
+//        oos.close();
     }
 }

@@ -5,6 +5,7 @@ import common.Historique;
 import common.Message;
 import common.User;
 import serverFiles.InstantiateSerializable;
+import serverFiles.SharedVariableAlreadyExists;
 import serverFiles.SharedVariableCannotAccess;
 import serverFiles.SharedVariables;
 
@@ -42,15 +43,23 @@ public class ActionConversation {
     }
 
     public void saveNom(Conversation conversation) throws IOException, SharedVariableCannotAccess {
-        SharedVariables nom = new SharedVariables(path + conversation.getID());
-        nom.setVariable("nomGroupe", conversation.getNomGroupe());
-        List<String> listLastChanges = conversation.getListDatesLastChanges();
-        listLastChanges.set(2, (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date()));
+        SharedVariables nom = new SharedVariables(path +"/" + conversation.getID());
+        try{
+            nom.setVariable("nomGroupe", conversation.getNomGroupe());}
+        catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
+            try {
+                nom.addNewSharedVariable("nomGroupe", conversation.getNomGroupe());
+            } catch (SharedVariableAlreadyExists sharedVariableAlreadyExists) {
+                sharedVariableAlreadyExists.printStackTrace();
+            }
+        }
+        String[] listLastChanges = conversation.getListDatesLastChanges();
+        listLastChanges[2] = (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date());
         conversation.setListDatesLastChanges(listLastChanges);
     }
 
     public void saveMembres(Conversation conversation) throws IOException {
-        File fileusers = new File(path + conversation.getID() + "/membres");
+        File fileusers = new File(path +"/" + conversation.getID() + "/membres");
         if (!fileusers.exists()) {
             fileusers.createNewFile();
         }
@@ -60,18 +69,25 @@ public class ActionConversation {
             membresID.add(m.getId());
         }
         membres.instanceToFile(membresID);
-        List<String> listLastChanges = conversation.getListDatesLastChanges();
-        listLastChanges.set(1, (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date()));
+        String[] listLastChanges = conversation.getListDatesLastChanges();
+        listLastChanges[1] = (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date());
         conversation.setListDatesLastChanges(listLastChanges);
     }
 
     public void saveID(Conversation conversation) throws IOException, SharedVariableCannotAccess {
-        SharedVariables ID = new SharedVariables(path + conversation.getID());
-        ID.setVariable("ID", String.valueOf(conversation.getID()));
+        SharedVariables ID = new SharedVariables(path +"/" + conversation.getID());
+        try{ID.setVariable("ID", String.valueOf(conversation.getID()));}
+        catch(SharedVariableCannotAccess sharedVariableCannotAccess){
+            try {
+                ID.addNewSharedVariable("ID", String.valueOf(conversation.getID()));
+            } catch (SharedVariableAlreadyExists sharedVariableAlreadyExists) {
+                sharedVariableAlreadyExists.printStackTrace();
+            }
+        }
     }
 
     public void saveHistorique(Conversation conversation) throws IOException {
-        File filehistorique = new File(path + conversation.getID() + "/historique");
+        File filehistorique = new File(path +"/" + conversation.getID() + "/historique");
         if (!filehistorique.exists()) {
             filehistorique.createNewFile();
         }
@@ -81,13 +97,13 @@ public class ActionConversation {
             messages.add(m);
         }
         historique.instanceToFile(messages);
-        List<String> listLastChanges = conversation.getListDatesLastChanges();
-        listLastChanges.set(0, (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date()));
+        String[] listLastChanges = conversation.getListDatesLastChanges();
+        listLastChanges[0] = (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date());
         conversation.setListDatesLastChanges(listLastChanges);
     }
 
     public void saveLastChanges(Conversation conversation) throws IOException {
-        File filechanges = new File(path + conversation.getID() + "/dernierschangements");
+        File filechanges = new File(path +"/" + conversation.getID() + "/dernierschangements");
         if (!filechanges.exists()) {
             filechanges.createNewFile();
         }
@@ -96,8 +112,8 @@ public class ActionConversation {
         changes.instanceToFile(dates);
     }
 
-    public List<String> listeDernieresModifs(Conversation conversation) {
-        List<String> modifsServeur = conversation.getListDatesLastChanges();
+    public String[] listeDernieresModifs(Conversation conversation) {
+        String[] modifsServeur = conversation.getListDatesLastChanges();
         return modifsServeur;
     }
 
@@ -111,20 +127,20 @@ public class ActionConversation {
     }
 
     public String getNom(Integer ID) throws IOException, SharedVariableCannotAccess {
-        SharedVariables conv = new SharedVariables(path + ID);
+        SharedVariables conv = new SharedVariables(path + "/" + ID);
         String nom = conv.accessVariable("nomGroupe");
         return nom;
     }
 
     public ArrayList<User> getMembres(Integer ID) throws IOException, ClassNotFoundException {
-        File fileConversation = new File(path + ID);
+        File fileConversation = new File(path +"/" + ID + "/membres");
         InstantiateSerializable<ArrayList<User>> membresSerialise = new InstantiateSerializable<>(fileConversation);
         ArrayList<User> membres = membresSerialise.fileToInstance();
         return membres;
     }
 
     public Historique getHistorique(Integer ID) throws IOException, ClassNotFoundException {
-        File fileConversation = new File(path + ID);
+        File fileConversation = new File(path +"/" + ID+ "/historique");
         InstantiateSerializable<ArrayList<Message>> historiqueSerialise = new InstantiateSerializable<>(fileConversation);
         ArrayList<Message> listeMessages = historiqueSerialise.fileToInstance();
         Historique historique = new Historique();
@@ -133,7 +149,7 @@ public class ActionConversation {
     }
 
     public ArrayList<String> getLastChanges(Integer ID) throws IOException, ClassNotFoundException {
-        File fileConversation = new File(path + ID);
+        File fileConversation = new File(path +"/" + ID + "/dernierschangements");
         InstantiateSerializable<ArrayList<String>> changesSerialise = new InstantiateSerializable<>(fileConversation);
         ArrayList<String> changes = changesSerialise.fileToInstance();
         return changes;

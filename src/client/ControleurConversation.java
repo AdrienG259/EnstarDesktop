@@ -104,7 +104,7 @@ public class ControleurConversation extends Controleur {
         return retHist;
     }
 
-    private List<Integer> getListIDMembres(){
+    public List<Integer> getListIDMembres(){
         /* TODO */
         /* Faire le côté protocole */
         String intention = "getListMembres";
@@ -132,7 +132,7 @@ public class ControleurConversation extends Controleur {
 
     }
 
-    private List<String> getListDatesLastChanges(){
+    public List<String> getListDatesLastChanges(){
         /* TODO */
         /* Faire le côté protocole */
         String intention = "getListDatesLastChanges";
@@ -160,7 +160,7 @@ public class ControleurConversation extends Controleur {
 
     }
 
-    private String getNomConversation(){
+    public String getNomConversation(){
         /* TODO */
         /* Faire le côté protocole */
         String intention = "getNomConversation";

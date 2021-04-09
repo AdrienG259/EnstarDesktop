@@ -44,8 +44,8 @@ public class ActionConversationClient {
     public void saveNom(Conversation conversation) throws IOException, SharedVariableCannotAccess {
         SharedVariables nom = new SharedVariables(path + conversation.getID());
         nom.setVariable("nomGroupe", conversation.getNomGroupe());
-        List<String> listLastChanges = conversation.getListDatesLastChanges();
-        listLastChanges.set(2, (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date()));
+        String[] listLastChanges = conversation.getListDatesLastChanges();
+        listLastChanges[2] = (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date());
         conversation.setListDatesLastChanges(listLastChanges);
     }
 
@@ -60,8 +60,8 @@ public class ActionConversationClient {
             membresID.add(m.getId());
         }
         membres.instanceToFile(membresID);
-        List<String> listLastChanges = conversation.getListDatesLastChanges();
-        listLastChanges.set(1, (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date()));
+        String[] listLastChanges = conversation.getListDatesLastChanges();
+        listLastChanges[1] = (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date());
         conversation.setListDatesLastChanges(listLastChanges);
     }
 
@@ -81,13 +81,13 @@ public class ActionConversationClient {
             messages.add(m);
         }
         historique.instanceToFile(messages);
-        List<String> listLastChanges = conversation.getListDatesLastChanges();
-        listLastChanges.set(0, (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date()));
+        String[] listLastChanges = conversation.getListDatesLastChanges();
+        listLastChanges[0] = (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date());
         conversation.setListDatesLastChanges(listLastChanges);
     }
 
-    public List<String> listeDernieresModifs(Conversation conversation) {
-        List<String> modifsServeur = conversation.getListDatesLastChanges();
+    public String[] listeDernieresModifs(Conversation conversation) {
+        String[] modifsServeur = conversation.getListDatesLastChanges();
         return modifsServeur;
     }
 

@@ -4,7 +4,9 @@ import common.Conversation;
 import common.User;
 import server.*;
 import server.Gestion.ProtocoleGestionConversations;
+import serverFiles.SharedVariableCannotAccess;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Observable;
@@ -61,6 +63,19 @@ public class Messagerie extends Observable implements IContext {
                 e.printStackTrace();
             }
 
+        }
+
+        try {
+
+            ActionConversation actionConversation = new ActionConversation();
+            actionConversation.saveNom(newConversation);
+            actionConversation.saveID(newConversation);
+            actionConversation.saveHistorique(newConversation);
+            actionConversation.saveMembres(newConversation);
+            actionConversation.saveLastChanges(newConversation);
+
+        } catch (IOException | ClassNotFoundException | SharedVariableCannotAccess e) {
+            e.printStackTrace();
         }
 
         // On notifie les observateurs

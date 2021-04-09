@@ -83,10 +83,12 @@ public class ControleurCreateDeleteConversation extends Controleur {
         List<Conversation> liste = new ArrayList<Conversation>();
 
         // Si le serveur a bien reçu l'intention et qu'il n'y a pas eu d'erreur on transmet le message
+//        System.err.println("retIntention = "+msgServer);
         if (msgServer.equals("0")) {
-            String ret = monClientTCP.sendSerializableObject((Serializable) listIDConversation); //trouver ce qu'on doit avoir
+            String ret = monClientTCP.sendSerializableObject((Serializable) listIDConversation);
             if (ret.equals("0")) {
-                liste = (List<Conversation>) monClientTCP.receiveSerializable("");
+                liste = (ArrayList<Conversation>) monClientTCP.receiveSerializable("");
+                System.err.println("liste = "+liste);
                 System.out.println("Message transmis");
 
             } else {

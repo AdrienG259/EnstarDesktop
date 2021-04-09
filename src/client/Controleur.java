@@ -2,7 +2,7 @@ package client;
 
 import java.util.Observable;
 
-public abstract class Controleur  extends Observable {
+public abstract class Controleur extends Observable {
 
     protected final ClientTCP monClientTCP;
 //    protected static desktopBusinessRules businessRules = new desktopBusinessRules();

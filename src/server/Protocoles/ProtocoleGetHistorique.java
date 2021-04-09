@@ -46,6 +46,7 @@ public class ProtocoleGetHistorique implements IProtocole {
             }
         } catch (Exception e) {
             System.out.println(" Pb d'exception ");
+            e.printStackTrace();
         }
     }
 }

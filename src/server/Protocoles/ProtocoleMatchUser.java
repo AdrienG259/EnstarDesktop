@@ -53,6 +53,7 @@ public class ProtocoleMatchUser implements IProtocole {
             }
         } catch (Exception e) {
             System.out.println(" Pb d'exception ");
+            e.printStackTrace();
         }
 
     }

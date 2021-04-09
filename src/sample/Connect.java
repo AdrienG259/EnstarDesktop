@@ -17,6 +17,7 @@ import java.io.*;
 import java.util.*;
 import common.Message;
 import common.User;
+import server.ActionUser;
 import serverFiles.SharedVariableCannotAccess;
 import serverFiles.SharedVariables;
 
@@ -47,10 +48,9 @@ public class Connect {
     public void initialize() throws IOException {
         SharedVariables sharedVariables = new SharedVariables("clientFiles/sharedVariables");
         ctrl_user = new ControleurUser();
-        try {
+        try{
             current_user_log = sharedVariables.accessVariable("current_user_log");
             current_user = ctrl_user.matchUser(current_user_log); // Récuperer l'objet User associé au login
-            lstIDConv = current_user.getIDConversations();
             System.err.println(current_user);
         } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
             sharedVariableCannotAccess.printStackTrace();
@@ -63,7 +63,7 @@ public class Connect {
         TimerTask update = new TimerTask() {
             @Override
             public void run() {
-                System.err.println(current_user_log);
+                //A CODER -- UPDATE
                 refreshConvs();
                 refreshConv();
             }
@@ -73,9 +73,24 @@ public class Connect {
 
     public void refreshConvs(){
         lstIDConv = current_user.getIDConversations();
-        lstConv = controleurCreateDeleteConversation.getConversations(this.lstIDConv);
-        for(Conversation conversation : lstConv){
-            lstview_users.getItems().add(conversation);
+        if (lstIDConv != null) {
+            ControleurUser controleurUser = new ControleurUser();
+            for (int id : lstIDConv) {
+                ControleurConversation controleurConversationID = new ControleurConversation(id);
+//                Historique historique = controleurConversationID.getHistorique();
+                String nomConversation = controleurConversationID.getNomConversation();
+                List<Integer> listMembres = controleurConversationID.getListIDMembres();
+                List<User> listUsers = new ArrayList<>();
+                for (int idMembre : listMembres) {
+                    listUsers.add(controleurUser.getUser(idMembre));
+                }
+                Conversation conversationID = new Conversation(nomConversation, listUsers, id);
+                lstConv.add(conversationID);
+            }
+//        lstConv = controleurCreateDeleteConversation.getConversations(lstIDConv);
+            for (Conversation conversation : lstConv) {
+                lstview_users.getItems().add(conversation);
+            }
         }
     }
 
@@ -100,6 +115,7 @@ public class Connect {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 
     public void envoyer_message() {
@@ -129,7 +145,7 @@ public class Connect {
 //        List<Integer> listIDconv= current_user.getIDConversations();
 //        control_conv= new ControleurConversation();
 //        List<Conversation> conv= control_conv.getConversation(listIDconv);
-//        if(conv==null){"
+//        if(conv==null){
 //            lstview_users.getItems().add("pas de conversation en cours ");
 //        }
 //        else{
@@ -167,11 +183,6 @@ public class Connect {
         current_conversation=conv;
 
 
-    }
-
-    public void update(Observable o) {
-        refreshConv();
-        refreshConvs();
     }
 
 }

@@ -5,6 +5,8 @@ import common.Historique;
 import server.ActionConversation;
 import server.IContext;
 import server.IProtocole;
+import server.ServeurTCP;
+import serverFiles.SharedVariableCannotAccess;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,27 +18,22 @@ public class ProtocoleGetConversations implements IProtocole {
 
 
 
-        String inputReq;
+        List<Integer> listIDConversation;
         BufferedReader is = new BufferedReader(new InputStreamReader(
                 anInputStream));
         PrintStream os = new PrintStream(anOutputStream);
 
         try {
-            if (true) {
-            //if ((inputReq = is.readLine()) != null)
-            // Condition jamais verifiée
-                ObjectInputStream ois = new ObjectInputStream(anInputStream);
-                List<Integer> listIDConversation = (List<Integer>) ois.readObject();
+            ObjectInputStream ois = new ObjectInputStream(anInputStream);
+            if ((listIDConversation = (ArrayList<Integer>)ois.readObject()) != null) {
                 os.println("0");
-                os.flush();
-                System.err.println(listIDConversation);
-                is.readLine();
+                System.out.println(" Ordre Recu 333" + listIDConversation);
 
                 ActionConversation actionConversation = new ActionConversation();
-                List<Conversation> listConversation = new ArrayList<Conversation>() {
+                ArrayList<Conversation> listConversation = new ArrayList<Conversation>() {
                 };
 
-                for (int i = 0; i < listIDConversation.size(); i++) {
+                for(int i = 0; i < listIDConversation.size()-1; i++) {
                     listConversation.add(actionConversation.getConversationID(listIDConversation.get(i)));
                 }
 
@@ -44,12 +41,14 @@ public class ProtocoleGetConversations implements IProtocole {
                 oos.writeObject(listConversation);
                 System.err.println(listConversation);
                 oos.flush();
-//                oos.close();
+
+                os.println(0);
             } else {
                 os.println("-1");
             }
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException | SharedVariableCannotAccess e) {
             System.out.println(" Pb d'exception ");
+            e.printStackTrace();
         }
     }
 }
