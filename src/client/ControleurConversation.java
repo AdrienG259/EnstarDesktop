@@ -8,11 +8,8 @@ import java.io.Serializable;
 import java.util.*;
 
 public class ControleurConversation extends Controleur {
-
-    private static final int port_GestionConversations = 10004;
-
-    public ControleurConversation() {
-        super(port_GestionConversations);
+    public ControleurConversation(int portConversation) {
+        super(portConversation);
     }
 
     public String sendMessage(Message message, Conversation conversation){
@@ -66,15 +63,16 @@ public class ControleurConversation extends Controleur {
         monClientTCP.connecterAuServeur();
 
         String intention = "getHistorique";
-        String msgServer = monClientTCP.transmettreChaine(intention);
-        Historique ret;
+        String retIntention = monClientTCP.transmettreChaine(intention);
+        int entierRetIntention = Integer.parseInt(retIntention);
+        Historique retHist;
 
         // Si le serveur a bien reçu l'intention et qu'il n'y a pas eu d'erreur on transmet le message
-        if (msgServer.equals("0")) {
-            ret = (Historique)monClientTCP.receiveSerializable("");
+        if (entierRetIntention == 0) {
+            retHist = (Historique)monClientTCP.receiveSerializable("");
         } else {
             System.out.println("Erreur lors de la transmission de l'intention");
-            ret = null;
+            retHist = null;
         }
 
         // On se déconnecte et on informe les observateurs qu'un message a été transmis
@@ -83,7 +81,7 @@ public class ControleurConversation extends Controleur {
         notifyObservers();
         System.out.println("Envoi terminé");
 
-        return ret;
+        return retHist;
     }
     public List<Conversation> getConversation(List<Integer> listIDConversation){
         String intention = "getConversation";

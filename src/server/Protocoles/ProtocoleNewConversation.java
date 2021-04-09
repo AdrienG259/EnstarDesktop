@@ -24,26 +24,24 @@ public class ProtocoleNewConversation implements IProtocole {
         PrintStream os = new PrintStream(anOutputStream);
 
         try {
-
-            String messageRetour;
-
             /* on récupère les données : d'abord nomConversation*/
             if ((nomConversation = is.readLine()) != null) {
                 System.out.println(" Ordre Recu " + nomConversation);
+                os.println("0");
                 /* On reçoit la liste d'utilisateurs */
                 ObjectInputStream ois = new ObjectInputStream(anInputStream);
                 List<User> membres = (List<User>) ois.readObject();
 
                 /* On cherche un nouveau port */
                 int newPort = messagerie.getNewPort();
+                System.err.println(newPort);
                 os.println(newPort);
                 if (newPort != -1) {
                     /* Si  le port est admissible*/
                     messagerie.addConversation(new Conversation(nomConversation, membres, newPort), newPort);
-                    os.println(newPort);
-                } else{
-                    os.println("-1");
                 }
+            } else {
+                os.println("-1");
             }
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(" Pb d'exception ");
