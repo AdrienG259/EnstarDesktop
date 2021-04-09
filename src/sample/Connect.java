@@ -77,7 +77,7 @@ public class Connect {
             ControleurUser controleurUser = new ControleurUser();
             for (int id : lstIDConv) {
                 ControleurConversation controleurConversationID = new ControleurConversation(id);
-//                Historique historique = controleurConversationID.getHistorique();
+                Historique historique = controleurConversationID.getHistorique();
                 String nomConversation = controleurConversationID.getNomConversation();
                 List<Integer> listMembres = controleurConversationID.getListIDMembres();
                 List<User> listUsers = new ArrayList<>();
