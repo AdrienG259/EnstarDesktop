@@ -23,12 +23,13 @@ public class ProtocoleGetConversations implements IProtocole {
 
         try {
             if (true) {
-            //if ((inputReq = is.readLine()) != null) {
+            //if ((inputReq = is.readLine()) != null)
+            // Condition jamais verifiée
                 ObjectInputStream ois = new ObjectInputStream(anInputStream);
                 List<Integer> listIDConversation = (List<Integer>) ois.readObject();
                 os.println("0");
                 os.flush();
-
+                is.readLine();
 
                 ActionConversation actionConversation = new ActionConversation();
                 List<Conversation> listConversation = new ArrayList<Conversation>() {
@@ -37,7 +38,6 @@ public class ProtocoleGetConversations implements IProtocole {
                     listConversation.add(actionConversation.getConversationID(listIDConversation.get(i)));
                 }
                 ObjectOutputStream oos = new ObjectOutputStream(anOutputStream);
-
                 oos.writeObject(listConversation);
 
                 oos.flush();
