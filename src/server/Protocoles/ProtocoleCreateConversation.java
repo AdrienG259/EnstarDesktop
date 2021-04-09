@@ -12,7 +12,14 @@ import serverFiles.SharedVariableCannotAccess;
 import java.io.*;
 import java.util.List;
 
-public class ProtocoleNewConversation implements IProtocole {
+public class ProtocoleCreateConversation implements IProtocole {
+
+    /* Les classes présentes dans le package protocole ont pour but de répondre au client après que ce dernier a envoyé son intention
+     * ici l'intention est de créer une nouvelle conversation
+     * le message renvoyé au client est alors un int 0 ou -1 selon la réussite de l'action
+     * 0 la nouvelle conversation a été créée
+     * -1 échec
+     */
 
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
@@ -24,26 +31,24 @@ public class ProtocoleNewConversation implements IProtocole {
         PrintStream os = new PrintStream(anOutputStream);
 
         try {
-
-            String messageRetour;
-
             /* on récupère les données : d'abord nomConversation*/
             if ((nomConversation = is.readLine()) != null) {
                 System.out.println(" Ordre Recu " + nomConversation);
+                os.println("0");
                 /* On reçoit la liste d'utilisateurs */
                 ObjectInputStream ois = new ObjectInputStream(anInputStream);
                 List<User> membres = (List<User>) ois.readObject();
 
                 /* On cherche un nouveau port */
                 int newPort = messagerie.getNewPort();
+                System.err.println(newPort);
                 os.println(newPort);
                 if (newPort != -1) {
                     /* Si  le port est admissible*/
                     messagerie.addConversation(new Conversation(nomConversation, membres, newPort), newPort);
-                    os.println(newPort);
-                } else{
-                    os.println("-1");
                 }
+            } else {
+                os.println("-1");
             }
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(" Pb d'exception ");

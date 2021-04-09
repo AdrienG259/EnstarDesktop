@@ -25,6 +25,12 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    @Override
+    public void stop(){
+        System.out.println("Stage is closing");
+        // Save file
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

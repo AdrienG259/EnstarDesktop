@@ -10,6 +10,11 @@ import serverFiles.InstantiateSerializable;
 import java.io.*;
 
 public class ProtocoleMatchUser implements IProtocole {
+
+    /* Les classes présentes dans le package protocole ont pour but de répondre au client après que ce dernier a envoyé son intention
+     * ici l'intention est de retrouver l'ID d'un utilisateur à partir de son nom d'utilisateur
+     */
+
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
         Messagerie messagerie = (Messagerie)aContext;
@@ -21,12 +26,15 @@ public class ProtocoleMatchUser implements IProtocole {
 
             if ((parametres = is.readLine()) != null) {
 
+                //récupération du login
                 String login = parametres.split(" ")[0];
 
                 ObjectOutputStream oos = new ObjectOutputStream(anOutputStream);
 
                 try {
                     ActionUser actionUser = new ActionUser();
+
+                    //récupération de l'ID à partir du login
                     int userID = actionUser.getUserIDFromLogin(login);
                     File userFile = new File("serverFiles/users/" + userID);
                     InstantiateSerializable<User> userInstantiate = new InstantiateSerializable<User>(userFile);

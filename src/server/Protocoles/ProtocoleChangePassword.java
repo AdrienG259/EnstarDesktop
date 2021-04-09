@@ -10,6 +10,14 @@ import serverFiles.InstantiateSerializable;
 import java.io.*;
 
 public class ProtocoleChangePassword implements IProtocole {
+
+    /* Les classes présentes dans le package protocole ont pour but de répondre au client après que ce dernier a envoyé son intention
+     * ici l'intention est de changer le mot de passe de l'utilisateur
+     * le message renvoyé au client est alors un int 0 ou -1 selon la réussite de l'action
+     * 0 le mot de passe est changé
+     * -1 échec
+     */
+
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
         Messagerie messagerie = (Messagerie)aContext;
@@ -19,12 +27,14 @@ public class ProtocoleChangePassword implements IProtocole {
         PrintStream os = new PrintStream(anOutputStream);
         try {
 
+            //récupération du nouveau mot de passe dans newPassword
             if ((parametres = is.readLine()) != null) {
                 String[] paramSplit = parametres.split(";");
                 String pseudo = paramSplit[0];
                 String newPassword = paramSplit[1];
 
                 try {
+                    //affectation du nouveau mot de passe grace à la méthode changePassword de actionUser
                     ActionUser actionUser = new ActionUser();
                     actionUser.changePassword(pseudo, newPassword);
 //                    int userID = actionUser.getUserIDFromLogin(pseudo);

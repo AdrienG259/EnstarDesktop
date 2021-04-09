@@ -6,6 +6,13 @@ import server.IProtocole;
 import java.io.*;
 
 public class ProtocoleEchec implements IProtocole {
+
+    /* Les classes présentes dans le package protocole ont pour but de répondre au client après que ce dernier a envoyé son intention
+     * ici l'intention est de montrer l'échec de l'action
+     * le message renvoyé au client est alors un int 0 ou -1 selon la réussite de l'action
+     * ici le protocole renvoit systematiquement -1 car il s'agit d'un protocole d'échec
+     */
+
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
         String inputReq;

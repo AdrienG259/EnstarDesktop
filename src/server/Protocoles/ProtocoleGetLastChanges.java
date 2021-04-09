@@ -2,24 +2,17 @@ package server.Protocoles;
 
 import common.Conversation;
 import common.Historique;
-import common.User;
+import server.ActionConversation;
 import server.IContext;
 import server.IProtocole;
-import serverFiles.InstantiateSerializable;
 
 import java.io.*;
+import java.util.ArrayList;
 
-public class ProtocoleGetHistorique implements IProtocole {
-
-    /* Les classes présentes dans le package protocole ont pour but de répondre au client après que ce dernier a envoyé son intention
-     * ici l'intention est de récupérer l'historique d'une conversation en particulier
-     * et de le retransmettre au client
-     */
-
+public class ProtocoleGetLastChanges implements IProtocole {
     @Override
     public void execute(IContext aContext, InputStream anInputStream, OutputStream anOutputStream) {
 
-        //notre contexte est  ici une conversation
         Conversation conversation = (Conversation) aContext;
 
         String inputReq;
@@ -31,14 +24,16 @@ public class ProtocoleGetHistorique implements IProtocole {
 
             if ((inputReq = is.readLine()) != null) {
 
-                //on récupère l'historique de la conversation
-                Historique historique = conversation.getHistorique();
+                // on récupère les changements de la conversation
+                ActionConversation actionConv = new ActionConversation();
 
                 ObjectOutputStream oos = new ObjectOutputStream(anOutputStream);
 
-                oos.writeObject(historique);
+                ArrayList<String> changes = actionConv.getLastChanges(conversation.getID());
 
-                //renvoit de l'historique au client
+                oos.writeObject(changes);
+
+                // on renvoie les changements à l'utilisateur
                 oos.flush();
                 oos.close();
             }

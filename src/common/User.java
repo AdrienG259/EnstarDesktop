@@ -29,6 +29,10 @@ public class User implements Serializable {
         return listIDConversations;
     }
 
+    public void setListIDConversations(List<Integer> listIDConversations) {
+        this.listIDConversations = listIDConversations;
+    }
+
     public String getPseudo() {
         return pseudo;
     }

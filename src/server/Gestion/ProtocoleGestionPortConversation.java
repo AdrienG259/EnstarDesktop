@@ -1,10 +1,7 @@
 package server.Gestion;
 
 import server.*;
-import server.Protocoles.ProtocoleEchec;
-import server.Protocoles.ProtocoleGetHistorique;
-import server.Protocoles.ProtocoleReceiveMessage;
-import server.Protocoles.ProtocoleSendMessage;
+import server.Protocoles.*;
 
 import java.io.*;
 
@@ -27,6 +24,7 @@ public class ProtocoleGestionPortConversation implements IProtocole {
                 switch (intentionClient) {
                     case "sendMessage" -> {
                         protocole = new ProtocoleSendMessage();
+                        System.err.println("Envoi d'un echec suite a l'intention = "+intentionClient);
                         reponse = "0";
                     }
                     case "receiveMessage" -> {
@@ -35,6 +33,10 @@ public class ProtocoleGestionPortConversation implements IProtocole {
                     }
                     case "getHistorique" -> {
                         protocole = new ProtocoleGetHistorique();
+                        reponse = "0";
+                    }
+                    case "getListDatesLastChanges" -> {
+                        protocole = new ProtocoleGetLastChanges();
                         reponse = "0";
                     }
                     default -> {

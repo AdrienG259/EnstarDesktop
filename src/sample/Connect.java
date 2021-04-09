@@ -1,6 +1,7 @@
 package sample;
 
 import client.ControleurConversation;
+import client.ControleurCreateDeleteConversation;
 import client.ControleurUser;
 import common.Conversation;
 import common.Historique;
@@ -21,63 +22,74 @@ import serverFiles.SharedVariables;
 
 public class Connect {
 
-
-    @FXML
-    ListView lstview_users;
-    @FXML
-    ListView lstview_currentconv;
-    @FXML
-    ScrollBar scrollbar_left;
-    @FXML
-    TextField txtfield_msg;
-    @FXML
-    Button btn_envoyer;
-    @FXML
-    Button btn_new_conv;
-    @FXML
-    Button btn_deconnect;
-
+    @FXML ListView lstview_users;
+    @FXML ListView lstview_currentconv;
+    @FXML ScrollBar scrollbar_left;
+    @FXML TextField txtfield_msg;
+    @FXML Button btn_envoyer;
+    @FXML Button btn_new_conv;
+    @FXML Button btn_deconnect;
 
     Parent root;
 
     public User current_user;
     public String current_user_log;
     public Conversation current_conversation;
-    private ControleurConversation control_conv;
+    private ControleurConversation controleurConversation;
     private ControleurUser ctrl_user;
     private Timer timer;
+    private ControleurCreateDeleteConversation controleurCreateDeleteConversation;
+    private List<Integer> lstIDConv;
+    private List<Conversation> lstConv;
+    private Conversation currentConv = null;
+    private Conversation selectedConv = null;
 
     public void initialize() throws IOException {
-        //print_conversations();
-        //pour tester si ça marche correctement
-        List<User> membres= new ArrayList<User>();
-        membres.add(new User(1, "toto", null, null));
-        Conversation aConv= new Conversation("toto",membres, 1);
-        Historique aHist=new Historique();
-        Message new_msg= new Message("bonjour",1 );
-        aHist.addMessage(new_msg);
-        aConv.setHistorique(aHist);
-
-        lstview_users.getItems().add(new Conversation("toto",membres, 1));
         SharedVariables sharedVariables = new SharedVariables("clientFiles/sharedVariables");
-        ctrl_user=new ControleurUser();
+        ctrl_user = new ControleurUser();
         try{
             current_user_log = sharedVariables.accessVariable("current_user_log");
-            current_user= ctrl_user.matchUser(current_user_log); // Récuperer l'objet User associé au login
+            current_user = ctrl_user.matchUser(current_user_log); // Récuperer l'objet User associé au login
             System.err.println(current_user);
         } catch (SharedVariableCannotAccess sharedVariableCannotAccess) {
             sharedVariableCannotAccess.printStackTrace();
         }
+
+        controleurCreateDeleteConversation = new ControleurCreateDeleteConversation();
 
         timer = new Timer();
         TimerTask update = new TimerTask() {
             @Override
             public void run() {
                 //A CODER -- UPDATE
-                System.out.println("Task Timer on Fixed Rate");
-            };
+                //refreshConvs();
+                //refreshConv();
+            }
         };
         timer.scheduleAtFixedRate(update, 500, 1000);
+    }
+
+    public void refreshConvs(){
+        System.out.println("RefreshConvs");
+        lstIDConv = current_user.getIDConversations();
+        lstConv = controleurCreateDeleteConversation.getConversations(lstIDConv);
+        for(Conversation conversation : lstConv){
+            lstview_users.getItems().add(conversation);
+        }
+    }
+
+    public void refreshConv(){
+        System.out.println("RefreshConv");
+        selectedConv = (Conversation) lstview_users.getSelectionModel().getSelectedItem();
+        if (selectedConv == null && currentConv == null){
+            lstview_currentconv.getItems().removeAll();
+            lstview_currentconv.getItems().add("Aucune conversation selectionee");
+        } else if (selectedConv == null && currentConv != null){
+            open_conv(currentConv);
+        } else if (selectedConv != null){
+            currentConv = selectedConv;
+            open_conv(currentConv);
+        }
     }
 
     public void create_new_Conversation() throws IOException {
@@ -91,46 +103,43 @@ public class Connect {
 
     }
 
-    public void envoyer_message() throws IOException {
-        int user = 1; //voir comment récupérer l'user ID
-        String buffer_msg = txtfield_msg.getText();
-        Message new_message = new Message(buffer_msg, user);
-        control_conv= new ControleurConversation();
-        if (control_conv.sendMessage(new_message,current_conversation)=="0"){ //si le message a bien été envoyé, on fait un update
-            System.out.println("message envoyé"+new_message);
+    public void envoyer_message() {
+        if(currentConv == null){
+            return;
         }
-
+        String buffer_msg = txtfield_msg.getText();
+        Message new_message = new Message(buffer_msg, current_user.getId());
+        controleurConversation = new ControleurConversation(0);
+        if (controleurConversation.sendMessage(new_message) == "0"){ //si le message a bien été envoyé, on fait un update
+            System.out.println("message envoyé "+new_message);
+        }
     }
 
-    public void print_message(){
-        lstview_currentconv.getItems().add("blabla");
-
-    }
     public void open_conv(Conversation aConv){
         lstview_currentconv.getItems().removeAll();
-        control_conv= new ControleurConversation();
-        Historique historique_conv= control_conv.getHistorique(aConv);
-        List<Message> list_message=historique_conv.getListeMessages();
+        controleurConversation = new ControleurConversation(0);
+        Historique historique_conv = controleurConversation.getHistorique();
+        List<Message> list_message = historique_conv.getListeMessages();
         for (Message msg:list_message){
             lstview_currentconv.getItems().add(msg);
         }
     }
 
-    public void print_conversations(){
-        //récupérer du serveur toutes les conversations dans lesquelles l'user est impliqué
-        List<Integer> listIDconv= current_user.getIDConversations();
-        control_conv= new ControleurConversation();
-        List<Conversation> conv= control_conv.getConversation(listIDconv);
-        if(conv==null){
-            lstview_users.getItems().add("pas de conversation en cours ");
-        }
-        else{
-            lstview_users.getItems().removeAll();
-            for (Conversation uneconv:conv){
-                lstview_users.getItems().add(0,uneconv); //on met tout dans l'ordre décroissant
-            }
-        }
-    }
+//    public void print_conversations(){
+//        //récupérer du serveur toutes les conversations dans lesquelles l'user est impliqué
+//        List<Integer> listIDconv= current_user.getIDConversations();
+//        control_conv= new ControleurConversation();
+//        List<Conversation> conv= control_conv.getConversation(listIDconv);
+//        if(conv==null){
+//            lstview_users.getItems().add("pas de conversation en cours ");
+//        }
+//        else{
+//            lstview_users.getItems().removeAll();
+//            for (Conversation uneconv:conv){
+//                lstview_users.getItems().add(0,uneconv); //on met tout dans l'ordre décroissant
+//            }
+//        }
+//    }
 
 
 
@@ -153,7 +162,7 @@ public class Connect {
     @FXML
     public void handleMouseClick(MouseEvent arg0) {//ouvre une conversation sur le côté
         Conversation conv = (Conversation) lstview_users.getSelectionModel().getSelectedItem(); //à voir avec protocoleConv
-        System.out.println("clicked on " + lstview_users.getSelectionModel().getSelectedItem()); //on affiche sur quoi on a cliqué
+        System.err.println("clicked on " + lstview_users.getSelectionModel().getSelectedItem()); //on affiche sur quoi on a cliqué
         //print_message();
         open_conv(conv);
         current_conversation=conv;

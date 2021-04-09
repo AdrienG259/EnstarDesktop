@@ -24,11 +24,15 @@ public class ProtocoleGestionConversations implements IProtocole {
 
                 switch (intentionClient) {
                     case "createConversation" -> {
-                        protocole = new ProtocoleNewConversation();
+                        protocole = new ProtocoleCreateConversation();
                         reponse = "0";
                     }
                     case "deleteConversation" -> {
                         protocole = new ProtocoleDeleteConversation();
+                        reponse = "0";
+                    }
+                    case "getConversations" -> {
+                        protocole = new ProtocoleGetConversations();
                         reponse = "0";
                     }
                     default -> {
