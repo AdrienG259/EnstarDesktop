@@ -10,7 +10,9 @@ import serverFiles.SharedVariables;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ActionConversation {
@@ -42,6 +44,9 @@ public class ActionConversation {
     public void saveNom(Conversation conversation) throws IOException, SharedVariableCannotAccess {
         SharedVariables nom = new SharedVariables(path + conversation.getID());
         nom.setVariable("nomGroupe", conversation.getNomGroupe());
+        List<String> listLastChanges = conversation.getListDatesLastChanges();
+        listLastChanges.set(2, (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date()));
+        conversation.setListDatesLastChanges(listLastChanges);
     }
 
     public void saveMembres(Conversation conversation) throws IOException {
@@ -55,6 +60,9 @@ public class ActionConversation {
             membresID.add(m.getId());
         }
         membres.instanceToFile(membresID);
+        List<String> listLastChanges = conversation.getListDatesLastChanges();
+        listLastChanges.set(1, (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date()));
+        conversation.setListDatesLastChanges(listLastChanges);
     }
 
     public void saveID(Conversation conversation) throws IOException, SharedVariableCannotAccess {
@@ -73,6 +81,9 @@ public class ActionConversation {
             messages.add(m);
         }
         historique.instanceToFile(messages);
+        List<String> listLastChanges = conversation.getListDatesLastChanges();
+        listLastChanges.set(0, (new SimpleDateFormat("yyyyMMdd_HHmmss")).format(new Date()));
+        conversation.setListDatesLastChanges(listLastChanges);
     }
 
     public List<String> listeDernieresModifs(Conversation conversation) {
