@@ -1,5 +1,6 @@
 package server;
 
+import common.Conversation;
 import common.User;
 import serverFiles.InstantiateSerializable;
 import serverFiles.SharedVariableAlreadyExists;
@@ -9,6 +10,7 @@ import serverFiles.SharedVariables;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ActionUser {
@@ -166,9 +168,28 @@ public class ActionUser {
         saveMaps();
     }
 
-
     public void changePassword(String pseudo, String newPassword) throws IOException {
         userIDPasswordMap.replace(loginUserIDMap.get(pseudo), newPassword);
         saveMaps();
+    }
+
+    public void addConversation(int port, int userID) throws IOException, ClassNotFoundException {
+        File userFile = new File("serverFiles/users/" + userID);
+        InstantiateSerializable<User> userInstantiate = new InstantiateSerializable<>(userFile);
+        User user = userInstantiate.fileToInstance();
+        List<Integer> listConv = user.getIDConversations();
+        listConv.add(port);
+        user.setListIDConversations(listConv);
+        userInstantiate.instanceToFile(user);
+    }
+
+    public void removeConversation(int port, int userID) throws IOException, ClassNotFoundException {
+        File userFile = new File("serverFiles/users/" + userID);
+        InstantiateSerializable<User> userInstantiate = new InstantiateSerializable<>(userFile);
+        User user = userInstantiate.fileToInstance();
+        List<Integer> listConv = user.getIDConversations();
+        listConv.remove(port);
+        user.setListIDConversations(listConv);
+        userInstantiate.instanceToFile(user);
     }
 }
